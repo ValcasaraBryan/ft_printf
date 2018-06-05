@@ -16,9 +16,6 @@ EXE = executable
 
 SRC = ft_printf.c
 
-
-
-
 OBJET = $(SRC:.c=.o)
 
 HEAD = -I ft_printf.h
