@@ -18,5 +18,7 @@
 # include <stdio.h>
 
 int		ft_printf(const char *format, ...);
+int		parsing(char *arg);
+int		parms(char comp);
 
 #endif

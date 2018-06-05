@@ -23,15 +23,12 @@ int		main(int argc, char **argv)
 	printf("original = [%d] [17]\n", ret);
 	ret = 0;
 	ret = ft_printf("copie    = salut\n");
-//
 	printf("copie    = [%d] [17]\n", ret);
 	ret = 0;
 	ret = printf("original = salut [%s]\n", "cava");
 	printf("original = [%d] [24]\n", ret);
-// ------------------------
 	ret = 0;
-	ret = ft_printf("copie   = salut [%s]\n", "cava");
-	printf("copie   = [%d] [24]\n", ret);
-//
+	ret = ft_printf("copie    = salut [%s]\n", "cava");
+	printf("copie    = [%d] [24]\n", ret);
 	return (0);
 }
