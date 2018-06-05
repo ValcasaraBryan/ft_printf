@@ -39,7 +39,7 @@ $(NAME) : $(OBJET)
 	@clang $(FLAG) -o $@ -c $<
 
 comp : lib $(NAME) main.c
-	@gcc $(NAME) main.c -o $(EXE)
+	@gcc $(FLAG) $(NAME) ../libft/libft.a main.c -o $(EXE)
 exe : comp
 	#------------ execution  ------------#
 	@./$(EXE)
