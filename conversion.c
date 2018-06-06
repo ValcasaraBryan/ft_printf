@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   conversion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/05 17:32:52 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/06/05 17:32:54 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/06/06 20:18:14 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/06/06 20:18:15 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf.c"
 
-int		main(int argc, char **argv)
+char	*string_s(va_list ap)
 {
-	int ret;
+	char	*str;
 
-	(void)argc;
-	(void)argv;
-	ret = 0;
-	ret = ft_printf("salut [%s dddd]\n", "cava");
-//	printf("retour = [%d]\n", ret);
-//	ret = printf("salut [%s dddd]\n", "cava");
-//	printf("retour = [%d]\n", ret);
-	return (0);
+	str = va_arg(ap, char *);
+	return (str);
 }
