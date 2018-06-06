@@ -27,13 +27,11 @@ int		ft_printf(const char *format, ...)
 	ret = -1;
 	i = 0;
 	while (format[++ret] != '%')	// detecte s'il y a un flags
-	{								// sinon affiche toute la string
-		if (!format[ret])
+		if (!format[ret])			// sinon affiche toute la string
 		{
 			ft_putstr(format);
 			return (ret);
 		}
-	}
 	str = va_arg(ap, char *); 					// recupere la string de l'arg ...
 	len_param = parsing_params((char *)format + ret++); // recupere la longueur des flags
 	param = ft_strndup(format + ret, len_param);		// recupere les flags
