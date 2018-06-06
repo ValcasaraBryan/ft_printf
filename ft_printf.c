@@ -16,7 +16,7 @@ int		ft_printf(const char *format, ...)
 {
 	int			ret;
 	int			i;
-	char		*str;
+	void		*str;
 	int			len_param;
 	char		*param;
 	char		*res;
@@ -32,11 +32,16 @@ int		ft_printf(const char *format, ...)
 			ft_putstr(format);
 			return (ret);
 		}
-	str = va_arg(ap, char *); 					// recupere la string de l'arg ...
+	
 	len_param = parsing_params((char *)format + ret++); // recupere la longueur des flags
 	param = ft_strndup(format + ret, len_param);		// recupere les flags
 	len_param += ret;							// met len_param a la longueur debut_format
 												//  + len_flag
+	if (!(str = ft_memalloc(100)))
+		return (0);
+//	str = return_list(param[0], ap);			// ne veux pas compiler probleme de
+//	str = string_s(ap);							// double inclusion I think
+
 	res = ft_memalloc(ret + ft_strlen(str) + ft_strlen(format + len_param));
 									// malloc la longueur total
 									// de la nouvelle chaine
@@ -48,37 +53,7 @@ int		ft_printf(const char *format, ...)
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
 
-int		parsing_params(char *arg) 	// seulement la conversion
-{									// c, C, s, S,p, d, D, i, o, O, u, U,x X 
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	while (arg[++i])
-		if (arg[i] == '%')
-			while (arg[i + (++j)])
-				if (params(arg[i + j]) > 0)
-					return (j);
-	return (0);
-}
-
-int		params(char comp) 	// detecte si un paramettre est 
-{							// rencontre et renvoi sa position
-	char	*list;			// par rapport a la string list
-	int		i;
-
-	i = 0;
-	list = "sSpdDioOuUxXcC%";
-	while (list[i])
-	{
-		if (list[i] == comp)
-			return (i + 1);
-		i++;
-	}
-	return (0);
-}
-
+// c, C, s, S,p, d, D, i, o, O, u, U,x X 
 
 //char *string()
 /*

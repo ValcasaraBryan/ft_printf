@@ -14,7 +14,7 @@ NAME = ft_printf.a
 
 EXE = executable
 
-SRC = ft_printf.c
+SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c main.c
 
 OBJET = $(SRC:.c=.o)
 
@@ -36,7 +36,7 @@ $(NAME) : $(OBJET)
 	@clang $(FLAG) -o $@ -c $<
 
 comp : lib $(NAME) main.c
-	@gcc $(FLAG) $(NAME) ../libft/libft.a main.c -o $(EXE)
+	@gcc $(FLAG) $(NAME) ../libft/libft.a -o $(EXE)
 exe : comp
 	#------------ execution  ------------#
 	@./$(EXE)

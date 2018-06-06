@@ -13,12 +13,23 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdarg.h>
 # include "../libft/libft.h"
-# include <stdio.h>
+# include <stdarg.h>
 
-int		ft_printf(const char *format, ...);
-int		parsing_params(char *arg);
-int		params(char comp);
+typedef struct		s_fonc
+{
+	char			c;
+	void			*result;
+	struct s_fonc	*next;
+}					t_tab;
+
+int					ft_printf(const char *format, ...);
+char				*string_s(va_list ap);
+void				*return_list(char c, va_list ap);
+t_tab				*init_list_start(t_tab *list, va_list ap);
+t_tab				*init_list_next(t_tab *list, va_list ap);
+t_tab				*init_list_rest(t_tab *list, va_list ap);
+int					parsing_params(char *arg);
+int					params(char comp);
 
 #endif
