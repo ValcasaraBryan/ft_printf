@@ -26,7 +26,6 @@ int		ft_printf(const char *format, ...)
 									// chaque params suivant
 	ret = -1;
 	i = 0;
-	
 	while (format[++ret] != '%')	// detecte s'il y a un flags
 		if (!format[ret])			// sinon affiche toute la string
 		{
