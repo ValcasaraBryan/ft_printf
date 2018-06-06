@@ -39,9 +39,8 @@ int		ft_printf(const char *format, ...)
 												//  + len_flag
 	if (!(str = ft_memalloc(100)))
 		return (0);
-//	str = return_list(param[0], ap);			// ne veux pas compiler probleme de
-//	str = string_s(ap);							// double inclusion I think
-
+	str = return_list(param[0], ap);
+	
 	res = ft_memalloc(ret + ft_strlen(str) + ft_strlen(format + len_param));
 									// malloc la longueur total
 									// de la nouvelle chaine
