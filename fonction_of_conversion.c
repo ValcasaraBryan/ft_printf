@@ -12,52 +12,55 @@
 
 #include "ft_printf.h"
 
-void	*return_list(char c, va_list ap)
+t_tab	*return_list(char c, va_list ap)
 {
 	t_tab	*list;
 
-	list = init_list(ap);
-	while (list)
-	{
-		if (list->c == c)
-			return (list->f);
-		list = list->next;
-	}
-	return (NULL);
+	list = init_list(ap, c);
+	return (list);
 }
 
-t_tab	*init_list(va_list ap)
+t_tab	*init_list(va_list ap, char c)
 {
 	t_tab	*list;
-	t_tab	*tmp;
 
-	list = list_add_conversion('s', (void *)string_s(ap));
-	//tmp = list_add_conversion('S', NULL);
-	//list_add(&list, tmp);
-	tmp = list_add_conversion('c', (void *)conv_c(ap));
-	list_add(&list, tmp);
-//	list = list_add_conversion('C', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('p', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('d', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('D', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('i', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('o', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('O', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('u', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('U', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('x', NULL);
-//	list_add(&list, tmp);
-//	list = list_add_conversion('X', NULL);
-//	list_add(&list, tmp);
+	if (c == 's')
+		list = list_add_conversion('s', (void *)string_s(ap));
+	else if (c == 'S')
+		list = list_add_conversion('S', NULL);
+	else if (c == 'c')
+		list = list_add_conversion('c', (void *)conv_c(ap));
+	else if (c == 'C')
+		list = list_add_conversion('C', NULL);
+	else if (c == 'p')
+		list = list_add_conversion('p', NULL);
+	else if (c == 'd')
+		list = list_add_conversion('d', NULL);
+	else if (c == 'D')
+		list = list_add_conversion('D', NULL);
+	else if (c == 'i')
+		list = list_add_conversion('i', NULL);
+	else if (c == 'o')
+		list = list_add_conversion('o', NULL);
+	else if (c == 'O')
+		list = list_add_conversion('O', NULL);
+	else
+		return (init_list_next(list, ap, c));
+	return (list);
+}
+
+t_tab	*init_list_next(t_tab *list, va_list ap, char c)
+{
+	if (c == 'u')
+		list = list_add_conversion('u', NULL);
+	else if (c == 'U')
+		list = list_add_conversion('U', NULL);
+	else if (c == 'x')
+		list = list_add_conversion('x', NULL);
+	else if (c == 'X')
+		list = list_add_conversion('X', NULL);
+	else if (c == '%')
+		list = list_add_conversion('%', NULL);
 	return (list);
 }
 
@@ -77,15 +80,5 @@ t_tab	*list_add_conversion(char c, void (*f)(va_list))
 		tmp->c = 0;
 		tmp->f = NULL;
 	}
-	tmp->next = NULL;
 	return (tmp);
-}
-
-void	list_add(t_tab	**list, t_tab *new)
-{
-	if (new)
-	{
-		new->next = *list;
-		*list = new;
-	}
 }

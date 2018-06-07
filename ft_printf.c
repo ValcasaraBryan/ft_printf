@@ -16,10 +16,11 @@ int		ft_printf(const char *format, ...)
 {
 	int			ret;
 	int			i;
-	void		*str;
+	t_tab		*list;
 	int			len_param;
 	char		*param;
 	char		*res;
+	char		*tmp;
 	va_list		ap;
 
 	va_start(ap, format);			// initialise ap a partir de format pour lire
@@ -37,13 +38,18 @@ int		ft_printf(const char *format, ...)
 	param = ft_strndup(format + ret, len_param);		// recupere les flags
 	len_param += ret;							// met len_param a la longueur debut_format
 												//  + len_flag
-	str = return_list(param[0], ap);
-
-	res = ft_memalloc(ret + ft_strlen(str) + ft_strlen(format + len_param));
-									// malloc la longueur total
-									// de la nouvelle chaine
+	if (ft_strlen(param) == 1)
+		list = return_list(*param, ap);
+	if (!(res = ft_memalloc(BUFF_SIZE)))
+		return (0);
 	res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
-	res = ft_strcat(res, str);					// ajout la conversion
+	if (list->c == 's')
+		res = ft_strcat(res, (char *)list->f);					// ajout la conversion
+	if (list->c == 'c')
+	{
+		tmp = (char *)ft_memset((void *)res + ret, (int)list->f, 1);
+		res = ft_strcat(res, res + ret);
+	}
 	res = ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
 	ft_putstr(res);					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start

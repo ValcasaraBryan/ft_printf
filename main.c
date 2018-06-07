@@ -23,9 +23,9 @@ int		main(int argc, char **argv)
 	printf("retour = [%d]\n", ret);
 	ret = printf("salut [%s dddd]\n", "cava");
 	printf("retour = [%d]\n", ret);
-	ret = printf("salut [%c dddd]\n", 65);
+	ret = printf("salut [%c dddd]\n", 'l');
 	printf("retour = [%d]\n", ret);
-	ret = ft_printf("salut [%c dddd]\n", 65);
+	ret = ft_printf("salut [%c dddd]\n", 'l');
 	printf("retour = [%d]\n", ret);
 	return (0);
 }
