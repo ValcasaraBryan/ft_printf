@@ -12,10 +12,18 @@
 
 #include "ft_printf.h"
 
-char	*string_s(va_list ap)
+void	*string_s(va_list ap)
 {
-	char	*str;
+	void	*str;
 
-	str = va_arg(ap, char *);
+	str = (void *)va_arg(ap, char *);
 	return (str);
+}
+
+char		conv_c(va_list ap)
+{
+	char	c;
+
+	c = va_arg(ap, char);
+	return (c);
 }

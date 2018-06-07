@@ -16,76 +16,76 @@ void	*return_list(char c, va_list ap)
 {
 	t_tab	*list;
 
-	if (!(list = malloc(sizeof(t_tab) * 15)))
-		return (NULL); 
-	list = init_list_start(list, ap);
+	list = init_list(ap);
 	while (list)
 	{
 		if (list->c == c)
-			return (list->result);
+			return (list->f);
 		list = list->next;
 	}
 	return (NULL);
 }
 
-t_tab	*init_list_start(t_tab *list, va_list ap)
+t_tab	*init_list(va_list ap)
 {
-	t_tab *head;
+	t_tab	*list;
+	t_tab	*tmp;
 
-	head = list;
-	list->c = 's';
-	list->result = (void *)string_s(ap);
-	list = list->next;
-	list->c = 'S';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'c';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'C';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'p';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'd';
-	list->result = (void *)(ap);
-	list = list->next;
-	list = init_list_next(list, ap);
-	return (head);
-}
-
-t_tab	*init_list_next(t_tab *list, va_list ap)
-{
-	list->c = 'D';
-	list->result = (void *)(ap);
-	list = list->next;
- 	list->c = 'i';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'o';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'O';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'u';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'U';
-	list->result = (void *)(ap);
-	list = list->next;
-	list->c = 'x';
-	list->result = (void *)(ap);
-	list = list->next;
-	list = init_list_rest(list, ap);
+	list = list_add_conversion('s', (void *)string_s(ap));
+	//tmp = list_add_conversion('S', NULL);
+	//list_add(&list, tmp);
+	tmp = list_add_conversion('c', (void *)conv_c(ap));
+	list_add(&list, tmp);
+//	list = list_add_conversion('C', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('p', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('d', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('D', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('i', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('o', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('O', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('u', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('U', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('x', NULL);
+//	list_add(&list, tmp);
+//	list = list_add_conversion('X', NULL);
+//	list_add(&list, tmp);
 	return (list);
 }
 
-t_tab	*init_list_rest(t_tab *list, va_list ap)
+t_tab	*list_add_conversion(char c, void (*f)(va_list))
 {
-	list->c = 'X';
-	list->result = (void *)(ap);
-	list->next = NULL;
-	return (list);
+	t_tab	*tmp;
+
+	if (!(tmp = ft_memalloc(sizeof(t_tab))))
+		return (NULL);
+	if (c && f)
+	{
+		tmp->c = c;
+		tmp->f = f;
+	}
+	else
+	{
+		tmp->c = 0;
+		tmp->f = NULL;
+	}
+	tmp->next = NULL;
+	return (tmp);
+}
+
+void	list_add(t_tab	**list, t_tab *new)
+{
+	if (new)
+	{
+		new->next = *list;
+		*list = new;
+	}
 }

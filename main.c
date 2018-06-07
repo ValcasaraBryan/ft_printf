@@ -20,8 +20,12 @@ int		main(int argc, char **argv)
 	(void)argv;
 	ret = 0;
 	ret = ft_printf("salut [%s dddd]\n", "cava");
-//	printf("retour = [%d]\n", ret);
-//	ret = printf("salut [%s dddd]\n", "cava");
-//	printf("retour = [%d]\n", ret);
+	printf("retour = [%d]\n", ret);
+	ret = printf("salut [%s dddd]\n", "cava");
+	printf("retour = [%d]\n", ret);
+	ret = printf("salut [%c dddd]\n", 65);
+	printf("retour = [%d]\n", ret);
+	ret = ft_printf("salut [%c dddd]\n", 65);
+	printf("retour = [%d]\n", ret);
 	return (0);
 }

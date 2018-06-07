@@ -37,10 +37,8 @@ int		ft_printf(const char *format, ...)
 	param = ft_strndup(format + ret, len_param);		// recupere les flags
 	len_param += ret;							// met len_param a la longueur debut_format
 												//  + len_flag
-	if (!(str = ft_memalloc(100)))
-		return (0);
 	str = return_list(param[0], ap);
-	
+
 	res = ft_memalloc(ret + ft_strlen(str) + ft_strlen(format + len_param));
 									// malloc la longueur total
 									// de la nouvelle chaine
