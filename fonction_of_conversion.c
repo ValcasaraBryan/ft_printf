@@ -27,23 +27,23 @@ t_tab	*init_list(va_list ap, char c)
 	if (c == 's')
 		list = list_add_conversion('s', (void *)string_s(ap));
 	else if (c == 'S')
-		list = list_add_conversion('S', NULL);
+		list = list_add_conversion('S', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'c')
 		list = list_add_conversion('c', (void *)conv_c(ap));
 	else if (c == 'C')
-		list = list_add_conversion('C', NULL);
+		list = list_add_conversion('C', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'p')
-		list = list_add_conversion('p', NULL);
+		list = list_add_conversion('p', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'd')
-		list = list_add_conversion('d', NULL);
+		list = list_add_conversion('d', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'D')
-		list = list_add_conversion('D', NULL);
+		list = list_add_conversion('D', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'i')
-		list = list_add_conversion('i', NULL);
+		list = list_add_conversion('i', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'o')
-		list = list_add_conversion('o', NULL);
+		list = list_add_conversion('o', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'O')
-		list = list_add_conversion('O', NULL);
+		list = list_add_conversion('O', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else
 		return (init_list_next(list, ap, c));
 	return (list);
@@ -52,15 +52,15 @@ t_tab	*init_list(va_list ap, char c)
 t_tab	*init_list_next(t_tab *list, va_list ap, char c)
 {
 	if (c == 'u')
-		list = list_add_conversion('u', NULL);
+		list = list_add_conversion('u', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'U')
-		list = list_add_conversion('U', NULL);
+		list = list_add_conversion('U', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'x')
-		list = list_add_conversion('x', NULL);
+		list = list_add_conversion('x', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'X')
-		list = list_add_conversion('X', NULL);
+		list = list_add_conversion('X', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == '%')
-		list = list_add_conversion('%', NULL);
+		list = list_add_conversion('%', NULL);	// 'NULL' a remplir avec la fonction conversion
 	return (list);
 }
 
