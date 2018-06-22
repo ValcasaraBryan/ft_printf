@@ -19,13 +19,22 @@ int		main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	ret = 0;
-	ret = ft_printf("salut [%s dddd]\n", "cava");
-	printf("retour = [%d]\n", ret);
-	ret = printf("salut [%s dddd]\n", "cava");
-	printf("retour = [%d]\n", ret);
-	ret = printf("salut [%c dddd]\n", 'l');
-	printf("retour = [%d]\n", ret);
-	ret = ft_printf("salut [%c dddd]\n", 'l');
+	ret = ft_printf("salut [%11s] hey|\n", "cava");
+	ret = ft_printf("salut [%11c] hey|\n", 'l');
+	ret = ft_printf("salut [%11d] hey|\n", 48);
+	ret = ft_printf("salut [%11d] hey|\n", 0);
+	ret = ft_printf("salut [%11d] hey|\n", -1);
+	ret = ft_printf("salut [%11d] hey|\n", 1234567890);
+	ret = ft_printf("salut [%11d] hey|\n", -1234567890);
+	printf("retour = [%d]\n\n", ret);
+
+	ret = printf("salut [%11s] hey|\n", "cava");
+	ret = printf("salut [%11c] hey|\n", 'l');
+	ret = printf("salut [%11d] hey|\n", 48);
+	ret = printf("salut [%11d] hey|\n", 0);
+	ret = printf("salut [%11d] hey|\n", -1);
+	ret = printf("salut [%11d] hey|\n", 1234567890);
+	ret = printf("salut [%11d] hey|\n", -1234567890);
 	printf("retour = [%d]\n", ret);
 	return (0);
 }

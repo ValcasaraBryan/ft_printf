@@ -32,6 +32,12 @@ int					parsing_params(char *arg);
 int					params(char comp);
 t_tab				*list_add_conversion(char c, void (*f)(va_list));
 void				list_add(t_tab	**list, t_tab *new);
+int					precision_params(char *param);
+char				*add_caractere(char *params, int start, int len,
+					int caractere);
+
 void				*string_s(va_list ap);
-void				*conv_c(va_list ap);
+int					conv_c(va_list ap);
+int					d_int(va_list ap);
+
 #endif

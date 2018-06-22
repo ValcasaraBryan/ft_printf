@@ -12,6 +12,32 @@
 
 #include "ft_printf.h"
 
+char	*add_caractere(char *params, int start, int len, int caractere)
+{
+	char	*tmp;
+
+	if (*params && (len >= 0) && (start >= 0))
+	{
+		tmp = (char *)ft_memset((void *)params + start, caractere, len);
+		params = ft_strcat(params, tmp);
+		return (params);
+	}
+	return (NULL);
+}
+
+int		precision_params(char *param)
+{
+	int		i;
+
+	i = -1;
+	while (param[++i])
+	{
+		if (param[i] > 48 && param[i] <= 57)
+			return (ft_atoi(param));
+	}
+	return (0);
+}
+
 int		parsing_params(char *arg) 	// seulement la conversion
 {									// c, C, s, S,p, d, D, i, o, O, u, U,x X 
 	int		i;

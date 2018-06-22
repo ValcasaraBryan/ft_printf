@@ -20,10 +20,18 @@ void	*string_s(va_list ap)
 	return (str);
 }
 
-void	*conv_c(va_list ap)
+int		conv_c(va_list ap)
 {
-	char	c;
+	int		c;
 
-	c = (char)va_arg(ap, int);
-	return ((void *)c);
+	c = va_arg(ap, int);
+	return (c);
+}
+
+int		d_int(va_list ap)
+{
+	int		d;
+
+	d = va_arg(ap, int);
+	return (d);
 }

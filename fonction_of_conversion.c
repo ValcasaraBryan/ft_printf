@@ -35,7 +35,7 @@ t_tab	*init_list(va_list ap, char c)
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'd')
-		list = list_add_conversion('d', NULL);	// 'NULL' a remplir avec la fonction conversion
+		list = list_add_conversion('d', (void *)d_int(ap));
 	else if (c == 'D')
 		list = list_add_conversion('D', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'i')
@@ -70,7 +70,7 @@ t_tab	*list_add_conversion(char c, void (*f)(va_list))
 
 	if (!(tmp = ft_memalloc(sizeof(t_tab))))
 		return (NULL);
-	if (c && f)
+	if (c)
 	{
 		tmp->c = c;
 		tmp->f = f;
