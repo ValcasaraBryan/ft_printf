@@ -35,6 +35,8 @@ void				list_add(t_tab	**list, t_tab *new);
 int					precision_params(char *param);
 char				*add_caractere(char *params, int start, int len,
 					int caractere);
+int					nb_percent(char *format);
+int					p_of_params(char *format);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);

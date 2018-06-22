@@ -22,61 +22,73 @@ int		ft_printf(const char *format, ...)
 	char		*param;
 	char		*res;
 	va_list		ap;
-
+	unsigned int	nb;
+	int				test;
 	va_start(ap, format);			// initialise ap a partir de format pour lire
 									// chaque params suivant
 	ret = -1;
 	i = 0;
 	j = 0;
-	while (format[++ret] != '%')	// detecte s'il y a un flags
-		if (!format[ret])			// sinon affiche toute la string
-		{
-			ft_putstr(format);
-			return (ret);
-		}
-	
-	len_param = parsing_params((char *)format + ret++); // recupere la longueur des flags
-	param = ft_strndup(format + ret, len_param);		// recupere les flags
-	len_param += ret;							// met len_param a la longueur debut_format
-												//  + len_flag
-	if (ft_strlen(param) == 1)
-		list = return_list(*param, ap);
-	else if ((i = precision_params(param)) >= 0)// donne à i la longueur de precision
+	test = 1;
+	nb = (unsigned int)nb_percent((char *)format);
+	if (nb == 0)
 	{
-		j = ft_strlen(ft_itoa(i));
-		list = return_list(param[j], ap);		// initialise le parametre arg[2]
+		ft_putstr(format);
+		return (ft_strlen(format));
 	}
 	if (!(res = ft_memalloc(BUFF_SIZE)))		// alloue la longueur de la string final
-		return (0);
-	res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
-	if (list->c == 's')							// ajout de l'arg[2] a la string final
+			return (0);
+	ret = p_of_params((char *)format);
+	while (nb--)
 	{
-		j = (int)ft_strlen((char *)list->f);
-		if (i > j && i > 0)
+		len_param = parsing_params((char *)format + ret++); // recupere la longueur des flags
+		param = ft_strndup(format + ret, len_param);		// recupere les flags
+		len_param += ret;							// met len_param a la longueur debut_format
+													//  + len_flag
+		if (ft_strlen(param) == 1)
+			list = return_list(*param, ap);
+		else if ((i = precision_params(param)) >= 0)// donne à i la longueur de precision
 		{
-			i = i - j;							// fait la difference entre la longueur de la
-												// string et la longueur de la precision
-			add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+			j = ft_strlen(ft_itoa(i));
+			list = return_list(param[j], ap);		// initialise le parametre arg[2]
 		}
-		res = ft_strcat(res, (char *)list->f);	// ajout de la conversion
-	}
-	if (list->c == 'c')							// ajout de l'arg[2] a la string final
-	{
-		if (i > 1)
-			add_caractere(res, ret, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
-		add_caractere(res, ret + i, 1, (int)list->f); // ajout de la conversion
-	}
-	if (list->c == 'd')
-	{
-		j = ft_strlen(ft_itoa((int)list->f));
-		if (i > j && i > 0)
+		if (test-- > 0)
+			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
+		if (list->c == 's')							// ajout de l'arg[2] a la string final
 		{
-			i = i - j;
-			add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+			j = (int)ft_strlen((char *)list->f);
+			if (i > j && i > 0)
+			{
+				i = i - j;							// fait la difference entre la longueur de la
+													// string et la longueur de la precision
+				add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+			}
+			res = ft_strcat(res, (char *)list->f);	// ajout de la conversion
 		}
-		ft_strcat(res, ft_itoa((int)list->f));
+		if (list->c == 'c')							// ajout de l'arg[2] a la string final
+		{
+			if (i > 1)
+				add_caractere(res, ret, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
+			add_caractere(res, ret + i + len_param, 1, (int)list->f);
+		}
+		if (list->c == 'd')
+		{
+			j = ft_strlen(ft_itoa((int)list->f));
+			if (i > j && i > 0)
+			{
+				i = i - j;
+				add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+			}
+			ft_strcat(res, ft_itoa((int)list->f));
+		}
+		if (nb)
+		{
+			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
+			ret = p_of_params((char *)format + ret) + ret;
+			i = 0;
+		}
 	}
-	res = ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
+	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
 	ft_putstr(res);					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string

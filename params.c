@@ -58,13 +58,23 @@ int		params(char comp) 	// detecte si un paramettre est
 	char	*list;			// par rapport a la string list
 	int		i;
 
-	i = 0;
+	i = -1;
 	list = "sSpdDioOuUxXcC%";
-	while (list[i])
-	{
+	while (list[++i])
 		if (list[i] == comp)
 			return (i + 1);
-		i++;
-	}
 	return (0);
+}
+
+int		nb_percent(char *format)
+{
+	int		i;
+	int		nb_percent;
+
+	i = -1;
+	nb_percent = 0;
+	while (format[++i])
+		if (format[i] == '%' && params(format[i]))
+			++nb_percent;
+	return (nb_percent);
 }
