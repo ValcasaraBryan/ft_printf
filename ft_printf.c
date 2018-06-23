@@ -56,13 +56,16 @@ int		ft_printf(const char *format, ...)
 		}
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
+
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, (char *)list->f);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f);
-		if (list->c == 'd')
+		if (list->c == 'd')							// ajout de l'arg[2] a la string final
 			flag_int(res, i, (int)list->f);
-		if (nb)
+
+		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
+									// entre ceux ci, l'ajoute au resultat final
 		{
 			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
 			ret = p_of_params((char *)format + ret) + ret;

@@ -20,7 +20,7 @@ char	*flag_int(char *res, int i, int number)
 	if (i > j && i > 0)
 	{
 		i = i - j;
-		add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+		add_caractere(res, i, 32);
 	}
 	ft_strcat(res, ft_itoa(number));
 	return (res);
@@ -34,16 +34,16 @@ char	*flag_string(char *res, int i, char *string)
 	if (i > j && i > 0)
 	{
 		i = i - j;
-		add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+		add_caractere(res, i, 32);
 	}
-	ft_strcat(res, string);	// ajout de la conversion
+	ft_strcat(res, string);
 	return (res);
 }
 
 char	*flag_char(char *res, int i, char caractere)
 {
 	if (i > 1)
-		add_caractere(res, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
+		add_caractere(res, i - 1, 32);
 	add_caractere(res, 1, caractere);
 	return (res);
 }
