@@ -46,13 +46,15 @@ int		ft_printf(const char *format, ...)
 		len_param += ret;							// met len_param a la longueur debut_format
 													//  + len_flag
 		if (ft_strlen(param) == 1)
+		{
 			list = return_list(*param, ap);
+		}
 		else if ((i = precision_params(param)) >= 0)// donne à i la longueur de precision
 		{
 			j = ft_strlen(ft_itoa(i));
 			list = return_list(param[j], ap);		// initialise le parametre arg[2]
 		}
-		if (test-- > 0)
+		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
 		{
@@ -61,23 +63,23 @@ int		ft_printf(const char *format, ...)
 			{
 				i = i - j;							// fait la difference entre la longueur de la
 													// string et la longueur de la precision
-				add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+				add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
 			}
-			res = ft_strcat(res, (char *)list->f);	// ajout de la conversion
+			ft_strcat(res, (char *)list->f);	// ajout de la conversion
 		}
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 		{
 			if (i > 1)
-				add_caractere(res, ret, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
-			add_caractere(res, ret + i + len_param, 1, (int)list->f);
+				add_caractere(res, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
+			add_caractere(res, 1, (int)list->f);
 		}
 		if (list->c == 'd')
 		{
-			j = ft_strlen(ft_itoa((int)list->f));
+			j = (int)ft_strlen(ft_itoa((int)list->f));
 			if (i > j && i > 0)
 			{
 				i = i - j;
-				add_caractere(res, ret, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
+				add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
 			}
 			ft_strcat(res, ft_itoa((int)list->f));
 		}

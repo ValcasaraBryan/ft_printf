@@ -33,7 +33,7 @@ int					params(char comp);
 t_tab				*list_add_conversion(char c, void (*f)(va_list));
 void				list_add(t_tab	**list, t_tab *new);
 int					precision_params(char *param);
-char				*add_caractere(char *params, int start, int len,
+char				*add_caractere(char *params, int len,
 					int caractere);
 int					nb_percent(char *format);
 int					p_of_params(char *format);

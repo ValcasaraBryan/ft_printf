@@ -12,14 +12,21 @@
 
 #include "ft_printf.h"
 
-char	*add_caractere(char *params, int start, int len, int caractere)
+char	*add_caractere(char *params, int len, int caractere)
 {
 	char	*tmp;
 
-	if (*params && (len >= 0) && (start >= 0))
+	if (!(tmp = ft_memalloc(len + 1)))
+		return (NULL);
+	if (*params && (len >= 0))
 	{
-		tmp = (char *)ft_memset((void *)params + start, caractere, len);
-		params = ft_strcat(params, tmp);
+		tmp = (char *)ft_memset(tmp, caractere, len);
+		ft_strcat(params, tmp);
+		return (params);
+	}
+	else if (!*params && (len >= 0))
+	{
+		ft_memset(params, caractere, len);
 		return (params);
 	}
 	return (NULL);
