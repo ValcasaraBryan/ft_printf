@@ -37,6 +37,9 @@ char				*add_caractere(char *params, int len,
 					int caractere);
 int					nb_percent(char *format);
 int					p_of_params(char *format);
+char				*flag_int(char *res, int i, int number);
+char				*flag_string(char *res, int i, char *string);
+char				*flag_char(char *res, int i, char caractere);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);

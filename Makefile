@@ -15,7 +15,7 @@ NAME = ft_printf.a
 EXE = executable
 
 SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c main.c\
-		params_two.c
+		params_two.c flag.c
 
 OBJET = $(SRC:.c=.o)
 

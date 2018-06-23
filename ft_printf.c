@@ -57,32 +57,11 @@ int		ft_printf(const char *format, ...)
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
-		{
-			j = (int)ft_strlen((char *)list->f);
-			if (i > j && i > 0)
-			{
-				i = i - j;							// fait la difference entre la longueur de la
-													// string et la longueur de la precision
-				add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
-			}
-			ft_strcat(res, (char *)list->f);	// ajout de la conversion
-		}
+			flag_string(res, i, (char *)list->f);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
-		{
-			if (i > 1)
-				add_caractere(res, i - 1, 32);	// si il y a une precision, l'ajoute avec le caractere 32
-			add_caractere(res, 1, (int)list->f);
-		}
+			flag_char(res, i, (char)list->f);
 		if (list->c == 'd')
-		{
-			j = (int)ft_strlen(ft_itoa((int)list->f));
-			if (i > j && i > 0)
-			{
-				i = i - j;
-				add_caractere(res, i, 32);		// si il y a une precision, l'ajoute avec le caractere 32
-			}
-			ft_strcat(res, ft_itoa((int)list->f));
-		}
+			flag_int(res, i, (int)list->f);
 		if (nb)
 		{
 			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
