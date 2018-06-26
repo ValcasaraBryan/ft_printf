@@ -17,6 +17,8 @@ int		ft_printf(const char *format, ...)
 	int			ret;
 	int			i;
 	int			j;
+	int 		h;
+	int			*z;
 	t_tab		*list;
 	int			len_param;
 	char		*param;
@@ -46,24 +48,23 @@ int		ft_printf(const char *format, ...)
 		len_param += ret;							// met len_param a la longueur debut_format
 													//  + len_flag
 		if (ft_strlen(param) == 1)
+			list = return_list(*param, ap);		// initialise le parametre arg[2]
+		else
 		{
-			list = return_list(*param, ap);
-		}
-		else if ((i = precision_params(param)) >= 0)// donne à i la longueur de precision
-		{
-			j = ft_strlen(ft_itoa(i));
-			list = return_list(param[j], ap);		// initialise le parametre arg[2]
+			z = flag_optional(param);
+			if ((h = binary(z)))
+				param += h;
+			if (((i = precision_params(param)) >= 0))// donne à i la longueur de precision
+				list = return_list(param[ft_strlen(ft_itoa(i))], ap);		// initialise le parametre arg[2]
 		}
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
-
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
-			flag_string(res, i, (char *)list->f);
+			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f);
 		if (list->c == 'd')							// ajout de l'arg[2] a la string final
-			flag_int(res, i, (int)list->f);
-
+			flag_int(res, i, (int)list->f, z);
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 									// entre ceux ci, l'ajoute au resultat final
 		{
@@ -80,7 +81,7 @@ int		ft_printf(const char *format, ...)
 
 // c, C, s, S,p, d, D, i, o, O, u, U,x X 
 
-//char *string()
+// char *string()
 /*
 ** • Vous devez gérer les conversions suivantes : sSpdDioOuUxXcC
 ** • Vous devez gérer le %%
