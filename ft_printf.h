@@ -18,11 +18,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # define BUFF_SIZE	1024
-# define LEFT		2
-# define ZERO		3
-# define SIGN		4
-# define BLANK		5
-# define HASHTAG	6
+# define LEFT		1
+# define ZERO		2
+# define SIGN		3
+# define BLANK		4
+# define HASHTAG	5
+# define LENGTH_TAB 5
 
 typedef struct		s_fonc
 {
@@ -48,11 +49,14 @@ char				*flag_string(char *res, int i, char *string, int *flag);
 char				*flag_char(char *res, int i, char caractere);
 int					*flag_optional(char *param);
 int					binary(int *tab);
-int					*binary_flag(int *tab);
-char				*add_precision(char *string, int i, int len, int flag);
+int					*binary_flag(int *tabv);
+char				*add_precision(char *string, int i, int len, int *flag);
+int					value_pos(int i, int *tab, int flag);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);
 int					d_int(va_list ap);
+
+void				ft_putstr_len(const char *str, size_t len);
 
 #endif

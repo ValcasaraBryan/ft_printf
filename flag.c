@@ -14,52 +14,42 @@
 
 char	*flag_int(char *res, int i, int number, int *flag)
 {
-	unsigned int j;
 	int			y;
 	char 		*tmp;
 	int *tab;
 
-	j = 1;
 	if (binary(flag))
 	{
-		j += (unsigned int)binary(flag);
 		tab = binary_flag(flag);
-		while (j--)
-		{
-			tmp = add_precision(ft_itoa(number), i, (int)ft_strlen(ft_itoa(number)), *tab);
-			if (j != 1)
-				tab++;
-		}
+		tmp = add_precision(ft_itoa(number), value_pos(i, tab, SIGN), (int)ft_strlen(ft_itoa(number)), flag);
 		ft_strcat(res, tmp);
 		return (res);
 	}
-	tmp = add_precision(ft_itoa(number), i, (int)ft_strlen(ft_itoa(number)), 0);
-	ft_strcat(res, tmp);
+	tmp = add_precision(ft_itoa(number), i, (int)ft_strlen(ft_itoa(number)), flag);
+	if (tmp)
+		ft_strcat(res, tmp);
+	else
+		ft_strcat(res, ft_itoa(number));
 	return (res);
 }
 
 char	*flag_string(char *res, int i, char *string, int *flag)
 {
-	unsigned int j;
 	int 		*tab;
 	char *tmp;
 
-	j = 1;
 	if (binary(flag))
 	{
-		j += (unsigned int)binary(flag);
 		tab = binary_flag(flag);
-		while (j--)
-		{
-			tmp = add_precision(string, i, (int)ft_strlen(string), *tab);
-			if (j != 1)
-				tab++;
-		}
+		tmp = add_precision(string, value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
 		ft_strcat(res, tmp);
 		return (res);
 	}
-	tmp = add_precision(string, i, (int)ft_strlen(string), 0);
-	ft_strcat(res, tmp);
+	tmp = add_precision(string, i, (int)ft_strlen(string), flag);
+	if (tmp)
+		ft_strcat(res, tmp);
+	else
+		ft_strcat(res, string);
 	return (res);
 }
 
@@ -75,10 +65,16 @@ int		*flag_optional(char *param)
 {
 	int		*tab;
 
-	if (!(tab = (int *)malloc(sizeof (int) * 6)))
+	if (!(tab = (int *)malloc(sizeof (int) * LENGTH_TAB + 1)))
 		return (0);
-	while (*param == '-' || *param == '0' || *param == '+'
-		|| *param == ' ' || *param == '#')
+	tab[0] = 0;
+	tab[1] = 0;
+	tab[2] = 0;
+	tab[3] = 0;
+	tab[4] = 0;
+	tab[5] = 0;
+	while (param && (*param == '-' || *param == '0' || *param == '+'
+		|| *param == ' ' || *param == '#'))
 	{
 		if (*param == '-')
 			tab[0] = LEFT;
@@ -95,6 +91,12 @@ int		*flag_optional(char *param)
 	return (tab);
 }
 
+// # define LEFT		1
+// # define ZERO		2
+// # define SIGN		3
+// # define BLANK		4
+// # define HASHTAG		5
+
 int		binary(int *tab)
 {
 	int		i;
@@ -102,12 +104,12 @@ int		binary(int *tab)
 	int		j;
 
 	i = -1;
-	len = 6;
+	len = LENGTH_TAB;
 	j = 0;
 	if (!tab)
 		return (0);
-	while (++i < len)
-		if (tab[i] > 0 && i < len)
+	while (++i < LENGTH_TAB)
+		if (tab[i] > 0 && tab[i] <= 5 && i < LENGTH_TAB)
 			++j;
 	return (j);
 }

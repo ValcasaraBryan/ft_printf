@@ -32,6 +32,7 @@ int		ft_printf(const char *format, ...)
 	i = 0;
 	j = 0;
 	test = 1;
+	h = 0;
 	nb = (unsigned int)nb_percent((char *)format);
 	if (nb == 0)
 	{
@@ -57,6 +58,7 @@ int		ft_printf(const char *format, ...)
 			if (((i = precision_params(param)) >= 0))// donne à i la longueur de precision
 				list = return_list(param[ft_strlen(ft_itoa(i))], ap);		// initialise le parametre arg[2]
 		}
+
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
@@ -65,16 +67,17 @@ int		ft_printf(const char *format, ...)
 			flag_char(res, i, (char)list->f);
 		if (list->c == 'd')							// ajout de l'arg[2] a la string final
 			flag_int(res, i, (int)list->f, z);
+		i = 0;
+		z = flag_optional(NULL);
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 									// entre ceux ci, l'ajoute au resultat final
 		{
 			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
 			ret = p_of_params((char *)format + ret) + ret;
-			i = 0;
 		}
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
-	ft_putstr(res);					// affiche la nouvelle string avec conversion
+	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
