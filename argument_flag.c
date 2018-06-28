@@ -25,7 +25,7 @@ char	*add_precision(char *string, int i, int len, int *flag)
 		add_caractere(space, i - len, ' ');
 	if (value_pos(0, flag, SIGN))
 		add_caractere(tmp, 1, '+');
-	if (value_pos(0, flag, ZERO))
+	if (value_pos(0, flag, ZERO) && !value_pos(0, flag, LEFT))
 		tmp = (char *)ft_memset(space, '0', i - len);
 	else if (!value_pos(0, flag, LEFT))
 		tmp = ft_strcat(space, tmp);

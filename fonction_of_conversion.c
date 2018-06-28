@@ -16,6 +16,7 @@ t_tab	*return_list(char c, va_list ap)
 {
 	t_tab	*list;
 
+	printf("%c\n", c);
 	list = init_list(ap, c);
 	return (list);
 }
