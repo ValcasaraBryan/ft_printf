@@ -18,6 +18,8 @@ char	*add_precision(char *string, int i, int len, int *flag)
 
 	if (!(tmp = ft_memalloc(i + len + 1)))
 			return (NULL);
+	if (i < len)
+		i = len;
 	if (!value_pos(0, flag, LEFT))
 		tmp = option_right(string, i, len, flag);
 	else
@@ -53,49 +55,18 @@ char *option_right(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN))
+	if (value_pos(0, flag, SIGN) || ft_atoi(string) < 0)
 	{
-		if (ft_atoi(string) < 0)
-		{
-			string++;
-			sign[0] = '-';
-		}
-		else
-			i--;
-		if (value_pos(0, flag, ZERO))
-		{
-			space = (char *)ft_memset(space, '0', i - len);
-			tmp = ft_strcat(sign, space);
-		}
-		else
-		{
-			space = (char *)ft_memset(space, ' ', i - len);
-			tmp = ft_strcat(space, sign);
-		}
+		string = signe(ft_atoi(string), string, &sign, &i);
+		tmp = option_zero_space(sign, tmp, i - len, flag);	// SIGN + NO LEFT + ZERO || NO ZERO
 		return (ft_strcat(tmp, string));
 	}
-	else if (ft_atoi(string) < 0)
-	{
-		string++;
-		sign[0] = '-';
-		if (value_pos(0, flag, ZERO))
-		{
-			space = (char *)ft_memset(space, '0', i - len);
-			tmp = ft_strcat(sign, space);
-		}
-		else
-		{
-			space = (char *)ft_memset(space, ' ', i - len);
-			tmp = ft_strcat(space, sign);
-		}
-		return (ft_strcat(tmp, string));
-	}
+	if (value_pos(0, flag, ZERO))
+		space = (char *)ft_memset(space, '0', i - len);		// NO SIGN + NO LEFT + ZERO
 	else
-	{
-		space = (char *)ft_memset(space, ' ', i - len);
-		ft_strcat(tmp, string);
-		tmp = ft_strcat(space, tmp);
-	}
+		space = (char *)ft_memset(space, ' ', i - len);		// NO SIGN + NO LEFT + NO ZERO
+	ft_strcat(tmp, string);
+	tmp = ft_strcat(space, tmp);
 	return (tmp);
 }
 
@@ -111,44 +82,46 @@ char *option_left(char *string, int i, int len, int *flag)
 	sign = ft_strdup("+");
 	if (value_pos(0, flag, SIGN))
 	{
-		if (ft_atoi(string) < 0)
-		{
-			string++;
-			sign[0] = '-';
-		}
-		else
-			i--;
+		string = signe(ft_atoi(string), string, &sign, &i);
 		space = (char *)ft_memset(space, ' ', i - len);
 		tmp = ft_strcat(tmp, space);
 		tmp = ft_strcat(string, tmp);
 		tmp = ft_strcat(sign, tmp);
-		return (tmp);
+		return (tmp);					// SIGN + LEFT + NO ZERO
 	}
-	else if (ft_atoi(string) < 0)
+	space = (char *)ft_memset(space, ' ', i - len);		
+	ft_strcat(tmp, string);
+	tmp = ft_strcat(tmp, space);
+	return (tmp);						// NO SIGN + LEFT + NO ZERO
+}
+
+char *option_zero_space(char *sign, char *tmp, int i, int *flag)
+{
+	char *space;
+
+	if (!(space = ft_memalloc(i + 1)))
+		return (NULL);
+	if (value_pos(0, flag, ZERO))
 	{
-		string++;
-		sign[0] = '-';
-		if (value_pos(0, flag, ZERO))
-		{
-			space = (char *)ft_memset(space, '0', i - len);
-			tmp = ft_strcat(tmp, space);
-			tmp = ft_strcat(string, tmp);
-			tmp = ft_strcat(sign, tmp);
-		}
-		else
-		{
-			space = (char *)ft_memset(space, ' ', i - len);
-			tmp = ft_strcat(tmp, space);
-			tmp = ft_strcat(string, tmp);
-			tmp = ft_strcat(sign, tmp);
-		}
-		return (tmp);
+		space = (char *)ft_memset(space, '0', i);
+		tmp = ft_strcat(sign, space);
 	}
 	else
 	{
-		space = (char *)ft_memset(space, ' ', i - len);
-		ft_strcat(tmp, string);
-		tmp = ft_strcat(tmp, space);
+		space = (char *)ft_memset(space, ' ', i);
+		tmp = ft_strcat(space, sign);
 	}
 	return (tmp);
+}
+
+char *signe(int val, char *string, char **sign, int *i)
+{
+	if (val < 0)
+	{
+		string++;
+		*sign[0] = '-';
+	}
+	else
+		i[0] -= 1;
+	return (string);
 }
