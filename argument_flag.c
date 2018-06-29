@@ -15,48 +15,17 @@
 char	*add_precision(char *string, int i, int len, int *flag)
 {
 	char *tmp;
-	char *space;
 
 	if (!(tmp = ft_memalloc(i + len + 1)))
 			return (NULL);
-	if (!(space = ft_memalloc((i - len) + 1)))
-			return (NULL);
-	if (i > len && i > 0)
-		add_caractere(space, i - len, ' ');
-	if (value_pos(0, flag, SIGN))
-		add_caractere(tmp, 1, '+');
-	if (value_pos(0, flag, ZERO) && !value_pos(0, flag, LEFT))
-		tmp = (char *)ft_memset(space, '0', i - len);
-	else if (!value_pos(0, flag, LEFT))
-		tmp = ft_strcat(space, tmp);
-	if (tmp)
-		string = ft_strcat(tmp, string);
-	if (value_pos(0, flag, LEFT))
-		ft_strcat(tmp, space);
-	return (string);
+	if (!value_pos(0, flag, LEFT))
+		tmp = option_right(string, i, len, flag);
+	else
+		tmp = option_left(string, i, len, flag);
+	return (tmp);
 }
 
  // modifier la longueur de champ a la fin
-
-int		*binary_flag(int *tab)
-{
-	int		i;
-	int		j;
-	int 	*val;
-
-	i = -1;
-	j = -1;
-	if (!tab)
-		return (0);
-	if (!(val = (int *)malloc(sizeof (int) * LENGTH_TAB + 1)))
-		return (0);
-	while (++i < LENGTH_TAB)
-	{
-		if (tab[i] > 0 && i < LENGTH_TAB)
-			val[++j] = tab[i];
-	}
-	return (val);
-}
 
 int		value_pos(int i, int *tab, int flag)
 {
@@ -74,3 +43,112 @@ int		value_pos(int i, int *tab, int flag)
 	return (i);
 }
 
+char *option_right(char *string, int i, int len, int *flag)
+{
+	char *space;
+	char *sign;
+	char *tmp;
+
+	sign = NULL;
+	if (!(space = ft_memalloc(i + 1)))
+		return (NULL);
+	sign = ft_strdup("+");
+	if (value_pos(0, flag, SIGN))
+	{
+		if (ft_atoi(string) < 0)
+		{
+			string++;
+			sign[0] = '-';
+		}
+		else
+			i--;
+		if (value_pos(0, flag, ZERO))
+		{
+			space = (char *)ft_memset(space, '0', i - len);
+			tmp = ft_strcat(sign, space);
+		}
+		else
+		{
+			space = (char *)ft_memset(space, ' ', i - len);
+			tmp = ft_strcat(space, sign);
+		}
+		return (ft_strcat(tmp, string));
+	}
+	else if (ft_atoi(string) < 0)
+	{
+		string++;
+		sign[0] = '-';
+		if (value_pos(0, flag, ZERO))
+		{
+			space = (char *)ft_memset(space, '0', i - len);
+			tmp = ft_strcat(sign, space);
+		}
+		else
+		{
+			space = (char *)ft_memset(space, ' ', i - len);
+			tmp = ft_strcat(space, sign);
+		}
+		return (ft_strcat(tmp, string));
+	}
+	else
+	{
+		space = (char *)ft_memset(space, ' ', i - len);
+		ft_strcat(tmp, string);
+		tmp = ft_strcat(space, tmp);
+	}
+	return (tmp);
+}
+
+char *option_left(char *string, int i, int len, int *flag)
+{
+	char *space;
+	char *sign;
+	char *tmp;
+
+	sign = NULL;
+	if (!(space = ft_memalloc(i + 1)))
+		return (NULL);
+	sign = ft_strdup("+");
+	if (value_pos(0, flag, SIGN))
+	{
+		if (ft_atoi(string) < 0)
+		{
+			string++;
+			sign[0] = '-';
+		}
+		else
+			i--;
+		space = (char *)ft_memset(space, ' ', i - len);
+		tmp = ft_strcat(tmp, space);
+		tmp = ft_strcat(string, tmp);
+		tmp = ft_strcat(sign, tmp);
+		return (tmp);
+	}
+	else if (ft_atoi(string) < 0)
+	{
+		string++;
+		sign[0] = '-';
+		if (value_pos(0, flag, ZERO))
+		{
+			space = (char *)ft_memset(space, '0', i - len);
+			tmp = ft_strcat(tmp, space);
+			tmp = ft_strcat(string, tmp);
+			tmp = ft_strcat(sign, tmp);
+		}
+		else
+		{
+			space = (char *)ft_memset(space, ' ', i - len);
+			tmp = ft_strcat(tmp, space);
+			tmp = ft_strcat(string, tmp);
+			tmp = ft_strcat(sign, tmp);
+		}
+		return (tmp);
+	}
+	else
+	{
+		space = (char *)ft_memset(space, ' ', i - len);
+		ft_strcat(tmp, string);
+		tmp = ft_strcat(tmp, space);
+	}
+	return (tmp);
+}

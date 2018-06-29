@@ -44,14 +44,15 @@ char				*add_caractere(char *params, int len,
 					int caractere);
 int					nb_percent(char *format);
 int					p_of_params(char *format);
-char				*flag_int(char *res, int i, int number, int *flag);
 char				*flag_string(char *res, int i, char *string, int *flag);
-char				*flag_char(char *res, int i, char caractere);
+char				*flag_char(char *res, int i, char caractere, int *flag);
+char				*flag_int(char *res, int i, int number, int *flag);
 int					*flag_optional(char *param);
 int					binary(int *tab);
-int					*binary_flag(int *tabv);
 char				*add_precision(char *string, int i, int len, int *flag);
 int					value_pos(int i, int *tab, int flag);
+char 				*option_right(char *string, int i, int len, int *flag);
+char 				*option_left(char *string, int i, int len, int *flag);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);

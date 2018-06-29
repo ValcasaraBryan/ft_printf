@@ -68,11 +68,9 @@ int		ft_printf(const char *format, ...)
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
-			flag_char(res, i, (char)list->f);
+			flag_char(res, i, (char)list->f, z);
 		if (list->c == 'd')							// ajout de l'arg[2] a la string final
-		{
 			flag_int(res, i, (int)list->f, z);
-		}
 		i = 0;
 		z = flag_optional(NULL);
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 

@@ -20,7 +20,6 @@ char	*flag_int(char *res, int i, int number, int *flag)
 
 	if (binary(flag))
 	{
-		tab = binary_flag(flag);
 		tmp = add_precision(ft_itoa(number), value_pos(i, tab, SIGN), (int)ft_strlen(ft_itoa(number)), flag);
 		ft_strcat(res, tmp);
 		return (res);
@@ -40,7 +39,6 @@ char	*flag_string(char *res, int i, char *string, int *flag)
 
 	if (binary(flag))
 	{
-		tab = binary_flag(flag);
 		tmp = add_precision(string, value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
 		ft_strcat(res, tmp);
 		return (res);
@@ -53,10 +51,21 @@ char	*flag_string(char *res, int i, char *string, int *flag)
 	return (res);
 }
 
-char	*flag_char(char *res, int i, char caractere)
+char	*flag_char(char *res, int i, char caractere, int *flag)
 {
-	if (i > 1)
+	char *tmp;
+
+	if (i > 1 && (!value_pos(0, flag, LEFT)))
 		add_caractere(res, i - 1, 32);
+	else
+	{
+		if (!(tmp = ft_memalloc(i + 1)))
+			return (NULL);
+		add_caractere(tmp, i, 32);
+		tmp = (char *)ft_memset(tmp, caractere, 1);
+		res = strcat(res, tmp);
+		return (res);
+	}
 	add_caractere(res, 1, caractere);
 	return (res);
 }

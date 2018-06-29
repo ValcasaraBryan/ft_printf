@@ -37,6 +37,8 @@ int		precision_params(char *param)
 	int		i;
 
 	i = -1;
+	if (!param)
+		return (-1);
 	while (param[++i])
 	{
 		if (param[i] > 48 && param[i] <= 57)
@@ -52,6 +54,8 @@ int		parsing_params(char *arg) 	// seulement la conversion
 
 	i = -1;
 	j = 0;
+	if (!arg)
+		return (-1);
 	while (arg[++i])
 		if (arg[i] == '%')
 			while (arg[i + (++j)])
