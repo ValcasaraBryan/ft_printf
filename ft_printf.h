@@ -55,7 +55,7 @@ char 				*option_right(char *string, int i, int len, int *flag);
 char 				*option_left(char *string, int i, int len, int *flag);
 char 				*option_zero_space(char *sign, char *tmp, int i, int *flag);
 char 				*signe(int val, char *string, char **sign, int *i);
-
+char				*blank_option(char *string, int *i, int *flag);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);

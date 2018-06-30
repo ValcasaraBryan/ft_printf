@@ -20,6 +20,8 @@ char	*add_precision(char *string, int i, int len, int *flag)
 			return (NULL);
 	if (i < len)
 		i = len;
+	if (value_pos(0, flag, BLANK) && value_pos(0, flag, SIGN) && i < len)
+		i++;
 	if (!value_pos(0, flag, LEFT))
 		tmp = option_right(string, i, len, flag);
 	else
@@ -61,13 +63,27 @@ char *option_right(char *string, int i, int len, int *flag)
 		tmp = option_zero_space(sign, tmp, i - len, flag);	// SIGN + NO LEFT + ZERO || NO ZERO
 		return (ft_strcat(tmp, string));
 	}
+	if (value_pos(0, flag, BLANK) && ft_atoi(string) > 0 && !value_pos(0, flag, ZERO))
+		tmp = blank_option(string, &i, flag);				// NO SIGN + NO LEFT + NO ZERO + BLANK
+	if (value_pos(0, flag, BLANK) && ft_atoi(string) > 0 && value_pos(0, flag, ZERO))
+		space = blank_option(string, &i, flag);				// NO SIGN + NO LEFT + ZERO    + BLANK
 	if (value_pos(0, flag, ZERO))
-		space = (char *)ft_memset(space, '0', i - len);		// NO SIGN + NO LEFT + ZERO
+		add_caractere(space, i - len, '0');					// NO SIGN + NO LEFT + ZERO
 	else
-		space = (char *)ft_memset(space, ' ', i - len);		// NO SIGN + NO LEFT + NO ZERO
+		add_caractere(space, i - len, ' ');					// NO SIGN + NO LEFT + NO ZERO
 	ft_strcat(tmp, string);
 	tmp = ft_strcat(space, tmp);
 	return (tmp);
+}
+
+char	*blank_option(char *string, int *i, int *flag)
+{
+	char *tmp;
+
+	if (!(tmp = ft_memalloc(2)))
+		return (NULL);
+	i[0] -= 1;
+	return (add_caractere(tmp, 1, ' '));
 }
 
 char *option_left(char *string, int i, int len, int *flag)
@@ -83,14 +99,16 @@ char *option_left(char *string, int i, int len, int *flag)
 	if (value_pos(0, flag, SIGN))
 	{
 		string = signe(ft_atoi(string), string, &sign, &i);
-		space = (char *)ft_memset(space, ' ', i - len);
+		add_caractere(space, i - len, ' ');
 		tmp = ft_strcat(tmp, space);
 		tmp = ft_strcat(string, tmp);
 		tmp = ft_strcat(sign, tmp);
 		return (tmp);					// SIGN + LEFT + NO ZERO
 	}
-	space = (char *)ft_memset(space, ' ', i - len);		
+	if (value_pos(0, flag, BLANK) && ft_atoi(string) > 0)	// NO SIGN + LEFT + NO ZERO + BLANK 
+		tmp = blank_option(string, &i, flag);
 	ft_strcat(tmp, string);
+	add_caractere(space, i - len, ' ');	
 	tmp = ft_strcat(tmp, space);
 	return (tmp);						// NO SIGN + LEFT + NO ZERO
 }
@@ -103,12 +121,12 @@ char *option_zero_space(char *sign, char *tmp, int i, int *flag)
 		return (NULL);
 	if (value_pos(0, flag, ZERO))
 	{
-		space = (char *)ft_memset(space, '0', i);
+		add_caractere(space, i, '0');
 		tmp = ft_strcat(sign, space);
 	}
 	else
 	{
-		space = (char *)ft_memset(space, ' ', i);
+		add_caractere(space, i, ' ');
 		tmp = ft_strcat(space, sign);
 	}
 	return (tmp);
