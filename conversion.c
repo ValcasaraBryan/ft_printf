@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	*string_s(va_list ap)
+void		*string_s(va_list ap)
 {
 	void	*str;
 
@@ -20,7 +20,7 @@ void	*string_s(va_list ap)
 	return (str);
 }
 
-int		conv_c(va_list ap)
+int			conv_c(va_list ap)
 {
 	int		c;
 
@@ -28,7 +28,7 @@ int		conv_c(va_list ap)
 	return (c);
 }
 
-int		d_int(va_list ap)
+int			d_int(va_list ap)
 {
 	int		d;
 

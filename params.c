@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*add_caractere(char *params, int len, int caractere)
+char		*add_caractere(char *params, int len, int caractere)
 {
 	char	*tmp;
 
@@ -32,7 +32,7 @@ char	*add_caractere(char *params, int len, int caractere)
 	return (NULL);
 }
 
-int		precision_params(char *param)
+int			precision_params(char *param)
 {
 	int		i;
 
@@ -47,7 +47,7 @@ int		precision_params(char *param)
 	return (0);
 }
 
-int		parsing_params(char *arg) 	// seulement la conversion
+int			parsing_params(char *arg) 	// seulement la conversion
 {									// c, C, s, S,p, d, D, i, o, O, u, U,x X 
 	int		i;
 	int		j;
@@ -64,7 +64,7 @@ int		parsing_params(char *arg) 	// seulement la conversion
 	return (0);
 }
 
-int		params(char comp) 	// detecte si un paramettre est 
+int			params(char comp) 	// detecte si un paramettre est 
 {							// rencontre et renvoi sa position
 	char	*list;			// par rapport a la string list
 	int		i;
@@ -77,7 +77,7 @@ int		params(char comp) 	// detecte si un paramettre est
 	return (0);
 }
 
-int		nb_percent(char *format)
+int			nb_percent(char *format)
 {
 	int		i;
 	int		nb_percent;

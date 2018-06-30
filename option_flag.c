@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   params_two.c                                       :+:      :+:    :+:   */
+/*   option_flag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/22 16:55:18 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/06/22 16:55:20 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/06/25 22:01:32 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/06/25 22:01:34 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			p_of_params(char *format)
+char		*blank_option(char *string, int *i, int *flag)
 {
-	int		i;
+	char	*tmp;
 
-	i = -1;
-	while (format[++i])
-		if (format[i] == '%')
-			return (i);
-	return (-1);
+	if (!(tmp = ft_memalloc(2)))
+		return (NULL);
+	i[0] -= 1;
+	return (add_caractere(tmp, 1, ' '));
+}
+
+char		*signe(int val, char *string, char **sign, int *i)
+{
+	if (val < 0)
+	{
+		string++;
+		*sign[0] = '-';
+	}
+	else
+		i[0] -= 1;
+	return (string);
 }

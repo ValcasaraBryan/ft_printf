@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-t_tab	*return_list(char c, va_list ap)
+t_tab		*return_list(char c, va_list ap)
 {
 	t_tab	*list;
 
@@ -20,7 +20,7 @@ t_tab	*return_list(char c, va_list ap)
 	return (list);
 }
 
-t_tab	*init_list(va_list ap, char c)
+t_tab		*init_list(va_list ap, char c)
 {
 	t_tab	*list;
 
@@ -49,7 +49,7 @@ t_tab	*init_list(va_list ap, char c)
 	return (list);
 }
 
-t_tab	*init_list_next(t_tab *list, va_list ap, char c)
+t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 {
 	if (c == 'u')
 		list = list_add_conversion('u', NULL);	// 'NULL' a remplir avec la fonction conversion
@@ -64,7 +64,7 @@ t_tab	*init_list_next(t_tab *list, va_list ap, char c)
 	return (list);
 }
 
-t_tab	*list_add_conversion(char c, void (*f)(va_list))
+t_tab		*list_add_conversion(char c, void (*f)(va_list))
 {
 	t_tab	*tmp;
 

@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-char	*add_precision(char *string, int i, int len, int *flag)
+char		*add_precision(char *string, int i, int len, int *flag)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (!(tmp = ft_memalloc(i + len + 1)))
 			return (NULL);
@@ -29,11 +29,9 @@ char	*add_precision(char *string, int i, int len, int *flag)
 	return (tmp);
 }
 
- // modifier la longueur de champ a la fin
-
-int		value_pos(int i, int *tab, int flag)
+int			value_pos(int i, int *tab, int flag)
 {
-	int j;
+	int		j;
 
 	j = -1;
 	while (++j < LENGTH_TAB)
@@ -47,17 +45,17 @@ int		value_pos(int i, int *tab, int flag)
 	return (i);
 }
 
-char *option_right(char *string, int i, int len, int *flag)
+char		*option_right(char *string, int i, int len, int *flag)
 {
-	char *space;
-	char *sign;
-	char *tmp;
+	char	*space;
+	char	*sign;
+	char	*tmp;
 
 	sign = NULL;
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN) || ft_atoi(string) < 0)
+	if ((value_pos(0, flag, SIGN) || ft_atoi(string) < 0) && ft_atoi(string))
 	{
 		string = signe(ft_atoi(string), string, &sign, &i);
 		tmp = option_zero_space(sign, tmp, i - len, flag);	// SIGN + NO LEFT + ZERO || NO ZERO
@@ -76,27 +74,17 @@ char *option_right(char *string, int i, int len, int *flag)
 	return (tmp);
 }
 
-char	*blank_option(char *string, int *i, int *flag)
+char		*option_left(char *string, int i, int len, int *flag)
 {
-	char *tmp;
-
-	if (!(tmp = ft_memalloc(2)))
-		return (NULL);
-	i[0] -= 1;
-	return (add_caractere(tmp, 1, ' '));
-}
-
-char *option_left(char *string, int i, int len, int *flag)
-{
-	char *space;
-	char *sign;
-	char *tmp;
+	char	*space;
+	char	*sign;
+	char	*tmp;
 
 	sign = NULL;
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN))
+	if (value_pos(0, flag, SIGN) && ft_atoi(string))
 	{
 		string = signe(ft_atoi(string), string, &sign, &i);
 		add_caractere(space, i - len, ' ');
@@ -113,9 +101,9 @@ char *option_left(char *string, int i, int len, int *flag)
 	return (tmp);						// NO SIGN + LEFT + NO ZERO
 }
 
-char *option_zero_space(char *sign, char *tmp, int i, int *flag)
+char		*option_zero_space(char *sign, char *tmp, int i, int *flag)
 {
-	char *space;
+	char	*space;
 
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
@@ -130,16 +118,4 @@ char *option_zero_space(char *sign, char *tmp, int i, int *flag)
 		tmp = ft_strcat(space, sign);
 	}
 	return (tmp);
-}
-
-char *signe(int val, char *string, char **sign, int *i)
-{
-	if (val < 0)
-	{
-		string++;
-		*sign[0] = '-';
-	}
-	else
-		i[0] -= 1;
-	return (string);
 }
