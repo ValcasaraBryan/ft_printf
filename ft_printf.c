@@ -55,7 +55,10 @@ int		ft_printf(const char *format, ...)
 			z = flag_optional(param);
 			j = binary(z);
 			i = precision_params(param);// donne à i la longueur de precision
-			list = return_list(param[(j + ft_strlen(ft_itoa(i)))], ap);
+			if (ft_strlen(ft_itoa(i)) > 0 && i > 0)
+				list = return_list(param[(j + ft_strlen(ft_itoa(i)))], ap);
+			else
+				list = return_list(param[j], ap);
 		}
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
@@ -68,7 +71,7 @@ int		ft_printf(const char *format, ...)
 		if (list->c == 'd' || list->c == 'i')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, ft_itoa((int)list->f), z);
 		if (list->c == 'u')
-			flag_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
+			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
 		i = 0;
 		z = flag_optional(NULL);
 		if (nb && (!(list->c == '%')))						// s'il y a plusieurs arguments et qu'il y a du texte 

@@ -45,12 +45,15 @@ char				*add_caractere(char *params, int len,
 int					nb_percent(char *format);
 int					p_of_params(char *format);
 char				*flag_string(char *res, int i, char *string, int *flag);
+char				*flag_u_string(char *res, int i, char *string, int *flag);
 char				*flag_char(char *res, int i, char caractere, int *flag);
 int					*flag_optional(char *param);
 int					binary(int *tab);
 char				*add_precision(char *string, int i, int len, int *flag);
+char				*add_u_precision(char *string, int i, int len, int *flag);
 int					value_pos(int i, int *tab, int flag);
 char 				*option_right(char *string, int i, int len, int *flag);
+char				*option_u_right(char *string, int i, int len, int *flag);
 char 				*option_left(char *string, int i, int len, int *flag);
 char 				*option_zero_space(char *sign, char *tmp, int i, int *flag);
 char 				*signe(int val, char *string, char **sign, int *i);

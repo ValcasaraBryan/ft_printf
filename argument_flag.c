@@ -29,22 +29,6 @@ char		*add_precision(char *string, int i, int len, int *flag)
 	return (tmp);
 }
 
-int			value_pos(int i, int *tab, int flag)
-{
-	int		j;
-
-	j = -1;
-	while (++j < LENGTH_TAB)
-		if (tab[j] == flag)
-		{
-			if (i)
-				return (i - 1);
-			else
-				return (1);
-		}
-	return (i);
-}
-
 char		*option_right(char *string, int i, int len, int *flag)
 {
 	char	*space;
@@ -55,7 +39,7 @@ char		*option_right(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if ((value_pos(0, flag, SIGN) || ft_atoi(string) < 0) && ft_atoi(string))
+	if ((value_pos(0, flag, SIGN) || ft_atoi(string) < 0))
 	{
 		string = signe(ft_atoi(string), string, &sign, &i);
 		tmp = option_zero_space(sign, tmp, i - len, flag);	// SIGN + NO LEFT + ZERO || NO ZERO
@@ -118,4 +102,20 @@ char		*option_zero_space(char *sign, char *tmp, int i, int *flag)
 		tmp = ft_strcat(space, sign);
 	}
 	return (tmp);
+}
+
+int			value_pos(int i, int *tab, int flag)
+{
+	int		j;
+
+	j = -1;
+	while (++j < LENGTH_TAB)
+		if (tab[j] == flag)
+		{
+			if (i)
+				return (i - 1);
+			else
+				return (1);
+		}
+	return (i);
 }
