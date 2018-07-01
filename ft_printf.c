@@ -74,17 +74,23 @@ int		ft_printf(const char *format, ...)
 			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
 		i = 0;
 		z = flag_optional(NULL);
-		if (nb && (!(list->c == '%')))						// s'il y a plusieurs arguments et qu'il y a du texte 
+		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
-			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
-			ret += p_of_params((char *)format + ret);
-			//printf("%s\n", res);
-		}
-		if (nb && (list->c == '%'))
-		{	
-			ft_strncpy(res + ft_strlen(res), format + len_param,
-				(len_param + p_of_params((char *)format + len_param + 1)) - len_param);
-			ret += p_of_params((char *)format + len_param + 3);
+			if (!(list->c == '%'))
+			{
+				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
+				ret += p_of_params((char *)format + ret);
+			}
+			else
+			{
+				if (p_of_params((char *)format + ret++ + 1))
+				{
+					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1) + 1);
+					ret += p_of_params((char *)format + len_param + 1) + 1;
+				}
+				else if (!parsing_params((char *)format + ret))
+					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1));
+			}
 		}
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
