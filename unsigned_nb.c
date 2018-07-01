@@ -46,6 +46,8 @@ char		*option_u_right(char *string, int i, int len, int *flag)
 	}
 	else
 	{
+		if (!tmp)
+			ft_strcat(tmp, string);
 		add_caractere(space, i - len, ' ');	
 		ft_strcat(tmp, space);
 		return (tmp);
