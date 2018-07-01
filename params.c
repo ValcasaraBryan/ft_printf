@@ -42,7 +42,7 @@ int			precision_params(char *param)
 	while (param[++i])
 	{
 		if (param[i] > 48 && param[i] <= 57)
-			return (ft_atoi(param));
+			return (ft_atoi(param + i));
 	}
 	return (0);
 }

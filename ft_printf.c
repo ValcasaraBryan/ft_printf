@@ -53,31 +53,35 @@ int		ft_printf(const char *format, ...)
 		else
 		{
 			z = flag_optional(param);
-			if ((h = binary(z)))
-				param += h;
-			if (((i = precision_params(param)) >= 0))// donne à i la longueur de precision
-			{
-				if (i > 0)
-					list = return_list(param[ft_strlen(ft_itoa(i))], ap);		// initialise le parametre arg[2]
-				else
-					list = return_list(*param, ap);
-			}
+			j = binary(z);
+			i = precision_params(param);// donne à i la longueur de precision
+			list = return_list(param[(j + ft_strlen(ft_itoa(i)))], ap);
 		}
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
+		if (list->c == '%')
+			flag_char(res, i, '%', z);
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f, z);
-		if (list->c == 'd')							// ajout de l'arg[2] a la string final
+		if (list->c == 'd' || list->c == 'i')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, ft_itoa((int)list->f), z);
+		if (list->c == 'u')
+			flag_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
 		i = 0;
 		z = flag_optional(NULL);
-		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
-									// entre ceux ci, l'ajoute au resultat final
-		{
+		if (nb && (!(list->c == '%')))						// s'il y a plusieurs arguments et qu'il y a du texte 
+		{							// entre ceux ci, l'ajoute au resultat final
 			ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
-			ret = p_of_params((char *)format + ret) + ret;
+			ret += p_of_params((char *)format + ret);
+			//printf("%s\n", res);
+		}
+		if (nb && (list->c == '%'))
+		{	
+			ft_strncpy(res + ft_strlen(res), format + len_param,
+				(len_param + p_of_params((char *)format + len_param + 1)) - len_param);
+			ret += p_of_params((char *)format + len_param + 3);
 		}
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
@@ -86,6 +90,33 @@ int		ft_printf(const char *format, ...)
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
 
+
+int		flag_long_short(char *param)
+{
+	int i;
+	int j;
+
+	i = -1;
+	j = 0;
+	while (param[++i])
+	{
+		if (param[i] == 'l')
+		{
+			++j;
+			if (param[i + j] == 'l')
+				++j;
+			return (j);
+		}
+		if (param[i] == 'h')
+		{
+			++j;
+			if (param[i + j] == 'h')
+				++j;
+			return (j);
+		}
+	}
+	return (0);
+}
 // c, C, s, S,p, d, D, i, o, O, u, U,x X 
 
 // char *string()

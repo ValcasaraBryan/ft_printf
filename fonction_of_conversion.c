@@ -34,12 +34,10 @@ t_tab		*init_list(va_list ap, char c)
 		list = list_add_conversion('C', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);	// 'NULL' a remplir avec la fonction conversion
-	else if (c == 'd')
+	else if (c == 'd' || c == 'i')
 		list = list_add_conversion('d', (void *)d_int(ap));
 	else if (c == 'D')
 		list = list_add_conversion('D', NULL);	// 'NULL' a remplir avec la fonction conversion
-	else if (c == 'i')
-		list = list_add_conversion('i', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'o')
 		list = list_add_conversion('o', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'O')
@@ -52,15 +50,13 @@ t_tab		*init_list(va_list ap, char c)
 t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 {
 	if (c == 'u')
-		list = list_add_conversion('u', NULL);	// 'NULL' a remplir avec la fonction conversion
+		list = list_add_conversion('u', (void *)d_uns_int(ap));	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'U')
 		list = list_add_conversion('U', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'x')
 		list = list_add_conversion('x', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'X')
 		list = list_add_conversion('X', NULL);	// 'NULL' a remplir avec la fonction conversion
-	else if (c == '%')
-		list = list_add_conversion('%', NULL);	// 'NULL' a remplir avec la fonction conversion
 	return (list);
 }
 

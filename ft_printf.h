@@ -55,11 +55,15 @@ char 				*option_left(char *string, int i, int len, int *flag);
 char 				*option_zero_space(char *sign, char *tmp, int i, int *flag);
 char 				*signe(int val, char *string, char **sign, int *i);
 char				*blank_option(char *string, int *i, int *flag);
+int					flag_long_short(char *param);
 
 void				*string_s(va_list ap);
 int					conv_c(va_list ap);
 int					d_int(va_list ap);
+unsigned int		d_uns_int(va_list ap);
 
 void				ft_putstr_len(const char *str, size_t len);
+char				*ft_uitoa(unsigned int n);
+unsigned int		ft_atoui(const char *str);
 
 #endif

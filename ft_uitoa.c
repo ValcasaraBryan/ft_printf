@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   conversion.c                                       :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/06 20:18:14 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/06/06 20:18:15 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/04/04 16:22:53 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/04/04 16:22:56 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void				*string_s(va_list ap)
+static unsigned int		ft_u_len(unsigned int n)
 {
-	void			*str;
+	unsigned int		i;
 
-	str = (void *)va_arg(ap, char *);
+	i = 0;
+	while (n > 9)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+char					*ft_uitoa(unsigned int n)
+{
+	char				*str;
+	unsigned int		i;
+
+	i = ft_u_len(n);
+	if (!(str = ft_memalloc(i + 2)))
+		return (NULL);
+	str[i + 1] = '\0';
+	while (n > 9)
+	{
+		str[i] = (n % 10) + '0';
+		n = n / 10;
+		i--;
+	}
+	str[i] = n + '0';
 	return (str);
-}
-
-int					conv_c(va_list ap)
-{
-	int				c;
-
-	c = va_arg(ap, int);
-	return (c);
-}
-
-int					d_int(va_list ap)
-{
-	int				d;
-
-	d = va_arg(ap, int);
-	return (d);
-}
-
-unsigned int		d_uns_int(va_list ap)
-{
-	unsigned int	d;
-
-	d = va_arg(ap, unsigned int);
-	return (d);
 }
