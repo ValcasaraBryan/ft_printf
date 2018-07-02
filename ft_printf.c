@@ -17,7 +17,6 @@ int		ft_printf(const char *format, ...)
 	int			ret;
 	int			i;
 	int			j;
-	int 		h;
 	int			*z;
 	t_tab		*list;
 	int			len_param;
@@ -32,7 +31,6 @@ int		ft_printf(const char *format, ...)
 	i = 0;
 	j = 0;
 	test = 1;
-	h = 0;
 	nb = (unsigned int)nb_percent((char *)format);
 	if (nb == 0)
 	{
@@ -48,18 +46,22 @@ int		ft_printf(const char *format, ...)
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
 		len_param += ret;							// met len_param a la longueur debut_format
 													//  + len_flag
-		if (ft_strlen(param) == 1)
+		if (ft_strlen(param) == 1 && params(*param))
 			list = return_list(*param, ap);		// initialise le parametre arg[2]
-		else
+		else if (params(param[ft_strlen(param) - 1]))
 		{
 			z = flag_optional(param);
 			j = binary(z);
 			i = precision_params(param);// donne à i la longueur de precision
-			if (ft_strlen(ft_itoa(i)) > 0 && i > 0)
+			if ((j + ft_strlen(ft_itoa(i))) == ft_strlen(param) - 1)
 				list = return_list(param[(j + ft_strlen(ft_itoa(i)))], ap);
-			else
+			else if (!i && (j == (int)ft_strlen(param) - 1))
 				list = return_list(param[j], ap);
+			else
+				list = return_list(param[ft_strlen(param) - 1], ap);
 		}
+		else
+			return (-1);
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
@@ -73,7 +75,6 @@ int		ft_printf(const char *format, ...)
 		if (list->c == 'u')
 			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
 		i = 0;
-		z = flag_optional(NULL);
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
 			if (!(list->c == '%'))
@@ -92,13 +93,13 @@ int		ft_printf(const char *format, ...)
 					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1));
 			}
 		}
+		z = flag_optional(NULL);
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
 	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
-
 
 int		flag_long_short(char *param)
 {

@@ -71,23 +71,25 @@ char		*flag_char(char *res, int i, char caractere, int *flag)
 int			*flag_optional(char *param)
 {
 	int		*tab;
+	int		i;
 
+	i = -1;
 	if (!(tab = (int *)malloc(sizeof (int) * LENGTH_TAB + 1)))
 		return (0);
-	while (param && (*param == '-' || *param == '0' || *param == '+'
-		|| *param == ' ' || *param == '#'))
+	if (!param)
+		return (tab);
+	while (param[++i])
 	{
-		if (*param == '-')
+		if (param[i] == '-')
 			tab[0] = LEFT;
-		if (*param == '0')
+		if (param[i] == '0' && !((param[i - 1] <= '9' && param[i - 1] >= '0')))
 			tab[1] = ZERO;
-		if (*param == '+')
+		if (param[i] == '+')
 			tab[2] = SIGN;
-		if (*param == ' ')
+		if (param[i] == ' ')
 			tab[3] = BLANK;
-		if (*param == '#')
+		if (param[i] == '#')
 			tab[4] = HASHTAG;
-		param++;
 	}
 	return (tab);
 }
@@ -104,7 +106,7 @@ int			binary(int *tab)
 	if (!tab)
 		return (0);
 	while (++i < LENGTH_TAB)
-		if (tab[i] > 0 && tab[i] <= 5 && i < LENGTH_TAB)
+		if (tab[i] > 0 && tab[i] <= 5)
 			++j;
 	return (j);
 }
