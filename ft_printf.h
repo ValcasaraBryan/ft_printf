@@ -70,6 +70,8 @@ int							valid_flag_short(int *tab);
 int							valid_flag_short_short(int *tab);
 int							valid_flag_long(int *tab);
 int							valid_flag_long_long(int *tab);
+char						*flag_l(char *res, int i, t_tab *list, int *z);
+char						*flag_h(char *res, int i, t_tab *list, int *z);
 
 void						*string_s(va_list ap);
 int							conv_c(va_list ap);
@@ -80,10 +82,10 @@ long long					d_long_long(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
 
-long long					ft_atoi_l_l(const char *str);
+long long					ft_atoll(const char *str);
 unsigned long long			ft_atoui(const char *str);
 
-char						*ft_itoa_l_l(long long n);
-char						*ft_uitoa(unsigned long long n);
+char						*ft_lltoa(long long n);
+char						*ft_ulltoa(unsigned long long n);
 
 #endif

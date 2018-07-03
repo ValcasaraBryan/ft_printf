@@ -55,29 +55,9 @@ int		ft_printf(const char *format, ...)
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f, z);
-		
-		if (valid_flag_short(z) && list->c == 'd')
-			flag_string(res, i, ft_itoa_l_l((short int)list->f), z);
-		else if (valid_flag_short_short(z) && list->c == 'd')
-			flag_string(res, i, ft_itoa_l_l((char)list->f), z);
-		else if (valid_flag_long(z) && list->c == 'd')
-			flag_string(res, i, ft_itoa_l_l((long)list->f), z);
-		else if (valid_flag_long_long(z) && list->c == 'd')
-			flag_string(res, i, ft_itoa_l_l((long long)list->f), z);
-		else if (list->c == 'd')
-			flag_string(res, i, ft_itoa_l_l((int)list->f), z);
 
-		if (valid_flag_short(z) && list->c == 'u')
-			flag_u_string(res, i, ft_itoa_l_l((unsigned short int)list->f), z);
-		else if (valid_flag_short_short(z) && list->c == 'u')
-			flag_string(res, i, ft_itoa_l_l((char)list->f), z);
-		else if (valid_flag_long(z) && list->c == 'u')
-			flag_string(res, i, ft_uitoa((unsigned long)list->f), z);
-		else if (valid_flag_long_long(z) && list->c == 'u')
-			flag_string(res, i, ft_uitoa((unsigned long long)list->f), z);
-		else if (list->c == 'u')
-			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z);
-
+		flag_h(res, i, list, z);
+		flag_l(res, i, list, z);
 		i = 0;
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
@@ -87,9 +67,7 @@ int		ft_printf(const char *format, ...)
 				ret += p_of_params((char *)format + ret);
 			}
 			else
-			{
 				res = inter_flag_of_conv(format, res, &ret, len_param);
-			}
 		}
 		reset_tab_int(z, LENGTH_TAB);
 	}
@@ -97,6 +75,36 @@ int		ft_printf(const char *format, ...)
 	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
+}
+
+char	*flag_h(char *res, int i, t_tab *list, int *z)
+{
+	if (valid_flag_short(z) && list->c == 'd')
+		flag_string(res, i, ft_lltoa((short int)list->f), z);
+	else if (valid_flag_short_short(z) && list->c == 'd')
+		flag_string(res, i, ft_lltoa((char)list->f), z);
+	else if (valid_flag_long(z) && list->c == 'd')
+		flag_string(res, i, ft_lltoa((long)list->f), z);
+	else if (valid_flag_long_long(z) && list->c == 'd')
+		flag_string(res, i, ft_lltoa((long long)list->f), z);
+	else if (list->c == 'd')
+		flag_string(res, i, ft_lltoa((int)list->f), z);
+	return (res);
+}
+
+char	*flag_l(char *res, int i, t_tab *list, int *z)
+{
+	if (valid_flag_short(z) && list->c == 'u')
+		flag_u_string(res, i, ft_lltoa((unsigned short int)list->f), z);
+	else if (valid_flag_short_short(z) && list->c == 'u')
+		flag_string(res, i, ft_lltoa((unsigned char)list->f), z);
+	else if (valid_flag_long(z) && list->c == 'u')
+		flag_string(res, i, ft_ulltoa((unsigned long)list->f), z);
+	else if (valid_flag_long_long(z) && list->c == 'u')
+		flag_string(res, i, ft_ulltoa((unsigned long long)list->f), z);
+	else if (list->c == 'u')
+		flag_u_string(res, i, ft_ulltoa((unsigned int)list->f), z);
+	return (res);
 }
 
 int		valid_flag_short(int *tab)
