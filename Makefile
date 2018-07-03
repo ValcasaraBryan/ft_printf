@@ -17,7 +17,7 @@ EXE = ft_printf
 SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c main.c\
 		params_two.c flag.c argument_flag.c ft_putstr_len.c option_flag.c\
 		ft_uitoa.c ft_atoui.c unsigned_nb.c mid_body.c\
-		ft_itoa_l_l.c
+		ft_itoa_l_l.c ft_atoi_l_l.c
 
 OBJET = $(SRC:.c=.o)
 
