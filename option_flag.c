@@ -22,7 +22,7 @@ char		*blank_option(char *string, int *i, int *flag)
 	return (add_caractere(tmp, 1, ' '));
 }
 
-char		*signe(int val, char *string, char **sign, int *i)
+char		*signe(long long val, char *string, char **sign, int *i)
 {
 	if (val < 0)
 	{

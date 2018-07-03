@@ -12,9 +12,9 @@
 
 #include "ft_printf.h"
 
-unsigned int		ft_atoui(const char *str)
+unsigned long long		ft_atoui(const char *str)
 {
-	long long	rep;
+	unsigned long long	rep;
 
 	rep = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)

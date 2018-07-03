@@ -35,11 +35,11 @@ char		*flag_u_string(char *res, int i, char *string, int *flag)
 
 	if (binary(flag))
 	{
-		tmp = add_u_precision(ft_uitoa(ft_atoui(string)), value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
+		tmp = add_u_precision(string, value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
 		ft_strcat(res, tmp);
 		return (res);
 	}
-	tmp = add_u_precision(ft_uitoa(ft_atoui(string)), i, (int)ft_strlen(string), flag);
+	tmp = add_u_precision(string, i, (int)ft_strlen(string), flag);
 	ft_strcat(res, tmp);
 	return (res);
 }
@@ -90,6 +90,7 @@ int			*flag_optional(char *param)
 			tab[3] = BLANK;
 		if (param[i] == '#')
 			tab[4] = HASHTAG;
+		tab = flag_long_short(tab, &i, param);
 	}
 	return (tab);
 }
@@ -97,16 +98,14 @@ int			*flag_optional(char *param)
 int			binary(int *tab)
 {
 	int		i;
-	int		len;
 	int		j;
 
 	i = -1;
-	len = LENGTH_TAB;
 	j = 0;
 	if (!tab)
 		return (0);
 	while (++i < LENGTH_TAB)
-		if (tab[i] > 0 && tab[i] <= 5)
+		if (tab[i] > 0 && tab[i] <= LENGTH_TAB)
 			++j;
 	return (j);
 }

@@ -46,22 +46,7 @@ int		ft_printf(const char *format, ...)
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
 		len_param += ret;							// met len_param a la longueur debut_format
 													//  + len_flag
-		if (ft_strlen(param) == 1 && params(*param))
-			list = return_list(*param, ap);		// initialise le parametre arg[2]
-		else if (params(param[ft_strlen(param) - 1]))
-		{
-			z = flag_optional(param);
-			j = binary(z);
-			i = precision_params(param);// donne à i la longueur de precision
-			if ((j + ft_strlen(ft_itoa(i))) == ft_strlen(param) - 1)
-				list = return_list(param[(j + ft_strlen(ft_itoa(i)))], ap);
-			else if (!i && (j == (int)ft_strlen(param) - 1))
-				list = return_list(param[j], ap);
-			else
-				list = return_list(param[ft_strlen(param) - 1], ap);
-		}
-		else
-			return (-1);
+		list = list_param(&i, ap, param, &z);
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
@@ -70,10 +55,29 @@ int		ft_printf(const char *format, ...)
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f, z);
-		if (list->c == 'd' || list->c == 'i')							// ajout de l'arg[2] a la string final
-			flag_string(res, i, ft_itoa((int)list->f), z);
-		if (list->c == 'u')
-			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z); // conversion int en unsigned int
+		
+		if (valid_flag_short(z) && list->c == 'd')
+			flag_string(res, i, ft_itoa_l_l((short int)list->f), z);
+		else if (valid_flag_short_short(z) && list->c == 'd')
+			flag_string(res, i, ft_itoa_l_l((char)list->f), z);
+		else if (valid_flag_long(z) && list->c == 'd')
+			flag_string(res, i, ft_itoa_l_l((long)list->f), z);
+		else if (valid_flag_long_long(z) && list->c == 'd')
+			flag_string(res, i, ft_itoa_l_l((long long)list->f), z);
+		else if (list->c == 'd')
+			flag_string(res, i, ft_itoa_l_l((int)list->f), z);
+
+		if (valid_flag_short(z) && list->c == 'u')
+			flag_u_string(res, i, ft_itoa_l_l((unsigned short int)list->f), z);
+		else if (valid_flag_short_short(z) && list->c == 'u')
+			flag_string(res, i, ft_itoa_l_l((char)list->f), z);
+		else if (valid_flag_long(z) && list->c == 'u')
+			flag_string(res, i, ft_uitoa((unsigned long)list->f), z);
+		else if (valid_flag_long_long(z) && list->c == 'u')
+			flag_string(res, i, ft_uitoa((unsigned long long)list->f), z);
+		else if (list->c == 'u')
+			flag_u_string(res, i, ft_uitoa((unsigned int)list->f), z);
+
 		i = 0;
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
@@ -84,16 +88,10 @@ int		ft_printf(const char *format, ...)
 			}
 			else
 			{
-				if (p_of_params((char *)format + ret++ + 1))
-				{
-					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1) + 1);
-					ret += p_of_params((char *)format + len_param + 1) + 1;
-				}
-				else if (!parsing_params((char *)format + ret))
-					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1));
+				res = inter_flag_of_conv(format, res, &ret, len_param);
 			}
 		}
-		z = flag_optional(NULL);
+		reset_tab_int(z, LENGTH_TAB);
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
 	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion
@@ -101,30 +99,31 @@ int		ft_printf(const char *format, ...)
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
 
-int		flag_long_short(char *param)
+int		valid_flag_short(int *tab)
 {
-	int i;
-	int j;
+	if (tab[7] == INT_SHORT)
+		return (1);
+	return (0);
+}
 
-	i = -1;
-	j = 0;
-	while (param[++i])
-	{
-		if (param[i] == 'l')
-		{
-			++j;
-			if (param[i + j] == 'l')
-				++j;
-			return (j);
-		}
-		if (param[i] == 'h')
-		{
-			++j;
-			if (param[i + j] == 'h')
-				++j;
-			return (j);
-		}
-	}
+int		valid_flag_short_short(int *tab)
+{
+	if (tab[8] == INT_SHORT_SHORT)
+		return (1);
+	return (0);
+}
+
+int		valid_flag_long(int *tab)
+{
+	if (tab[5] == INT_LONG)
+		return (1);
+	return (0);
+}
+
+int		valid_flag_long_long(int *tab)
+{
+	if (tab[6] == INT_LONG_LONG)
+		return (1);
 	return (0);
 }
 // c, C, s, S,p, d, D, i, o, O, u, U,x X 

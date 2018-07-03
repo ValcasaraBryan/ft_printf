@@ -28,18 +28,18 @@ int					conv_c(va_list ap)
 	return (c);
 }
 
-int					d_int(va_list ap)
-{
-	int				d;
-
-	d = va_arg(ap, int);
-	return (d);
-}
-
 unsigned int		d_uns_int(va_list ap)
 {
 	unsigned int	d;
 
 	d = va_arg(ap, unsigned int);
+	return (d);
+}
+
+long long			d_long_long(va_list ap)
+{
+	long long			d;
+
+	d = va_arg(ap, long long);
 	return (d);
 }

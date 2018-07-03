@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-t_tab		*return_list(char c, va_list ap)
+t_tab		*return_list(char c, va_list ap, int *tab)
 {
 	t_tab	*list;
 
-	list = init_list(ap, c);
+	list = init_list(ap, c, tab);
 	return (list);
 }
 
-t_tab		*init_list(va_list ap, char c)
+t_tab		*init_list(va_list ap, char c, int *tab)
 {
 	t_tab	*list;
 
@@ -35,7 +35,7 @@ t_tab		*init_list(va_list ap, char c)
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'd' || c == 'i')
-		list = list_add_conversion('d', (void *)d_int(ap));
+		list = list_add_conversion('d', (void *)d_long_long(ap));
 	else if (c == 'D')
 		list = list_add_conversion('D', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'o')
@@ -43,11 +43,11 @@ t_tab		*init_list(va_list ap, char c)
 	else if (c == 'O')
 		list = list_add_conversion('O', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else
-		return (init_list_next(list, ap, c));
+		return (init_list_next(list, ap, c, tab));
 	return (list);
 }
 
-t_tab		*init_list_next(t_tab *list, va_list ap, char c)
+t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *tab)
 {
 	if (c == 'u')
 		list = list_add_conversion('u', (void *)d_uns_int(ap));	// 'NULL' a remplir avec la fonction conversion
@@ -57,6 +57,8 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 		list = list_add_conversion('x', NULL);	// 'NULL' a remplir avec la fonction conversion
 	else if (c == 'X')
 		list = list_add_conversion('X', NULL);	// 'NULL' a remplir avec la fonction conversion
+	else if (c == '%')
+		list = list_add_conversion('%', NULL);	// 'NULL' a remplir avec la fonction conversion
 	return (list);
 }
 

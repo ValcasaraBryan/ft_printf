@@ -1,45 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_atoi_l_l.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 16:22:53 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/04/04 16:22:56 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/02/12 16:46:14 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/02/12 17:04:03 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned long long	ft_u_len(unsigned long long n)
+long long		ft_atoi_l_l(const char *str)
 {
-	unsigned long long		i;
+	int			neg;
+	long long	rep;
 
-	i = 0;
-	while (n > 9)
+	neg = 1;
+	rep = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		n = n / 10;
-		i++;
+		neg = (*str == '-') ? -1 : 1;
+		str++;
 	}
-	return (i);
-}
-
-char						*ft_uitoa(unsigned long long n)
-{
-	char					*str;
-	unsigned long long		i;
-
-	i = ft_u_len(n);
-	if (!(str = ft_memalloc(i + 2)))
-		return (NULL);
-	str[i + 1] = '\0';
-	while (n > 9)
+	while (*str >= 48 && *str <= 57)
 	{
-		str[i] = (n % 10) + '0';
-		n = n / 10;
-		i--;
+		rep = rep * 10 + *str - '0';
+		str++;
 	}
-	str[i] = n + '0';
-	return (str);
+	if (rep == -2537764290115403777 && neg == 1)
+		return (-1);
+	if (rep == -2537764290115403777 && neg == -1)
+		return (0);
+	return (rep * neg);
 }
