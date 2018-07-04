@@ -1,45 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   valid_flag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 16:22:53 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/04/04 16:22:56 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/07/04 01:47:18 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/07/04 01:47:19 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned long long	ft_u_len(unsigned long long n)
+int		valid_flag_short(int *tab)
 {
-	unsigned long long		i;
-
-	i = 0;
-	while (n > 9)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
+	if (tab[7] == INT_SHORT)
+		return (1);
+	return (0);
 }
 
-char						*ft_uitoa(unsigned long long n)
+int		valid_flag_short_short(int *tab)
 {
-	char					*str;
-	unsigned long long		i;
+	if (tab[8] == INT_SHORT_SHORT)
+		return (1);
+	return (0);
+}
 
-	i = ft_u_len(n);
-	if (!(str = ft_memalloc(i + 2)))
-		return (NULL);
-	str[i + 1] = '\0';
-	while (n > 9)
-	{
-		str[i] = (n % 10) + '0';
-		n = n / 10;
-		i--;
-	}
-	str[i] = n + '0';
-	return (str);
+int		valid_flag_long(int *tab)
+{
+	if (tab[5] == INT_LONG)
+		return (1);
+	return (0);
+}
+
+int		valid_flag_long_long(int *tab)
+{
+	if (tab[6] == INT_LONG_LONG)
+		return (1);
+	return (0);
 }

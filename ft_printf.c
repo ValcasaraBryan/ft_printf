@@ -55,9 +55,8 @@ int		ft_printf(const char *format, ...)
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
 			flag_char(res, i, (char)list->f, z);
-
-		flag_h(res, i, list, z);
-		flag_l(res, i, list, z);
+		flag(res, i, list, z);
+		flag_u(res, i, list, z);
 		i = 0;
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
@@ -77,63 +76,6 @@ int		ft_printf(const char *format, ...)
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
 
-char	*flag_h(char *res, int i, t_tab *list, int *z)
-{
-	if (valid_flag_short(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((short int)list->f), z);
-	else if (valid_flag_short_short(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((char)list->f), z);
-	else if (valid_flag_long(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((long)list->f), z);
-	else if (valid_flag_long_long(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((long long)list->f), z);
-	else if (list->c == 'd')
-		flag_string(res, i, ft_lltoa((int)list->f), z);
-	return (res);
-}
-
-char	*flag_l(char *res, int i, t_tab *list, int *z)
-{
-	if (valid_flag_short(z) && list->c == 'u')
-		flag_u_string(res, i, ft_lltoa((unsigned short int)list->f), z);
-	else if (valid_flag_short_short(z) && list->c == 'u')
-		flag_string(res, i, ft_lltoa((unsigned char)list->f), z);
-	else if (valid_flag_long(z) && list->c == 'u')
-		flag_string(res, i, ft_ulltoa((unsigned long)list->f), z);
-	else if (valid_flag_long_long(z) && list->c == 'u')
-		flag_string(res, i, ft_ulltoa((unsigned long long)list->f), z);
-	else if (list->c == 'u')
-		flag_u_string(res, i, ft_ulltoa((unsigned int)list->f), z);
-	return (res);
-}
-
-int		valid_flag_short(int *tab)
-{
-	if (tab[7] == INT_SHORT)
-		return (1);
-	return (0);
-}
-
-int		valid_flag_short_short(int *tab)
-{
-	if (tab[8] == INT_SHORT_SHORT)
-		return (1);
-	return (0);
-}
-
-int		valid_flag_long(int *tab)
-{
-	if (tab[5] == INT_LONG)
-		return (1);
-	return (0);
-}
-
-int		valid_flag_long_long(int *tab)
-{
-	if (tab[6] == INT_LONG_LONG)
-		return (1);
-	return (0);
-}
 // c, C, s, S,p, d, D, i, o, O, u, U,x X 
 
 // char *string()

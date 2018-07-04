@@ -20,7 +20,7 @@ char		*add_u_precision(char *string, int i, int len, int *flag)
 			return (NULL);
 	if (i < len)
 		i = len;
-	tmp = option_u_right(ft_uitoa(ft_atoui(string)), i, len, flag);
+	tmp = option_u_right(ft_ulltoa(ft_atoull(string)), i, len, flag);
 	return (tmp);
 }
 

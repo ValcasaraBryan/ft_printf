@@ -129,9 +129,9 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO //\n\n");
 
-	ret = ft_printf("[j'ai [%10hld] ans, [%d] je vais bien,\n[%-10s] oui j'ai un [%cccent%c]\n",
+	ret = ft_printf("[j'ai [%10hd] ans, [%d] je vais bien,\n[%-10s] oui j'ai un [%cccent%c]\n",
 		99999, 15, "et toi ?", 'a', '.');
-	ret_2 = printf("[j'ai [%10hld] ans, [%d] je vais bien,\n[%-10s] oui j'ai un [%cccent%c]\n",
+	ret_2 = printf("[j'ai [%10hd] ans, [%d] je vais bien,\n[%-10s] oui j'ai un [%cccent%c]\n",
 		99999, 15, "et toi ?", 'a', '.');
 	if (ret == ret_2)
 		printf("len -- OK --\n\n");

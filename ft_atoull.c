@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_l_l.c                                      :+:      :+:    :+:   */
+/*   ft_atoull.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,46 +12,17 @@
 
 #include "ft_printf.h"
 
-static long long	ft_len(long long n)
+unsigned long long		ft_atoull(const char *str)
 {
-	long long		i;
+	unsigned long long	rep;
 
-	i = 0;
-	if (n < 0)
+	rep = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	while (*str >= 48 && *str <= 57)
 	{
-		n *= -1;
-		i++;
+		rep = rep * 10 + *str - '0';
+		str++;
 	}
-	while (n > 9)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
-}
-
-char				*ft_itoa_l_l(long long n)
-{
-	char			*str;
-	long long		i;
-
-	if (n < -9223372036854775807)
-		return (ft_strdup("-9223372036854775808"));
-	i = ft_len(n);
-	if (!(str = ft_memalloc(i + 2)))
-		return (NULL);
-	str[i + 1] = '\0';
-	if (n < 0)
-	{
-		str[0] = '-';
-		n *= -1;
-	}
-	while (n > 9)
-	{
-		str[i] = (n % 10) + '0';
-		n = n / 10;
-		i--;
-	}
-	str[i] = n + '0';
-	return (str);
+	return (rep);
 }
