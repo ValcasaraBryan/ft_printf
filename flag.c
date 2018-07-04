@@ -79,7 +79,7 @@ int			*flag_optional(char *param)
 	if (!(tab = (int *)malloc(sizeof(int) * LENGTH_TAB + 1)))
 		return (0);
 	if (!param)
-		return (tab);
+		return (reset_tab_int(tab, LENGTH_TAB));
 	while (param[++i])
 	{
 		if (param[i] == '-')

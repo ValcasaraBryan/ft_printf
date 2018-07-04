@@ -20,19 +20,20 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 
 	i = *index;
 	list = NULL;
+	*z = flag_optional(param);
 	if (ft_strlen(param) == 1 && params(*param))
-		list = return_list(*param, ap, *z);
+		list = return_list(*param, ap);
 	else if (params(param[ft_strlen(param) - 1]))
 	{
 		*z = flag_optional(param);
 		j = binary(*z);
 		i = precision_params(param);
 		if ((j + ft_strlen(ft_lltoa(i))) == ft_strlen(param) - 1)
-			list = return_list(param[(j + ft_strlen(ft_lltoa(i)))], ap, *z);
+			list = return_list(param[(j + ft_strlen(ft_lltoa(i)))], ap);
 		else if (!i && (j == (int)ft_strlen(param) - 1))
-			list = return_list(param[j], ap, *z);
+			list = return_list(param[j], ap);
 		else
-			list = return_list(param[ft_strlen(param) - 1], ap, *z);
+			list = return_list(param[ft_strlen(param) - 1], ap);
 		*index = i;
 	}
 	return (list);

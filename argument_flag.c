@@ -39,16 +39,16 @@ char		*option_right(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN) || string[0] == '-')
+	if (value_pos(0, flag, SIGN) || ft_atoll(string) < 0)
 	{
 		string = signe(ft_atoll(string), string, &sign, &i);
 		tmp = option_zero_space(sign, tmp, i - len, flag);
 		return (ft_strcat(tmp, string));
 	}
-	if (value_pos(0, flag, BLANK) && ft_atoll(string) > 0
+	if (value_pos(0, flag, BLANK) && ft_atoll(string)
 		&& !value_pos(0, flag, ZERO))
 		tmp = blank_option(string, &i, flag);
-	if (value_pos(0, flag, BLANK) && ft_atoll(string) > 0
+	if (value_pos(0, flag, BLANK) && ft_atoll(string)
 		&& value_pos(0, flag, ZERO))
 		space = blank_option(string, &i, flag);
 	option_space_zero(space, i, len, flag);
@@ -67,7 +67,7 @@ char		*option_left(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN) || string[0] == '-')
+	if (value_pos(0, flag, SIGN) || ft_atoll(string) < 0)
 	{
 		string = signe(ft_atoll(string), string, &sign, &i);
 		add_caractere(space, i - len, ' ');
@@ -76,7 +76,7 @@ char		*option_left(char *string, int i, int len, int *flag)
 		tmp = ft_strcat(sign, tmp);
 		return (tmp);
 	}
-	if (value_pos(0, flag, BLANK) && ft_atoll(string) > 0)
+	if (value_pos(0, flag, BLANK) && ft_atoll(string))
 		tmp = blank_option(string, &i, flag);
 	ft_strcat(tmp, string);
 	add_caractere(space, i - len, ' ');

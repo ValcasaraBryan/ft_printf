@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-t_tab		*return_list(char c, va_list ap, int *tab)
+t_tab		*return_list(char c, va_list ap)
 {
 	t_tab	*list;
 
-	list = init_list(ap, c, tab);
+	list = init_list(ap, c);
 	return (list);
 }
 
-t_tab		*init_list(va_list ap, char c, int *tab)
+t_tab		*init_list(va_list ap, char c)
 {
 	t_tab	*list;
 
@@ -43,11 +43,11 @@ t_tab		*init_list(va_list ap, char c, int *tab)
 	else if (c == 'O')
 		list = list_add_conversion('O', NULL);
 	else
-		return (init_list_next(list, ap, c, tab));
+		return (init_list_next(list, ap, c));
 	return (list);
 }
 
-t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *tab)
+t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 {
 	if (c == 'u')
 		list = list_add_conversion('u', (void *)d_uns_int(ap));

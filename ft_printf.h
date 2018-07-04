@@ -36,10 +36,9 @@ typedef struct				s_fonc
 }							t_tab;
 
 int							ft_printf(const char *format, ...);
-t_tab						*return_list(char c, va_list ap, int *tab);
-t_tab						*init_list(va_list ap, char c, int *tab);
-t_tab						*init_list_next(t_tab *list, va_list ap, char c,
-							int *tab);
+t_tab						*return_list(char c, va_list ap);
+t_tab						*init_list(va_list ap, char c);
+t_tab						*init_list_next(t_tab *list, va_list ap, char c);
 int							parsing_params(char *arg);
 int							params(char comp);
 t_tab						*list_add_conversion(char c, void (*f)(va_list));
