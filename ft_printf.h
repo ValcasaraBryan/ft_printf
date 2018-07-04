@@ -45,7 +45,7 @@ t_tab						*list_add_conversion(char c, void (*f)(va_list));
 void						list_add(t_tab	**list, t_tab *new);
 int							precision_params(char *param);
 char						*add_caractere(char *params, int len,
-							int caractere);
+							long caractere);
 int							nb_percent(char *format);
 int							p_of_params(char *format);
 char						*flag_string(char *res, int i, char *string,
@@ -89,6 +89,7 @@ char						*flag(char *res, int i, t_tab *list, int *z);
 
 void						*string_s(va_list ap);
 int							conv_c(va_list ap);
+long						conv_lc(va_list ap);
 int							d_int(va_list ap);
 unsigned int				d_uns_int(va_list ap);
 long						d_long(va_list ap);

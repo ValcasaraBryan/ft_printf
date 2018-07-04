@@ -22,10 +22,7 @@ int		main(int argc, char **argv)
 	ret = 0;
 	ret_2 = 0;
 
-	ft_printf("%10s %d %i %u %c %% \n", "salut", 26, 26, 10, 150);
-	printf("%10s %d %i %u %c %% \n", "salut", 26, 26, 10, 150);
-
-/*	ret = ft_printf("[j'ai [%+010d] ans, [%d] je vais bien,\n[%s] oui j'ai un [%cccent%c]\n",
+	ret = ft_printf("[j'ai [%+010d] ans, [%d] je vais bien,\n[%s] oui j'ai un [%cccent%c]\n",
 		26, -15, "et toi ?", 'a', '.');
 	ret_2 = printf("[j'ai [%+010d] ans, [%d] je vais bien,\n[%s] oui j'ai un [%cccent%c]\n",
 		26, -15, "et toi ?", 'a', '.');
@@ -177,8 +174,17 @@ int		main(int argc, char **argv)
 		printf("len -- OK --\n\n");
 	else
 		printf("len // NO //\n\n");
+	
+	ret = ft_printf("[j'ai [%D] ans, [%D] je vais bien,\n [%s] oui j'ai un [%Ccccent%c]\n",
+		4294967296, 15, "et toi ?", 'a', '.');
+	ret_2 = printf("[j'ai [%D] ans, [%D] je vais bien,\n [%s] oui j'ai un [%Ccccent%c]\n",
+		4294967296, 15, "et toi ?", 'a', '.');
+	if (ret == ret_2)
+		printf("len -- OK --\n\n");
+	else
+		printf("len // NO //\n\n");
+
 	printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
 	ft_printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
-*/
 	return (0);
 }

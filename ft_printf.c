@@ -51,6 +51,18 @@ int		ft_printf(const char *format, ...)
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
 			flag_char(res, i, '%', z);
+		if (list->c == 'D')
+		{
+			list->c = 'd';
+			z[5] = INT_LONG;
+		}
+		if (list->c == 'U')
+		{
+			list->c = 'u';
+			z[5] = INT_LONG;
+		}
+		if (list->c == 'C')
+			list->c = 'c';
 		if (list->c == 's')							// ajout de l'arg[2] a la string final
 			flag_string(res, i, (char *)list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final

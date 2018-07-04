@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char		*add_caractere(char *params, int len, int caractere)
+char		*add_caractere(char *params, int len, long caractere)
 {
 	char	*tmp;
 

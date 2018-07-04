@@ -27,17 +27,17 @@ t_tab		*init_list(va_list ap, char c)
 	if (c == 's')
 		list = list_add_conversion('s', (void *)string_s(ap));
 	else if (c == 'S')
-		list = list_add_conversion('S', NULL);
+		list = list_add_conversion('S', (void *)string_s(ap));
 	else if (c == 'c')
 		list = list_add_conversion('c', (void *)conv_c(ap));
 	else if (c == 'C')
-		list = list_add_conversion('C', NULL);
+		list = list_add_conversion('C', (void *)conv_lc(ap));
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);
 	else if (c == 'd' || c == 'i')
 		list = list_add_conversion('d', (void *)d_long_long(ap));
 	else if (c == 'D')
-		list = list_add_conversion('D', NULL);
+		list = list_add_conversion('D', (void *)d_long_long(ap));
 	else if (c == 'o')
 		list = list_add_conversion('o', NULL);
 	else if (c == 'O')
@@ -52,7 +52,7 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 	if (c == 'u')
 		list = list_add_conversion('u', (void *)d_uns_int(ap));
 	else if (c == 'U')
-		list = list_add_conversion('U', NULL);
+		list = list_add_conversion('U', (void *)d_uns_int(ap));
 	else if (c == 'x')
 		list = list_add_conversion('x', NULL);
 	else if (c == 'X')
