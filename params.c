@@ -47,8 +47,8 @@ int			precision_params(char *param)
 	return (0);
 }
 
-int			parsing_params(char *arg) 	// seulement la conversion
-{									// c, C, s, S,p, d, D, i, o, O, u, U,x X 
+int			parsing_params(char *arg)
+{
 	int		i;
 	int		j;
 
@@ -64,9 +64,9 @@ int			parsing_params(char *arg) 	// seulement la conversion
 	return (0);
 }
 
-int			params(char comp) 	// detecte si un paramettre est 
-{							// rencontre et renvoi sa position
-	char	*list;			// par rapport a la string list
+int			params(char comp)
+{
+	char	*list;
 	int		i;
 
 	i = -1;

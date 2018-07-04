@@ -166,9 +166,9 @@ int		main(int argc, char **argv)
 		printf("len // NO //\n\n");
 
 	ret = ft_printf("[j'ai [%hhu] ans, [%d] je vais bien,\n [%s] oui j'ai un [%ccccent%c]\n",
-		0, 15, "et toi ?", 'a', '.');
+		16, 15, "et toi ?", 'a', '.');
 	ret_2 = printf("[j'ai [%hhu] ans, [%d] je vais bien,\n [%s] oui j'ai un [%ccccent%c]\n",
-		0, 15, "et toi ?", 'a', '.');
+		16, 15, "et toi ?", 'a', '.');
 	if (ret == ret_2)
 		printf("len -- OK --\n\n");
 	else

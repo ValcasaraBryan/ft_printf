@@ -22,3 +22,12 @@ int			p_of_params(char *format)
 			return (i);
 	return (-1);
 }
+
+char		*option_space_zero(char *space, int i, int len, int *flag)
+{
+	if (value_pos(0, flag, ZERO))
+		add_caractere(space, i - len, '0');
+	else
+		add_caractere(space, i - len, ' ');
+	return (space);
+}

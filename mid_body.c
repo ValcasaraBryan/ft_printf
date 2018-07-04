@@ -21,12 +21,12 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 	i = *index;
 	list = NULL;
 	if (ft_strlen(param) == 1 && params(*param))
-		list = return_list(*param, ap, *z);		// initialise le parametre arg[2]
+		list = return_list(*param, ap, *z);
 	else if (params(param[ft_strlen(param) - 1]))
 	{
 		*z = flag_optional(param);
 		j = binary(*z);
-		i = precision_params(param);// donne à i la longueur de precision
+		i = precision_params(param);
 		if ((j + ft_strlen(ft_itoa_l_l(i))) == ft_strlen(param) - 1)
 			list = return_list(param[(j + ft_strlen(ft_itoa_l_l(i)))], ap, *z);
 		else if (!i && (j == (int)ft_strlen(param) - 1))
@@ -38,7 +38,8 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 	return (list);
 }
 
-char	*inter_flag_of_conv(const char *format, char *string, int *index, int len_param)
+char		*inter_flag_of_conv(const char *format, char *string, int *index,
+			int len_param)
 {
 	char	*res;
 	int		ret;
@@ -47,18 +48,20 @@ char	*inter_flag_of_conv(const char *format, char *string, int *index, int len_p
 	ret = *index;
 	if (p_of_params((char *)format + ret++ + 1))
 	{
-		ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1) + 1);
+		ft_strncpy(res + ft_strlen(res), format + len_param,
+			p_of_params((char *)format + len_param + 1) + 1);
 		ret += p_of_params((char *)format + len_param + 1) + 1;
 	}
 	else if (!parsing_params((char *)format + ret))
-		ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param + 1));
+		ft_strncpy(res + ft_strlen(res), format + len_param,
+			p_of_params((char *)format + len_param + 1));
 	*index = ret;
 	return (string);
 }
 
-int		*reset_tab_int(int *tab, int len)
+int			*reset_tab_int(int *tab, int len)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	if (tab)
@@ -70,9 +73,9 @@ int		*reset_tab_int(int *tab, int len)
 	return (0);
 }
 
-int		*flag_long_short(int *tab, int *index, char *param)
+int			*flag_long_short(int *tab, int *index, char *param)
 {
-	int i;
+	int		i;
 
 	i = *index;
 	if (param[i] == 'l' && tab[5] == 0 && tab[6] == 0)

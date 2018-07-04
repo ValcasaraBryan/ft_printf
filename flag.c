@@ -19,7 +19,8 @@ char		*flag_string(char *res, int i, char *string, int *flag)
 
 	if (binary(flag))
 	{
-		tmp = add_precision(string, value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
+		tmp = add_precision(string, value_pos(i, tab, SIGN),
+			(int)ft_strlen(string), flag);
 		ft_strcat(res, tmp);
 		return (res);
 	}
@@ -35,7 +36,8 @@ char		*flag_u_string(char *res, int i, char *string, int *flag)
 
 	if (binary(flag))
 	{
-		tmp = add_u_precision(string, value_pos(i, tab, SIGN), (int)ft_strlen(string), flag);
+		tmp = add_u_precision(string, value_pos(i, tab, SIGN),
+			(int)ft_strlen(string), flag);
 		ft_strcat(res, tmp);
 		return (res);
 	}
@@ -51,7 +53,7 @@ char		*flag_char(char *res, int i, char caractere, int *flag)
 	if (i > 1 && (!value_pos(0, flag, LEFT)))
 	{
 		if (value_pos(0, flag, ZERO))
-			add_caractere(res, i - 1, '0');	
+			add_caractere(res, i - 1, '0');
 		else
 			add_caractere(res, i - 1, 32);
 	}
@@ -74,7 +76,7 @@ int			*flag_optional(char *param)
 	int		i;
 
 	i = -1;
-	if (!(tab = (int *)malloc(sizeof (int) * LENGTH_TAB + 1)))
+	if (!(tab = (int *)malloc(sizeof(int) * LENGTH_TAB + 1)))
 		return (0);
 	if (!param)
 		return (tab);

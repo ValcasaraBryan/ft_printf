@@ -17,7 +17,7 @@ char		*add_u_precision(char *string, int i, int len, int *flag)
 	char	*tmp;
 
 	if (!(tmp = ft_memalloc(i + len + 1)))
-			return (NULL);
+		return (NULL);
 	if (i < len)
 		i = len;
 	tmp = option_u_right(ft_ulltoa(ft_atoull(string)), i, len, flag);
@@ -35,10 +35,7 @@ char		*option_u_right(char *string, int i, int len, int *flag)
 		return (NULL);
 	if (!value_pos(0, flag, LEFT))
 	{
-		if (value_pos(0, flag, ZERO))
-			add_caractere(space, i - len, '0');					// NO SIGN + NO LEFT + ZERO
-		else
-			add_caractere(space, i - len, ' ');					// NO SIGN + NO LEFT + NO ZERO
+		option_space_zero(space, i, len, flag);
 		if (!tmp)
 			ft_strcat(tmp, string);
 		tmp = ft_strcat(space, tmp);
@@ -48,10 +45,9 @@ char		*option_u_right(char *string, int i, int len, int *flag)
 	{
 		if (!tmp)
 			ft_strcat(tmp, string);
-		add_caractere(space, i - len, ' ');	
+		add_caractere(space, i - len, ' ');
 		ft_strcat(tmp, space);
 		return (tmp);
 	}
 	return (NULL);
 }
-

@@ -38,7 +38,8 @@ typedef struct				s_fonc
 int							ft_printf(const char *format, ...);
 t_tab						*return_list(char c, va_list ap, int *tab);
 t_tab						*init_list(va_list ap, char c, int *tab);
-t_tab						*init_list_next(t_tab *list, va_list ap, char c, int *tab);
+t_tab						*init_list_next(t_tab *list, va_list ap, char c,
+							int *tab);
 int							parsing_params(char *arg);
 int							params(char comp);
 t_tab						*list_add_conversion(char c, void (*f)(va_list));
@@ -48,23 +49,37 @@ char						*add_caractere(char *params, int len,
 							int caractere);
 int							nb_percent(char *format);
 int							p_of_params(char *format);
-char						*flag_string(char *res, int i, char *string, int *flag);
-char						*flag_u_string(char *res, int i, char *string, int *flag);
-char						*flag_char(char *res, int i, char caractere, int *flag);
+char						*flag_string(char *res, int i, char *string,
+							int *flag);
+char						*flag_u_string(char *res, int i, char *string,
+							int *flag);
+char						*flag_char(char *res, int i, char caractere,
+							int *flag);
 int							*flag_optional(char *param);
 int							binary(int *tab);
-char						*add_precision(char *string, int i, int len, int *flag);
-char						*add_u_precision(char *string, int i, int len, int *flag);
+char						*add_precision(char *string, int i, int len,
+							int *flag);
+char						*add_u_precision(char *string, int i, int len,
+							int *flag);
 int							value_pos(int i, int *tab, int flag);
-char 						*option_right(char *string, int i, int len, int *flag);
-char						*option_u_right(char *string, int i, int len, int *flag);
-char 						*option_left(char *string, int i, int len, int *flag);
-char 						*option_zero_space(char *sign, char *tmp, int i, int *flag);
-char 						*signe(long long val, char *string, char **sign, int *i);
+char						*option_right(char *string, int i, int len,
+							int *flag);
+char						*option_u_right(char *string, int i, int len,
+							int *flag);
+char						*option_left(char *string, int i, int len,
+							int *flag);
+char						*option_zero_space(char *sign, char *tmp, int i,
+							int *flag);
+char						*option_space_zero(char *space, int i, int len,
+							int *flag);
+char						*signe(long long val, char *string, char **sign,
+							int *i);
 char						*blank_option(char *string, int *i, int *flag);
 int							*reset_tab_int(int *tab, int len);
-t_tab						*list_param(int *index, va_list ap, char *param, int **z);
-char						*inter_flag_of_conv(const char *format, char *string, int *index, int len_param);
+t_tab						*list_param(int *index, va_list ap,
+							char *param, int **z);
+char						*inter_flag_of_conv(const char *format,
+							char *string, int *index, int len_param);
 int							*flag_long_short(int *tab, int *index, char *param);
 int							valid_flag_short(int *tab);
 int							valid_flag_short_short(int *tab);
