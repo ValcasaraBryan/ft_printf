@@ -86,11 +86,10 @@ t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
 
 char						*string_s(va_list ap);
 char						*conv_c(va_list ap);
-
-char						*conv_int(va_list ap);
 char						*d_uns_int(va_list ap);
-char						*d_long(va_list ap);
 char						*d_long_long(va_list ap);
+char						*d_long(va_list ap);
+char						*conv_int(va_list ap);
 char						*d_uns_long(va_list ap);
 char						*d_uns_long_long(va_list ap);
 char						*short_int(va_list ap);
