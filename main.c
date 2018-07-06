@@ -184,6 +184,15 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO //\n\n");
 
+//	ret = ft_printf("[j'ai [%p] ans, [%D] je vais bien,\n [%s] oui j'ai un [%Ccccent%c]\n",
+//		4294967296, 15, "et toi ?", 'a', '.');
+//	ret_2 = printf("[j'ai [%p] ans, [%D] je vais bien,\n [%s] oui j'ai un [%Ccccent%c]\n",
+//		4294967296, 15, "et toi ?", 'a', '.');
+//	if (ret == ret_2)
+//		printf("len -- OK --\n\n");
+//	else
+//		printf("len // NO //\n\n");
+
 	printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
 	ft_printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
 	return (0);

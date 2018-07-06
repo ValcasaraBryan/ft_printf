@@ -29,23 +29,6 @@ char		*flag_string(char *res, int i, char *string, int *flag)
 	return (res);
 }
 
-char		*flag_u_string(char *res, int i, char *string, int *flag)
-{
-	int		*tab;
-	char	*tmp;
-
-	if (binary(flag))
-	{
-		tmp = add_u_precision(string, value_pos(i, tab, SIGN),
-			(int)ft_strlen(string), flag);
-		ft_strcat(res, tmp);
-		return (res);
-	}
-	tmp = add_u_precision(string, i, (int)ft_strlen(string), flag);
-	ft_strcat(res, tmp);
-	return (res);
-}
-
 char		*flag_char(char *res, int i, char caractere, int *flag)
 {
 	char	*tmp;

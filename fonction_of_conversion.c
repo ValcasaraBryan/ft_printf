@@ -34,16 +34,11 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		list = list_add_conversion('C', conv_c(ap));
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);
-	else if (c == 'd' || c == 'i')
+	else if (c == 'd' || c == 'i' || c == 'D')
 	{
-		c = 'd';
-		list = flag(c, list, z, ap);
-	}
-	else if (c == 'D')
-	{
-		c = 'd';
-		z[5] = INT_LONG;
-		list = flag(c, list, z, ap);
+		if (c == 'D')
+			z[5] = INT_LONG;
+		list = flag('d', list, z, ap);
 	}
 	else if (c == 'o')
 		list = list_add_conversion('o', NULL);
