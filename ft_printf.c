@@ -57,8 +57,7 @@ int		ft_printf(const char *format, ...)
 		{							// entre ceux ci, l'ajoute au resultat final
 			if (!(list->c == '%'))
 			{
-				if (p_of_params((char *)format + len_param) >= 0)
-					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
+				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
 				ret += p_of_params((char *)format + ret);
 			}
 			else if (list->c == '%' && i > 1)

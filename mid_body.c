@@ -101,3 +101,12 @@ int			*flag_long_short(int *tab, int *index, char *param)
 	*index = i;
 	return (tab);
 }
+
+char		*add_prefix(char c)
+{
+	char	*str;
+
+	str = ft_strdup("0");
+	add_caractere(str, 1, c);
+	return (str);
+}

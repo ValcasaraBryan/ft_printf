@@ -80,6 +80,7 @@ int			params(char comp)
 int			nb_percent(char *format)
 {
 	int		i;
+	int		j;
 	int		nb_percent;
 
 	i = -1;
@@ -87,10 +88,10 @@ int			nb_percent(char *format)
 	if (!format)
 		return (-1);
 	while (format[++i])
-		if (format[i] == '%' && params(format[i]))
+		if (format[i] == '%')
 		{
-			if (format[i + 1] == '%')
-				i++;
+			if ((j = parsing_params(format + i)) && format[i + j] == '%')
+				i += j;
 			++nb_percent;
 		}
 	return (nb_percent);

@@ -33,7 +33,7 @@ t_tab		*init_list(va_list ap, char c, int *z)
 	else if (c == 'C')
 		list = list_add_conversion('C', conv_long_c(ap));
 	else if (c == 'p')
-		list = list_add_conversion('p', NULL);
+		list = list_add_conversion('p', add_prefix('x'));
 	else if (c == 'd' || c == 'i' || c == 'D')
 	{
 		if (c == 'D')
@@ -41,9 +41,9 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		list = flag(c, list, z, ap);
 	}
 	else if (c == 'o')
-		list = list_add_conversion('o', NULL);
+		list = list_add_conversion('o', ft_strdup(""));
 	else if (c == 'O')
-		list = list_add_conversion('O', NULL);
+		list = list_add_conversion('O', ft_strdup(""));
 	else
 		return (init_list_next(list, ap, c, z));
 	return (list);
@@ -61,10 +61,13 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	{
 		if (c == 'X')
 			z[5] = INT_LONG;
-		list = list_add_conversion('x', NULL);
+		if (z[4] == HASHTAG)
+			list = list_add_conversion(c, add_prefix(c));
+		else
+			list = list_add_conversion(c, ft_strdup(""));
 	}
 	else if (c == '%')
-		list = list_add_conversion('%', NULL);
+		list = list_add_conversion('%', ft_strdup(""));
 	return (list);
 }
 

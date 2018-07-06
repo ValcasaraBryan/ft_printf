@@ -81,6 +81,7 @@ int							valid_flag_long(int *tab);
 int							valid_flag_long_long(int *tab);
 t_tab						*flag(char c, t_tab *list, int *z, va_list ap);
 t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
+char						*add_prefix(char c);
 
 char						*string_s(va_list ap);
 char						*conv_c(va_list ap);

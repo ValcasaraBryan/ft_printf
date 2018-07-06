@@ -36,7 +36,7 @@ t_tab	*flag_u(char c, t_tab *list, int *z, va_list ap)
 		list = list_add_conversion(c, uns_short_int(ap));
 	else if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
 		valid_flag_short_short(z))
-		list = list_add_conversion(c, uns_short_int(ap));
+		list = list_add_conversion(c, short_int(ap));
 	else if (valid_flag_long(z))
 		list = list_add_conversion(c, d_uns_long(ap));
 	else if (valid_flag_long_long(z))
