@@ -35,7 +35,7 @@ int		ft_printf(const char *format, ...)
 	if (nb == 0)
 	{
 		ft_putstr(format);
-		return (ft_strlen(format));
+		return (ft_strlen((char *)format));
 	}
 	if (!(res = ft_memalloc(BUFF_SIZE)))		// alloue la longueur de la string final
 			return (0);
@@ -51,24 +51,12 @@ int		ft_printf(const char *format, ...)
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
 			flag_char(res, i, '%', z);
-		if (list->c == 'D')
-		{
-			list->c = 'd';
-			z[5] = INT_LONG;
-		}
-		if (list->c == 'U')
-		{
-			list->c = 'u';
-			z[5] = INT_LONG;
-		}
 		if (list->c == 'C')
 			list->c = 'c';
-		if (list->c == 's')							// ajout de l'arg[2] a la string final
-			flag_string(res, i, (char *)list->f, z);
+		if (list->c == 's' || list->c == 'd' || list->c == 'u')	// ajout de l'arg[2] a la string final
+			flag_string(res, i, list->f, z);
 		if (list->c == 'c')							// ajout de l'arg[2] a la string final
-			flag_char(res, i, (char)list->f, z);
-		flag(res, i, list, z);
-		flag_u(res, i, list, z);
+			flag_char(res, i, *list->f, z);
 		i = 0;
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final

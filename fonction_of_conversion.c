@@ -12,47 +12,58 @@
 
 #include "ft_printf.h"
 
-t_tab		*return_list(char c, va_list ap)
+t_tab		*return_list(char c, va_list ap, int *flag)
 {
 	t_tab	*list;
 
-	list = init_list(ap, c);
+	list = init_list(ap, c, flag);
 	return (list);
 }
 
-t_tab		*init_list(va_list ap, char c)
+t_tab		*init_list(va_list ap, char c, int *z)
 {
 	t_tab	*list;
 
 	if (c == 's')
-		list = list_add_conversion('s', (void *)string_s(ap));
+		list = list_add_conversion('s', string_s(ap));
 	else if (c == 'S')
-		list = list_add_conversion('S', (void *)string_s(ap));
+		list = list_add_conversion('S', string_s(ap));
 	else if (c == 'c')
-		list = list_add_conversion('c', (void *)conv_c(ap));
+		list = list_add_conversion('c', conv_c(ap));
 	else if (c == 'C')
-		list = list_add_conversion('C', (void *)conv_lc(ap));
+		list = list_add_conversion('C', conv_c(ap));
 	else if (c == 'p')
 		list = list_add_conversion('p', NULL);
 	else if (c == 'd' || c == 'i')
-		list = list_add_conversion('d', (void *)d_long_long(ap));
+	{
+		c = 'd';
+		list = flag(c, list, z, ap);
+	}
 	else if (c == 'D')
-		list = list_add_conversion('D', (void *)d_long_long(ap));
+	{
+		c = 'd';
+		z[5] = INT_LONG;
+		list = flag(c, list, z, ap);
+	}
 	else if (c == 'o')
 		list = list_add_conversion('o', NULL);
 	else if (c == 'O')
 		list = list_add_conversion('O', NULL);
 	else
-		return (init_list_next(list, ap, c));
+		return (init_list_next(list, ap, c, z));
 	return (list);
 }
 
-t_tab		*init_list_next(t_tab *list, va_list ap, char c)
+t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 {
 	if (c == 'u')
-		list = list_add_conversion('u', (void *)d_uns_int(ap));
+		list = flag_u(c, list, z, ap);
 	else if (c == 'U')
-		list = list_add_conversion('U', (void *)d_uns_int(ap));
+	{
+		c = 'u';
+		z[5] = INT_LONG;
+		list = flag_u(c, list, z, ap);
+	}
 	else if (c == 'x')
 		list = list_add_conversion('x', NULL);
 	else if (c == 'X')
@@ -62,7 +73,7 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c)
 	return (list);
 }
 
-t_tab		*list_add_conversion(char c, void (*f)(va_list))
+t_tab		*list_add_conversion(char c, char *string)
 {
 	t_tab	*tmp;
 
@@ -71,7 +82,7 @@ t_tab		*list_add_conversion(char c, void (*f)(va_list))
 	if (c)
 	{
 		tmp->c = c;
-		tmp->f = f;
+		tmp->f = string;
 	}
 	else
 	{

@@ -12,36 +12,36 @@
 
 #include "ft_printf.h"
 
-char	*flag(char *res, int i, t_tab *list, int *z)
+t_tab	*flag(char c, t_tab *list, int *z, va_list ap)
 {
 	if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
-		valid_flag_short(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((short int)list->f), z);
+		valid_flag_short(z))
+		list = list_add_conversion(c, short_int(ap));
 	else if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
-		valid_flag_short_short(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((char)list->f), z);
-	else if (valid_flag_long(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((long)list->f), z);
-	else if (valid_flag_long_long(z) && list->c == 'd')
-		flag_string(res, i, ft_lltoa((long long)list->f), z);
-	else if (list->c == 'd')
-		flag_string(res, i, ft_lltoa((int)list->f), z);
-	return (res);
+		valid_flag_short_short(z))
+		list = list_add_conversion(c, uns_short_int(ap));
+	else if (valid_flag_long(z))
+		list = list_add_conversion(c, d_long(ap));
+	else if (valid_flag_long_long(z))
+		list = list_add_conversion(c, d_long_long(ap));
+	else
+		list = list_add_conversion(c, conv_int(ap));
+	return (list);
 }
 
-char	*flag_u(char *res, int i, t_tab *list, int *z)
+t_tab	*flag_u(char c, t_tab *list, int *z, va_list ap)
 {
 	if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
-		valid_flag_short(z) && list->c == 'u')
-		flag_u_string(res, i, ft_lltoa((unsigned short int)list->f), z);
+		valid_flag_short(z))
+		list = list_add_conversion(c, uns_short_int(ap));
 	else if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
-		valid_flag_short_short(z) && list->c == 'u')
-		flag_string(res, i, ft_lltoa((unsigned char)list->f), z);
-	else if (valid_flag_long(z) && list->c == 'u')
-		flag_string(res, i, ft_ulltoa((unsigned long)list->f), z);
-	else if (valid_flag_long_long(z) && list->c == 'u')
-		flag_string(res, i, ft_ulltoa((unsigned long long)list->f), z);
-	else if (list->c == 'u')
-		flag_u_string(res, i, ft_ulltoa((unsigned int)list->f), z);
-	return (res);
+		valid_flag_short_short(z))
+		list = list_add_conversion(c, uns_short_int(ap));
+	else if (valid_flag_long(z))
+		list = list_add_conversion(c, d_uns_long(ap));
+	else if (valid_flag_long_long(z))
+		list = list_add_conversion(c, d_uns_long_long(ap));
+	else
+		list = list_add_conversion(c, d_uns_int(ap));
+	return (list);
 }

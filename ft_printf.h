@@ -32,16 +32,16 @@
 typedef struct				s_fonc
 {
 	char					c;
-	void					(*f)(va_list ap);
+	char 					*f;
 }							t_tab;
 
 int							ft_printf(const char *format, ...);
-t_tab						*return_list(char c, va_list ap);
-t_tab						*init_list(va_list ap, char c);
-t_tab						*init_list_next(t_tab *list, va_list ap, char c);
+t_tab						*return_list(char c, va_list ap, int *flag);
+t_tab						*init_list(va_list ap, char c, int *z);
+t_tab						*init_list_next(t_tab *list, va_list ap, char c, int *z);
 int							parsing_params(char *arg);
 int							params(char comp);
-t_tab						*list_add_conversion(char c, void (*f)(va_list));
+t_tab						*list_add_conversion(char c, char *string);
 void						list_add(t_tab	**list, t_tab *new);
 int							precision_params(char *param);
 char						*add_caractere(char *params, int len,
@@ -84,16 +84,20 @@ int							valid_flag_short(int *tab);
 int							valid_flag_short_short(int *tab);
 int							valid_flag_long(int *tab);
 int							valid_flag_long_long(int *tab);
-char						*flag_u(char *res, int i, t_tab *list, int *z);
-char						*flag(char *res, int i, t_tab *list, int *z);
+t_tab						*flag(char c, t_tab *list, int *z, va_list ap);
+t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
 
-void						*string_s(va_list ap);
-int							conv_c(va_list ap);
-long						conv_lc(va_list ap);
-int							d_int(va_list ap);
-unsigned int				d_uns_int(va_list ap);
-long						d_long(va_list ap);
-long long					d_long_long(va_list ap);
+char						*string_s(va_list ap);
+char						*conv_c(va_list ap);
+
+char						*conv_int(va_list ap);
+char						*d_uns_int(va_list ap);
+char						*d_long(va_list ap);
+char						*d_long_long(va_list ap);
+char						*d_uns_long(va_list ap);
+char						*d_uns_long_long(va_list ap);
+char						*short_int(va_list ap);
+char						*uns_short_int(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
 
