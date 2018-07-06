@@ -17,6 +17,8 @@ char		*flag_string(char *res, int i, char *string, int *flag)
 	int		*tab;
 	char	*tmp;
 
+	if (!flag)
+		return (res);
 	if (binary(flag))
 	{
 		tmp = add_precision(string, value_pos(i, tab, SIGN),
@@ -38,15 +40,16 @@ char		*flag_char(char *res, int i, char caractere, int *flag)
 		if (value_pos(0, flag, ZERO))
 			add_caractere(res, i - 1, '0');
 		else
-			add_caractere(res, i - 1, 32);
+			add_caractere(res, i - 1, ' ');
 	}
-	else
+	else if (i > 1)
 	{
 		if (!(tmp = ft_memalloc(i + 1)))
 			return (NULL);
 		add_caractere(tmp, i, ' ');
 		tmp = (char *)ft_memset(tmp, caractere, 1);
 		res = strcat(res, tmp);
+
 		return (res);
 	}
 	add_caractere(res, 1, caractere);

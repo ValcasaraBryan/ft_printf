@@ -51,24 +51,25 @@ int		ft_printf(const char *format, ...)
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
 			flag_char(res, i, '%', z);
-		if (list->c == 'C')
-			list->c = 'c';
-		if (list->c == 's' || list->c == 'd' || list->c == 'u')	// ajout de l'arg[2] a la string final
+		else if (list->f)
 			flag_string(res, i, list->f, z);
-		if (list->c == 'c')							// ajout de l'arg[2] a la string final
-			flag_char(res, i, *list->f, z);
-		i = 0;
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
 			if (!(list->c == '%'))
 			{
-				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
+				if (p_of_params((char *)format + len_param) >= 0)
+					ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
 				ret += p_of_params((char *)format + ret);
+			}
+			else if (list->c == '%' && i > 1)
+			{
+				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
+				ret += p_of_params((char *)format + ret  + ft_strlen(ft_itoa(i)) + 1) + ft_strlen(ft_itoa(i)) + 1;
 			}
 			else
 				res = inter_flag_of_conv(format, res, &ret, len_param);
 		}
-		reset_tab_int(z, LENGTH_TAB);
+		i = 0;
 	}
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
 	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion

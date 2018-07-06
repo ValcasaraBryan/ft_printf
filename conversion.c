@@ -31,6 +31,17 @@ char				*conv_c(va_list ap)
 	return (tmp);
 }
 
+char				*conv_long_c(va_list ap)
+{
+	long			c;
+	char			*tmp;
+
+	c = va_arg(ap, long);
+	tmp = ft_strdup("");
+	tmp[0] = (char)c;
+	return (tmp);
+}
+
 char				*d_uns_int(va_list ap)
 {
 	unsigned int	d;

@@ -17,6 +17,8 @@ int			p_of_params(char *format)
 	int		i;
 
 	i = -1;
+	if (!format)
+		return (-1);
 	while (format[++i])
 		if (format[i] == '%')
 			return (i);

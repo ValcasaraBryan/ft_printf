@@ -51,8 +51,6 @@ int							nb_percent(char *format);
 int							p_of_params(char *format);
 char						*flag_string(char *res, int i, char *string,
 							int *flag);
-char						*flag_u_string(char *res, int i, char *string,
-							int *flag);
 char						*flag_char(char *res, int i, char caractere,
 							int *flag);
 int							*flag_optional(char *param);
@@ -86,6 +84,7 @@ t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
 
 char						*string_s(va_list ap);
 char						*conv_c(va_list ap);
+char						*conv_long_c(va_list ap);
 char						*d_uns_int(va_list ap);
 char						*d_long_long(va_list ap);
 char						*d_long(va_list ap);

@@ -84,6 +84,8 @@ int			nb_percent(char *format)
 
 	i = -1;
 	nb_percent = 0;
+	if (!format)
+		return (-1);
 	while (format[++i])
 		if (format[i] == '%' && params(format[i]))
 		{
