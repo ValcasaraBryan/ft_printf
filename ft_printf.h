@@ -94,6 +94,11 @@ char						*d_uns_long(va_list ap);
 char						*d_uns_long_long(va_list ap);
 char						*short_int(va_list ap);
 char						*uns_short_int(va_list ap);
+char						*conv_hexa(va_list ap);
+char						*conv_hexa_l(va_list ap);
+char						*conv_hexa_l_l(va_list ap);
+char						*conv_octal(va_list ap);
+char						*conv_octal_l_l(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
 
@@ -102,5 +107,6 @@ unsigned long long			ft_atoull(const char *str);
 
 char						*ft_lltoa(long long n);
 char						*ft_ulltoa(unsigned long long n);
+char						*ft_itoa_base(long long nb, const char *base);
 
 #endif

@@ -37,10 +37,8 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		list = list_add_conversion(c, conv_c(ap));
 	}
 	else if (c == 'p')
-	{
-		va_arg(ap, void *);
-		list = list_add_conversion(c, add_prefix('x'));
-	}
+		list = list_add_conversion(c, ft_strcat(ft_strcat(add_prefix('x'),
+			ft_strdup("10")) , conv_hexa_l_l(ap)));
 	else if (c == 'd' || c == 'i' || c == 'D')
 	{
 		if (c == 'D')
@@ -50,9 +48,12 @@ t_tab		*init_list(va_list ap, char c, int *z)
 	else if (c == 'o' || c == 'O')
 	{		
 		if (c == 'O')
+		{
 			z[5] = INT_LONG;
-		va_arg(ap, void *);
-		list = list_add_conversion(c, ft_strdup(""));
+			list = list_add_conversion(c, ft_strcat(ft_strdup("37777400000000"), conv_octal(ap)));
+		}
+		else
+			list = list_add_conversion(c, conv_octal(ap));
 	}
 	else
 		return (init_list_next(list, ap, c, z));
@@ -71,11 +72,10 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	{
 		if (c == 'X')
 			z[5] = INT_LONG;
-		va_arg(ap, void *);
 		if (z[4] == HASHTAG)
-			list = list_add_conversion(c, add_prefix(c));
+			list = list_add_conversion(c, ft_strcat(add_prefix(c), conv_hexa_l_l(ap)));
 		else
-			list = list_add_conversion(c, ft_strdup(""));
+			list = list_add_conversion(c, conv_hexa_l_l(ap));
 	}
 	else if (c == '%')
 		list = list_add_conversion('%', ft_strdup(""));
