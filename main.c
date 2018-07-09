@@ -16,16 +16,17 @@ int		main(int argc, char **argv)
 {
 	int ret;
 	int ret_2;
+	char *str;
 
 	(void)argc;
 	(void)argv;
 	ret = 0;
 	ret_2 = 0;
-
-	ret = ft_printf("[%d][%D][%s%5%][%-2Ccccent%2c][%-11pp][%-4xx%%][%-#4xx][%-3XX][%-#4XX][%-10uu][%-15UU][%-3oo][%-17OO]\n",
-			214847480, 15, "et toi ?", 97, '.',      "salut", 80,      80,    80,     80,     9,     1,    8,       454545045);
-	ret_2 =  printf("[%d][%D][%s%5%][%-2Ccccent%2c][%-11pp][%-4xx%%][%-#4xx][%-3XX][%-#4XX][%-10uu][%-15UU][%-3oo][%-17OO]\n",
-			214847480, 15, "et toi ?", 97, '.',      "salut", 80,      80,    80,     80,     9,     1,    8,       454545045);
+	str = NULL;
+	ret = ft_printf("[%d][%D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-u][%-25UU][%-3o][%-17O][%15p]\n",
+			214847480, 15, "et toi ?", 97, '.',      "salut", 5115451,      5115451,    5115451,     5115451,     15,     1,    8,       50,     &str);
+	ret_2 =  printf("[%d][%D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-u][%-25UU][%-3o][%-17O][%15p]\n",
+			214847480, 15, "et toi ?", 97, '.',      "salut", 5115451,      5115451,    5115451,     5115451,     15,     1,    8,       50,     &str);
 	if (ret == ret_2)
 		printf("len -- OK --\n\n");
 	else

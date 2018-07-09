@@ -37,8 +37,7 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		list = list_add_conversion(c, conv_c(ap));
 	}
 	else if (c == 'p')
-		list = list_add_conversion(c, ft_strcat(ft_strcat(add_prefix('x'),
-			ft_strdup("10")) , conv_hexa_l_l(ap)));
+		list = list_add_conversion(c, ft_strcat(add_prefix('x') , conv_void(ap)));
 	else if (c == 'd' || c == 'i' || c == 'D')
 	{
 		if (c == 'D')
@@ -50,10 +49,10 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		if (c == 'O')
 		{
 			z[5] = INT_LONG;
-			list = list_add_conversion(c, ft_ulltoa(3777740000000000 + ft_atoll(conv_octal_l_l(ap))));
+			list = list_add_conversion(c, ft_ulltoa(ft_atoull(conv_octal_l_l(ap))));
 		}
 		else
-			list = list_add_conversion(c, conv_octal_l_l(ap));
+			list = list_add_conversion(c, conv_octal_l(ap));
 	}
 	else
 		return (init_list_next(list, ap, c, z));
@@ -68,14 +67,20 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 			z[5] = INT_LONG;
 		list = flag_u(c, list, z, ap);
 	}
-	else if (c == 'x' || c == 'X')
+	else if (c == 'x')
 	{
-		if (c == 'X')
-			z[5] = INT_LONG;
 		if (z[4] == HASHTAG)
 			list = list_add_conversion(c, ft_strcat(add_prefix(c), conv_hexa_l_l(ap)));
 		else
 			list = list_add_conversion(c, conv_hexa_l_l(ap));
+	}
+	else if (c == 'X')
+	{
+		z[5] = INT_LONG;
+		if (z[4] == HASHTAG)
+			list = list_add_conversion(c, ft_strcat(add_prefix(c), conv_hexa_l_l_maj(ap)));
+		else
+			list = list_add_conversion(c, conv_hexa_l_l_maj(ap));
 	}
 	else if (c == '%')
 		list = list_add_conversion('%', ft_strdup(""));

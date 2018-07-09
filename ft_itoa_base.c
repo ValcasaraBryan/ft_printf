@@ -56,6 +56,32 @@ static char			*conv(long long val_base, long long nb, long long i, char *str)
 	return (str);
 }
 
+static char			*conv_maj(long long val_base, long long nb, long long i, char *str)
+{
+	while (nb > 9)
+	{
+		if (nb % val_base < 10)
+			str[i] = (nb % val_base) + '0';
+		else if (nb % val_base < val_base - 10)
+			str[i] = (nb % val_base) + 'A';
+		else
+			str[i] = (nb % val_base) + 'A' - 10;
+		nb = nb / val_base;
+		i--;
+	}
+	if (val_base < 10)
+	{
+		str[i--] = (nb % val_base) + '0';
+		if (nb - val_base > 0)
+			str[i] = nb + '0' - val_base;
+		else
+			str[i] = nb + '0' - val_base + 1;
+	}
+	else
+		str[i] = nb + '0';
+	return (str);
+}
+
 char				*ft_itoa_base(long long nb, const char *base)
 {
 	long long		val_base;
@@ -72,6 +98,9 @@ char				*ft_itoa_base(long long nb, const char *base)
 		str[0] = '-';
 		nb *= -1;
 	}
-	conv(val_base, nb, i, str);
+	if (base[10] == 'A')
+		conv_maj(val_base, nb, i, str);
+	else
+		conv(val_base, nb, i, str);
 	return (str);
 }

@@ -39,7 +39,7 @@ char		*option_right(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN) || ft_atoll(string) < 0)
+	if (value_pos(0, flag, SIGN) || string[0] == '-')
 	{
 		string = signe(ft_atoll(string), string, &sign, &i);
 		tmp = option_zero_space(sign, tmp, i - len, flag);
@@ -67,7 +67,7 @@ char		*option_left(char *string, int i, int len, int *flag)
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
-	if (value_pos(0, flag, SIGN) || ft_atoll(string) < 0)
+	if (value_pos(0, flag, SIGN) || string[0] == '-')
 	{
 		string = signe(ft_atoll(string), string, &sign, &i);
 		add_caractere(space, i - len, ' ');
