@@ -18,11 +18,13 @@ SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c main.c\
 		params_two.c flag.c argument_flag.c ft_putstr_len.c option_flag.c\
 		ft_ulltoa.c ft_atoull.c mid_body.c conversion_two.c \
 		ft_lltoa.c ft_atoll.c flag_h_l.c valid_flag.c conversion_three.c\
-		ft_itoa_base.c
+		ft_itoa_base.c ft_buff_printf.c
 
 OBJET = $(SRC:.c=.o)
 
-HEAD = -I ft_printf.h
+HEAD = -I ft_printf.h ../GNL/get_next_line.h
+
+GNL = ../GNL/get_next_line.c
 
 FLAG = -Wall -Wextra -Werror
 
@@ -40,7 +42,7 @@ $(NAME) : $(OBJET)
 	@clang $(FLAG) -o $@ -c $<
 
 comp : lib $(NAME) main.c
-	@gcc $(FLAG) $(NAME) ../libft/libft.a -o $(EXE)
+	@gcc $(FLAG) $(NAME) $(GNL) ../libft/libft.a -o $(EXE)
 exe : comp
 	#------------ execution  ------------#
 	@./$(EXE)

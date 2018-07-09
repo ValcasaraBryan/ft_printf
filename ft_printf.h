@@ -17,7 +17,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
-# define BUFF_SIZE			1024
+# define BUFF_SIZE_			1024
 # define LEFT				1
 # define ZERO				2
 # define SIGN				3
@@ -102,6 +102,7 @@ char						*conv_octal_l_l(va_list ap);
 char						*conv_void(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
+int							ft_buff_printf(char **str, int fd, const char *format, ...);
 
 long long					ft_atoll(const char *str);
 unsigned long long			ft_atoull(const char *str);

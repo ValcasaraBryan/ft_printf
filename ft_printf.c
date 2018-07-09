@@ -37,7 +37,7 @@ int		ft_printf(const char *format, ...)
 		ft_putstr(format);
 		return (ft_strlen((char *)format));
 	}
-	if (!(res = ft_memalloc(BUFF_SIZE)))		// alloue la longueur de la string final
+	if (!(res = ft_memalloc(BUFF_SIZE_)))		// alloue la longueur de la string final
 			return (0);
 	ret = p_of_params((char *)format);
 	while (nb--)
