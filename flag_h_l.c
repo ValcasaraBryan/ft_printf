@@ -42,6 +42,6 @@ t_tab	*flag_u(char c, t_tab *list, int *z, va_list ap)
 	else if (valid_flag_long_long(z))
 		list = list_add_conversion(c, d_uns_long_long(ap));
 	else
-		list = list_add_conversion(c, d_uns_int(ap));
+		list = list_add_conversion(c, conv_int(ap));
 	return (list);
 }
