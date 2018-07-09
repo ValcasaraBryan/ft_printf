@@ -47,17 +47,9 @@ char				*conv_hexa_l_l(va_list ap)
 	return (ft_itoa_base(c, "0123456789abcdef"));
 }
 
-char				*conv_octal(va_list ap)
-{
-	int				c;
-
-	c = va_arg(ap, int);
-	return (ft_itoa_base(c, "01234567"));
-}
-
 char				*conv_octal_l_l(va_list ap)
 {
-	int				c;
+	long long		c;
 
 	c = va_arg(ap, long long);
 	return (ft_itoa_base(c, "01234567"));

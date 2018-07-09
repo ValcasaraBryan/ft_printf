@@ -50,10 +50,10 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		if (c == 'O')
 		{
 			z[5] = INT_LONG;
-			list = list_add_conversion(c, ft_strcat(ft_strdup("37777400000000"), conv_octal(ap)));
+			list = list_add_conversion(c, ft_ulltoa(3777740000000000 + ft_atoll(conv_octal_l_l(ap))));
 		}
 		else
-			list = list_add_conversion(c, conv_octal(ap));
+			list = list_add_conversion(c, conv_octal_l_l(ap));
 	}
 	else
 		return (init_list_next(list, ap, c, z));
