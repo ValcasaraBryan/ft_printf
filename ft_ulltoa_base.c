@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,11 @@
 
 #include "ft_printf.h"
 
-static long	long	ft_len(long long n, long long val_base)
+static unsigned long long	ft_len(unsigned long long n, unsigned long long val_base)
 {
-	long long		i;
+	unsigned long long		i;
 
 	i = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		i++;
-	}
 	while (n >= val_base)
 	{
 		n = n / val_base;
@@ -30,7 +25,7 @@ static long	long	ft_len(long long n, long long val_base)
 	return (i);
 }
 
-static char			*conv(long long val_base, long long nb, long long i, char *str)
+static char			*conv(unsigned long long val_base, unsigned long long nb, long long i, char *str)
 {
 	while (nb > 9)
 	{
@@ -43,7 +38,7 @@ static char			*conv(long long val_base, long long nb, long long i, char *str)
 		nb = nb / val_base;
 		i--;
 	}
-	if (val_base < 10)
+	if (val_base < 10 && nb >= val_base)
 	{
 		str[i--] = (nb % val_base) + '0';
 		if (nb - val_base > 0)
@@ -56,7 +51,7 @@ static char			*conv(long long val_base, long long nb, long long i, char *str)
 	return (str);
 }
 
-static char			*conv_maj(long long val_base, long long nb, long long i, char *str)
+static char			*conv_maj(unsigned long long val_base, unsigned long long nb, unsigned long long i, char *str)
 {
 	while (nb > 9)
 	{
@@ -69,7 +64,7 @@ static char			*conv_maj(long long val_base, long long nb, long long i, char *str
 		nb = nb / val_base;
 		i--;
 	}
-	if (val_base < 10)
+	if (val_base < 10 && nb >= val_base)
 	{
 		str[i--] = (nb % val_base) + '0';
 		if (nb - val_base > 0)
@@ -82,22 +77,16 @@ static char			*conv_maj(long long val_base, long long nb, long long i, char *str
 	return (str);
 }
 
-char				*ft_itoa_base(long long nb, const char *base)
+char				*ft_ulltoa_base(unsigned long long nb, const char *base)
 {
-	long long		val_base;
-	long long		i;
-	char			*str;
-
+	unsigned long long		val_base;
+	unsigned long long		i;
+	char					*str;
 
 	val_base = ft_strlen(base);
 	i = ft_len(nb, val_base);
 	if (!(str = ft_memalloc(i + 2)))
 		return (NULL);
-	if (nb < 0)
-	{
-		str[0] = '-';
-		nb *= -1;
-	}
 	if (base[10] == 'A')
 		conv_maj(val_base, nb, i, str);
 	else

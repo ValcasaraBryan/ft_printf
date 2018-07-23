@@ -14,28 +14,28 @@
 
 int		valid_flag_short(int *tab)
 {
-	if (tab[7] == INT_SHORT)
+	if (tab[INT_SHORT - 1] == INT_SHORT)
 		return (1);
 	return (0);
 }
 
 int		valid_flag_short_short(int *tab)
 {
-	if (tab[8] == INT_SHORT_SHORT)
+	if (tab[INT_SHORT_SHORT - 1] == INT_SHORT_SHORT)
 		return (1);
 	return (0);
 }
 
 int		valid_flag_long(int *tab)
 {
-	if (tab[5] == INT_LONG)
+	if (tab[INT_LONG - 1] == INT_LONG)
 		return (1);
 	return (0);
 }
 
 int		valid_flag_long_long(int *tab)
 {
-	if (tab[6] == INT_LONG_LONG)
+	if (tab[INT_LONG_LONG - 1] == INT_LONG_LONG)
 		return (1);
 	return (0);
 }

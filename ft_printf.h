@@ -81,25 +81,21 @@ int							valid_flag_long(int *tab);
 int							valid_flag_long_long(int *tab);
 t_tab						*flag(char c, t_tab *list, int *z, va_list ap);
 t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
+t_tab						*flag_x(char c, t_tab *list, int *z, va_list ap);
 char						*add_prefix(char c);
 
 char						*string_s(va_list ap);
 char						*conv_c(va_list ap);
-char						*conv_long_c(va_list ap);
-char						*d_uns_int(va_list ap);
-char						*d_long_long(va_list ap);
-char						*d_long(va_list ap);
-char						*conv_int(va_list ap);
-char						*d_uns_long(va_list ap);
-char						*d_uns_long_long(va_list ap);
-char						*short_int(va_list ap);
-char						*uns_short_int(va_list ap);
-char						*conv_hexa(va_list ap);
-char						*conv_hexa_l_l_maj(va_list ap);
-char						*conv_hexa_l_l(va_list ap);
-char						*conv_octal_l(va_list ap);
-char						*conv_octal_l_l(va_list ap);
-char						*conv_void(va_list ap);
+int							conv_int(va_list ap);
+long						conv_long(va_list ap);
+long long					conv_long_long(va_list ap);
+unsigned int				conv_uint(va_list ap);
+unsigned long				conv_ulong(va_list ap);
+unsigned long long			conv_ulong_long(va_list ap);
+short						conv_short(va_list ap);
+unsigned short				conv_ushort(va_list ap);
+char						conv_char(va_list ap);
+unsigned char				conv_uchar(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
 int							ft_buff_printf(char **str, int fd, const char *format, ...);
@@ -109,6 +105,7 @@ unsigned long long			ft_atoull(const char *str);
 
 char						*ft_lltoa(long long n);
 char						*ft_ulltoa(unsigned long long n);
-char						*ft_itoa_base(long long nb, const char *base);
+char						*ft_lltoa_base(long long nb, const char *base);
+char						*ft_ulltoa_base(unsigned long long nb, const char *base);
 
 #endif

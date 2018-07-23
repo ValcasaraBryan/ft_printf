@@ -31,26 +31,26 @@ char				*conv_c(va_list ap)
 	return (tmp);
 }
 
-char				*d_uns_int(va_list ap)
+int					conv_int(va_list ap)
 {
-	unsigned int	d;
+	int				c;
 
-	d = va_arg(ap, unsigned int);
-	return (ft_ulltoa(d));
+	c = va_arg(ap, int);
+	return (c);
 }
 
-char				*d_long_long(va_list ap)
+long				conv_long(va_list ap)
 {
-	long long			d;
+	long			c;
 
-	d = va_arg(ap, long long);
-	return (ft_lltoa(d));
+	c = va_arg(ap, long);
+	return (c);
 }
 
-char				*d_long(va_list ap)
+long long			conv_long_long(va_list ap)
 {
-	long			d;
+	long long		c;
 
-	d = va_arg(ap, long);
-	return (ft_lltoa(d));
+	c = va_arg(ap, long long);
+	return (c);
 }

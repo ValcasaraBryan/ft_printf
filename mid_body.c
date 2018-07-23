@@ -79,25 +79,25 @@ int			*flag_long_short(int *tab, int *index, char *param)
 	int		i;
 
 	i = *index;
-	if (param[i] == 'l' && tab[5] == 0 && tab[6] == 0)
+	if (param[i] == 'l' && tab[INT_LONG - 1] == 0 && tab[INT_LONG_LONG - 1] == 0)
 	{
 		if (param[i] == 'l' && param[i + 1] == 'l')
 		{
-			tab[6] = INT_LONG_LONG;
+			tab[INT_LONG_LONG - 1] = INT_LONG_LONG;
 			i++;
 		}
 		else
-			tab[5] = INT_LONG;
+			tab[INT_LONG - 1] = INT_LONG;
 	}
-	if (param[i] == 'h' && tab[7] == 0 && tab[8] == 0)
+	if (param[i] == 'h' && tab[INT_SHORT - 1] == 0 && tab[INT_SHORT_SHORT - 1] == 0)
 	{
 		if (param[i] == 'h' && param[i + 1] == 'h')
 		{
-			tab[8] = INT_SHORT_SHORT;
+			tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
 			i++;
 		}
 		else
-			tab[7] = INT_SHORT;
+			tab[INT_SHORT - 1] = INT_SHORT;
 	}
 	*index = i;
 	return (tab);

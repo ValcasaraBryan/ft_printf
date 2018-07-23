@@ -68,15 +68,15 @@ int			*flag_optional(char *param)
 	while (param[++i])
 	{
 		if (param[i] == '-')
-			tab[0] = LEFT;
+			tab[LEFT - 1] = LEFT;
 		if (param[i] == '0' && !((param[i - 1] <= '9' && param[i - 1] >= '0')))
-			tab[1] = ZERO;
+			tab[ZERO - 1] = ZERO;
 		if (param[i] == '+')
-			tab[2] = SIGN;
+			tab[SIGN - 1] = SIGN;
 		if (param[i] == ' ')
-			tab[3] = BLANK;
+			tab[BLANK - 1] = BLANK;
 		if (param[i] == '#')
-			tab[4] = HASHTAG;
+			tab[HASHTAG - 1] = HASHTAG;
 		tab = flag_long_short(tab, &i, param);
 	}
 	return (tab);

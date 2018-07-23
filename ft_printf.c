@@ -55,6 +55,11 @@ int		ft_printf(const char *format, ...)
 			flag_string(res, i, list->f, z);
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
+			if (list->f == NULL && list->c != '%')
+			{
+				flag_string(res, i, "(null)", z);
+				va_arg(ap, void *);
+			}
 			if (!(list->c == '%'))
 			{
 				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));

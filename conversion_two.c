@@ -12,42 +12,42 @@
 
 #include "ft_printf.h"
 
-char				*conv_int(va_list ap)
+unsigned int		conv_uint(va_list ap)
 {
-	int			d;
+	unsigned int	c;
 
-	d = va_arg(ap, int);
-	return (ft_lltoa(d));
+	c = va_arg(ap, unsigned int);
+	return (c);
 }
 
-char				*d_uns_long(va_list ap)
+unsigned long		conv_ulong(va_list ap)
 {
-	unsigned long	d;
+	unsigned long	c;
 
-	d = va_arg(ap, unsigned long);
-	return (ft_ulltoa(d));
+	c = va_arg(ap, unsigned long);
+	return (c);
 }
 
-char				*d_uns_long_long(va_list ap)
+unsigned long long	conv_ulong_long(va_list ap)
 {
-	unsigned long long	d;
+	unsigned long long	c;
 
-	d = va_arg(ap, unsigned long long);
-	return (ft_ulltoa(d));
+	c = va_arg(ap, unsigned long long);
+	return (c);
 }
 
-char				*short_int(va_list ap)
+short				conv_short(va_list ap)
 {
-	short int	d;
+	short			c;
 
-	d = va_arg(ap, int);
-	return (ft_lltoa((short)d));
+	c = va_arg(ap, short);
+	return (c);	
 }
 
-char				*uns_short_int(va_list ap)
+unsigned short		conv_ushort(va_list ap)
 {
-	unsigned int	d;
+	unsigned short	c;
 
-	d = va_arg(ap, unsigned int);
-	return (ft_lltoa((char)d));
+	c = va_arg(ap, unsigned short);
+	return (c);
 }
