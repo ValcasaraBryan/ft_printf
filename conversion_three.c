@@ -27,3 +27,35 @@ unsigned char	conv_uchar(va_list ap)
 	c = va_arg(ap, unsigned int);
 	return (c);
 }
+
+intmax_t	conv_intmax(va_list ap)
+{
+	intmax_t	c;
+
+	c = va_arg(ap, intmax_t);
+	return (c);
+}
+
+uintmax_t	conv_uintmax(va_list ap)
+{
+	uintmax_t	c;
+
+	c = va_arg(ap, uintmax_t);
+	return (c);
+}
+
+size_t	conv_size_t(va_list ap)
+{
+	size_t	c;
+
+	c = va_arg(ap, size_t);
+	return (c);
+}
+
+ssize_t	conv_ssize_t(va_list ap)
+{
+	ssize_t	c;
+
+	c = va_arg(ap, ssize_t);
+	return (c);
+}

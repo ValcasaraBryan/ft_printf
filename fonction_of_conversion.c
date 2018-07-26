@@ -47,6 +47,8 @@ t_tab		*init_list(va_list ap, char c, int *z)
 		if (c == 'O')
 			z[INT_LONG - 1] = INT_LONG;
 		list = flag_x(c, list, z, ap);
+		if (z[HASHTAG - 1] == HASHTAG)
+			list->f = ft_strcat(add_prefix('\0'), list->f);
 	}
 	else
 		return (init_list_next(list, ap, c, z));
@@ -71,6 +73,8 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	}
 	else if (c == '%')
 		list = list_add_conversion('%', NULL);
+	else
+		list = list_add_conversion(0, NULL);
 	return (list);
 }
 

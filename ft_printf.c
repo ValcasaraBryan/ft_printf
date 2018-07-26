@@ -44,15 +44,19 @@ int		ft_printf(const char *format, ...)
 	{
 		len_param = parsing_params((char *)format + ret++); // recupere la longueur des flags
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
-		len_param += ret;							// met len_param a la longueur debut_format
 													//  + len_flag
 		list = list_param(&i, ap, param, &z);
+
+		if (z[POINT - 1] == POINT && params_int(param))
+			if (precision_params_point(param) > (int)ft_strlen(list->f))
+				list->f = add_caractere_start(list->f, precision_params_point(param) - (int)ft_strlen(list->f), '0');
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
 			flag_char(res, i, '%', z);
 		else if (list->f)
 			flag_string(res, i, list->f, z);
+		len_param += ret;							// met len_param a la longueur debut_format
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
 			if (list->f == NULL && list->c != '%')
@@ -81,17 +85,30 @@ int		ft_printf(const char *format, ...)
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
 
-// c, C, s, S,p, d, D, i, o, O, u, U,x X 
+int			params_int(char *param)
+{
+	char	*list;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = -1;
+	list = "dDioOuUxX";
+	while (list[++i])
+	{
+		while (param[++j])
+			if (list[i] == param[j])
+				return (1);
+		j = -1;
+	}
+	return (0);
+}
+
+
 
 // char *string()
 /*
-** • Vous devez gérer les conversions suivantes : sSpdDioOuUxXcC
-** • Vous devez gérer le %%
-** • Vous devez gérer les flags #0-+ et espace
-** • Vous devez gérer la taille minimum du champ
+** • Vous devez gérer les flags #
 ** • Vous devez gérer la précision
-** • Vous devez gérer les flags hh h l ll j z
-*/
-/*
-**	essaie pour 1 argument char *
+** • Vous devez gérer les flags j z
 */

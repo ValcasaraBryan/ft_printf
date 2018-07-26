@@ -41,7 +41,8 @@ int			precision_params(char *param)
 		return (-1);
 	while (param[++i])
 	{
-		if (param[i] > 48 && param[i] <= 57)
+		if (param[i] > 48 && param[i] <= 57
+			&& param[i - 1] != '.')
 			return (ft_atoi(param + i));
 	}
 	return (0);
@@ -51,31 +52,38 @@ int			parsing_params(char *arg)
 {
 	int		i;
 	int		j;
+	int		x;
 
 	i = -1;
 	j = 0;
+	x = 0;
 	if (!arg)
 		return (-1);
 	while (arg[++i])
 		if (arg[i] == '%')
 			while (arg[i + (++j)])
-				if (params(arg[i + j]) > 0)
+			{
+				if (params(arg[i + j], CONV) > 0)
 					return (j);
+				if (params(arg[i + j], FLAG) == 0)
+					return (x);
+				x++;
+			}
 	return (0);
 }
 
-int			params(char comp)
+int			params(char comp, const char *list)
 {
-	char	*list;
 	int		i;
 
 	i = -1;
-	list = "sSpdDioOuUxXcC%";
 	while (list[++i])
 		if (list[i] == comp)
 			return (i + 1);
 	return (0);
 }
+
+
 
 int			nb_percent(char *format)
 {

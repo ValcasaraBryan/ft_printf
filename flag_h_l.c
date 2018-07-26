@@ -24,6 +24,10 @@ t_tab	*flag(char c, t_tab *list, int *z, va_list ap)
 		list = list_add_conversion(c, ft_lltoa(conv_long(ap)));
 	else if (valid_flag_long_long(z))
 		list = list_add_conversion(c, ft_lltoa(conv_long_long(ap)));
+	else if (z[J_FLAG - 1])
+		list = list_add_conversion(c, ft_lltoa(conv_intmax(ap)));
+	else if (z[Z_FLAG - 1])
+		list = list_add_conversion(c, ft_lltoa(conv_size_t(ap)));
 	else
 		list = list_add_conversion(c, ft_lltoa(conv_int(ap)));
 	return (list);

@@ -77,7 +77,10 @@ int			*flag_optional(char *param)
 			tab[BLANK - 1] = BLANK;
 		if (param[i] == '#')
 			tab[HASHTAG - 1] = HASHTAG;
+		if (param[i] == '.')
+			tab[POINT - 1] = POINT;
 		tab = flag_long_short(tab, &i, param);
+		tab = flag_z_j(tab, &i, param);
 	}
 	return (tab);
 }
@@ -95,4 +98,33 @@ int			binary(int *tab)
 		if (tab[i] > 0 && tab[i] <= LENGTH_TAB)
 			++j;
 	return (j);
+}
+
+int			precision_params_point(char *param)
+{
+	int		i;
+
+	i = -1;
+	if (!param)
+		return (-1);
+	while (param[++i])
+	{
+		if (param[i] > 48 && param[i] <= 57
+			&& param[i - 1] == '.')
+			return (ft_atoi(param + i));
+	}
+	return (0);
+}
+
+int		*flag_z_j(int *tab, int *index, char *param)
+{
+	int	i;
+
+	i = *index;
+	if (param[i] == 'j')
+		tab[J_FLAG - 1] = J_FLAG;
+	if (param[i] == 'z')
+		tab[Z_FLAG - 1] = Z_FLAG;
+	*index = i;
+	return (tab);
 }
