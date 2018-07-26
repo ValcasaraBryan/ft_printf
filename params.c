@@ -66,7 +66,7 @@ int			parsing_params(char *arg)
 				if (params(arg[i + j], CONV) > 0)
 					return (j);
 				if (params(arg[i + j], FLAG) == 0)
-					return (x);
+					return (x + 1);
 				x++;
 			}
 	return (0);

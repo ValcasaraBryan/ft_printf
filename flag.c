@@ -61,10 +61,10 @@ int			*flag_optional(char *param)
 	int		i;
 
 	i = -1;
-	if (!(tab = (int *)malloc(sizeof(int) * LENGTH_TAB + 1)))
+	if (!(tab = (int *)malloc(sizeof(int) * LENGHT_TAB + 1)))
 		return (0);
 	if (!param)
-		return (reset_tab_int(tab, LENGTH_TAB));
+		return (reset_tab_int(tab, LENGHT_TAB));
 	while (param[++i])
 	{
 		if (param[i] == '-')
@@ -81,6 +81,7 @@ int			*flag_optional(char *param)
 			tab[POINT - 1] = POINT;
 		tab = flag_long_short(tab, &i, param);
 		tab = flag_z_j(tab, &i, param);
+		tab[LENGHT_TAB + 1] = END;
 	}
 	return (tab);
 }
@@ -94,8 +95,8 @@ int			binary(int *tab)
 	j = 0;
 	if (!tab)
 		return (0);
-	while (++i < LENGTH_TAB)
-		if (tab[i] > 0 && tab[i] <= LENGTH_TAB)
+	while (++i <= LENGHT_TAB)
+		if (tab[i] > 0 && tab[i] <= LENGHT_TAB)
 			++j;
 	return (j);
 }

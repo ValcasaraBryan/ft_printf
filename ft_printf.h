@@ -18,19 +18,20 @@
 # include <stdio.h>
 # include <unistd.h>
 # define BUFF_SIZE_			1024
-# define LEFT				1
-# define ZERO				2
-# define SIGN				3
-# define BLANK				4
-# define HASHTAG			5
-# define INT_LONG			6
-# define INT_LONG_LONG		7
-# define INT_SHORT			8
-# define INT_SHORT_SHORT	9
-# define J_FLAG				10
-# define Z_FLAG				11
-# define POINT				12
-# define LENGTH_TAB 		POINT
+# define LEFT				1	// 0
+# define ZERO				2	// 1
+# define SIGN				3	// 2
+# define BLANK				4	// 3
+# define HASHTAG			5	// 4
+# define INT_LONG			6	// 5
+# define INT_LONG_LONG		7	// 6
+# define INT_SHORT			8	// 7
+# define INT_SHORT_SHORT	9	// 8
+# define J_FLAG				10	// 9
+# define Z_FLAG				11	// 10
+# define POINT				12	// 11
+# define END				0	// 12
+# define LENGHT_TAB 		11
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
 # define FLAG				"lhjz-+.#0123456789"
 

@@ -92,7 +92,7 @@ t_tab		*list_add_conversion(char c, char *string)
 	else
 	{
 		tmp->c = 0;
-		tmp->f = NULL;
+		tmp->f = ft_strdup("");
 	}
 	return (tmp);
 }

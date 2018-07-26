@@ -38,8 +38,10 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 	}
 	else
 	{
-		*index = precision_params(param) - 1;
+		*index = precision_params(param);
+		*z = flag_optional(param);
 		list = return_list(0, ap, *z);
+		list->f = &param[ft_strlen(param) - 1];
 	}
 	return (list);
 }
@@ -72,7 +74,7 @@ int			*reset_tab_int(int *tab, int len)
 	i = -1;
 	if (tab)
 	{
-		while (++i < len)
+		while (++i <= len)
 			tab[i] = 0;
 		return (tab);
 	}

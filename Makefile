@@ -45,6 +45,7 @@ comp : lib $(NAME) main.c
 	@gcc $(FLAG) $(NAME) $(GNL) ../libft/libft.a -o $(EXE)
 exe : comp
 	#------------ execution  ------------#
+	clear
 	@./$(EXE)
 	#------------ execution  ------------#
 debug : main.c

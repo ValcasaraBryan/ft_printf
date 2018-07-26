@@ -46,7 +46,6 @@ int		ft_printf(const char *format, ...)
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
 													//  + len_flag
 		list = list_param(&i, ap, param, &z);
-
 		if (z[POINT - 1] == POINT && params_int(param))
 			if (precision_params_point(param) > (int)ft_strlen(list->f))
 				list->f = add_caractere_start(list->f, precision_params_point(param) - (int)ft_strlen(list->f), '0');

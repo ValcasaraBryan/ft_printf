@@ -108,7 +108,7 @@ int			value_pos(int i, int *tab, int flag)
 	int		j;
 
 	j = -1;
-	while (++j < LENGTH_TAB)
+	while (++j < LENGHT_TAB)
 		if (tab[j] == flag)
 		{
 			if (i)
