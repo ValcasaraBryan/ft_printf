@@ -28,7 +28,7 @@ static int		ft_recursive_power(int nb, int power)
 	return (0);
 }
 
-static int		ft_unite(int nb)
+static int		ft_unite(unsigned int nb)
 {
 	while (nb > 9)
 		nb = nb / 10;
