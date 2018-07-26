@@ -73,6 +73,8 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	}
 	else if (c == '%')
 		list = list_add_conversion('%', NULL);
+	else if (c == 'f')
+		list = list_add_conversion(c, ft_dotoa(conv_float(ap), 5));
 	else
 		list = list_add_conversion(c, ft_strdup(""));
 	return (list);

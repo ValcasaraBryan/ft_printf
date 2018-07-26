@@ -18,7 +18,7 @@ SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c main.c\
 		params_two.c flag.c argument_flag.c ft_putstr_len.c option_flag.c\
 		ft_ulltoa.c ft_atoull.c mid_body.c conversion_two.c \
 		ft_lltoa.c ft_atoll.c flag_h_l.c valid_flag.c conversion_three.c\
-		ft_lltoa_base.c ft_buff_printf.c ft_ulltoa_base.c
+		ft_lltoa_base.c ft_buff_printf.c ft_ulltoa_base.c ft_dotoa.c
 
 OBJET = $(SRC:.c=.o)
 

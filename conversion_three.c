@@ -59,3 +59,11 @@ ssize_t	conv_ssize_t(va_list ap)
 	c = va_arg(ap, ssize_t);
 	return (c);
 }
+
+double	conv_float(va_list ap)
+{
+	double	c;
+
+	c = va_arg(ap, double);
+	return (c);	
+}

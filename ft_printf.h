@@ -116,6 +116,7 @@ intmax_t					conv_intmax(va_list ap);
 uintmax_t					conv_uintmax(va_list ap);
 size_t						conv_size_t(va_list ap);
 ssize_t						conv_ssize_t(va_list ap);
+double						conv_float(va_list ap);
 
 void						ft_putstr_len(const char *str, size_t len);
 int							ft_buff_printf(char **str, int fd, const char *format, ...);
@@ -127,5 +128,7 @@ char						*ft_lltoa(long long n);
 char						*ft_ulltoa(unsigned long long n);
 char						*ft_lltoa_base(long long nb, const char *base);
 char						*ft_ulltoa_base(unsigned long long nb, const char *base);
+
+char						*ft_dotoa(double nb, unsigned int precision);
 
 #endif
