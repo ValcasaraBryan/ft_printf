@@ -52,17 +52,14 @@ t_tab	*flag_u(char c, t_tab *list, int *z, va_list ap)
 
 t_tab	*flag_x(char c, t_tab *list, int *z, va_list ap)
 {
-	char hexa_min[17] = "0123456789abcdef";
-	char hexa_maj[17] = "0123456789ABCEDF";
-	char octa[10] = "01234567";
 	char *hexa;
 
 	if (c == 'x' || c == 'p')
-		hexa = hexa_min;
+		hexa = HEXA_MIN;
 	else if (c == 'X')
-		hexa = hexa_maj;
+		hexa = HEXA_MAJ;
 	else if (c == 'o' || c == 'O')
-		hexa = octa;
+		hexa = OCTAL;
 	if (!valid_flag_long(z) && !valid_flag_long_long(z) &&
 		valid_flag_short(z))
 		list = list_add_conversion(c, ft_ulltoa_base(conv_ushort(ap), hexa));

@@ -46,7 +46,7 @@ int		ft_printf(const char *format, ...)
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
 													//  + len_flag
 		list = list_param(&i, ap, param, &z);
-		if (z[POINT - 1] == POINT && params_int(param))
+		if (z[POINT - 1] == POINT && params_int(param, ENT))
 			if (precision_params_point(param) > (int)ft_strlen(list->f))
 				list->f = add_caractere_start(list->f, precision_params_point(param) - (int)ft_strlen(list->f), '0');
 		if (test-- > 0 && format[0] != '%')
@@ -83,27 +83,6 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);						// reset ap à start
 	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
 }
-
-int			params_int(char *param)
-{
-	char	*list;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	list = "dDioOuUxX";
-	while (list[++i])
-	{
-		while (param[++j])
-			if (list[i] == param[j])
-				return (1);
-		j = -1;
-	}
-	return (0);
-}
-
-
 
 // char *string()
 /*

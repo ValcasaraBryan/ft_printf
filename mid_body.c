@@ -34,15 +34,15 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 			list = return_list(param[j], ap, *z);
 		else
 			list = return_list(param[ft_strlen(param) - 1], ap, *z);
-		*index = i;
 	}
 	else
 	{
-		*index = precision_params(param);
+		i = precision_params(param);
 		*z = flag_optional(param);
 		list = return_list(0, ap, *z);
 		list->f = &param[ft_strlen(param) - 1];
 	}
+	*index = i;
 	return (list);
 }
 

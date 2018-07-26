@@ -34,6 +34,11 @@
 # define LENGHT_TAB 		11
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
 # define FLAG				"lhjz-+.#0123456789"
+# define ENT				"dDioOuUxX"
+# define IRRA				"f"
+# define HEXA_MIN			"0123456789abcdef"
+# define HEXA_MAJ			"0123456789ABCEDF"
+# define OCTAL				"01234567"
 
 typedef struct				s_fonc
 {
@@ -48,7 +53,7 @@ t_tab						*init_list_next(t_tab *list, va_list ap, char c,
 							int *z);
 int							parsing_params(char *arg);
 int							params(char comp, const char *list);
-int							params_int(char *param);
+int							params_int(char *param, const char *list);
 t_tab						*list_add_conversion(char c, char *string);
 void						list_add(t_tab	**list, t_tab *new);
 int							precision_params(char *param);

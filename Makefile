@@ -31,6 +31,7 @@ FLAG = -Wall -Wextra -Werror
 all : lib $(NAME)
 
 lib :
+	clear
 	#------------ make libft ------------#
 	@make -C ../libft
 	#------------ make libft ------------#
@@ -45,12 +46,12 @@ comp : lib $(NAME) main.c
 	@gcc $(FLAG) $(NAME) $(GNL) ../libft/libft.a -o $(EXE)
 exe : comp
 	#------------ execution  ------------#
-	clear
 	@./$(EXE)
 	#------------ execution  ------------#
 debug : main.c
 	cpp main.c
 norm :
+	clear
 	#------- only [*.c] and [*.h] -------#
 	@norminette *.c *.h
 

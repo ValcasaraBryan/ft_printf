@@ -83,7 +83,22 @@ int			params(char comp, const char *list)
 	return (0);
 }
 
+int			params_int(char *param, const char *list)
+{
+	int		i;
+	int		j;
 
+	i = -1;
+	j = -1;
+	while (list[++i])
+	{
+		while (param[++j])
+			if (list[i] == param[j])
+				return (1);
+		j = -1;
+	}
+	return (0);
+}
 
 int			nb_percent(char *format)
 {

@@ -24,9 +24,9 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-	ret = ft_printf("[%10.5d][%.5D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%-10ysalut][%jd]\n", 
+	ret = ft_printf("[%10.5d][%.5D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%-10w    gejwfjefk ysalut][%jd]\n", 
 		21, 15, "et toi ?", 97, '.',	        "hey", 2,      2,    2,     2,     2,     2,      2,       2,     &str, 17.10), 15;
-	ret_2 =  printf("[%10.5d][%.5D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%-10ysalut][%jd]\n", 
+	ret_2 =  printf("[%10.5d][%.5D][%s%2%][%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%-10w    gejwfjefk ysalut][%jd]\n", 
 		21, 15, "et toi ?", 97, '.',	        "hey", 2,      2,    2,     2,     2,     2,      2,       2,     &str, 17.10), 15;
 	if (ret == ret_2)
 		printf("len -- OK --\n\n");

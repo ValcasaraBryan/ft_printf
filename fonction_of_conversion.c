@@ -74,7 +74,7 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	else if (c == '%')
 		list = list_add_conversion('%', NULL);
 	else
-		list = list_add_conversion(0, NULL);
+		list = list_add_conversion(c, ft_strdup(""));
 	return (list);
 }
 
@@ -84,15 +84,7 @@ t_tab		*list_add_conversion(char c, char *string)
 
 	if (!(tmp = ft_memalloc(sizeof(t_tab))))
 		return (NULL);
-	if (c)
-	{
-		tmp->c = c;
-		tmp->f = string;
-	}
-	else
-	{
-		tmp->c = 0;
-		tmp->f = ft_strdup("");
-	}
+	tmp->c = c;
+	tmp->f = string;
 	return (tmp);
 }
