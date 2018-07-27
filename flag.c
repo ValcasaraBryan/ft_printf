@@ -48,7 +48,7 @@ char		*flag_char(char *res, int i, char caractere, int *flag)
 			return (NULL);
 		add_caractere(tmp, i, ' ');
 		tmp = (char *)ft_memset(tmp, caractere, 1);
-		res = strcat(res, tmp);
+		res = ft_strcat(res, tmp);
 		return (res);
 	}
 	add_caractere(res, 1, caractere);

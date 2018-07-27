@@ -47,7 +47,7 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		nb = nb * -1;
 		neg = 1;
 	}
-	if (nb > 9)
+	if (nb > 1)
 	{
 		str = ft_strdup(ft_lltoa(nb));
 		i = (int)ft_strlen(str) - 1;
@@ -62,10 +62,14 @@ char	*ft_dotoa(double nb, unsigned int precision)
 	if (nb < 1 && nb > 0)
 	{
 		while (precision--)
+		{
 			nb *= 10;
-		if (nb - (int)nb >= 0.6 && nb - (int)nb < 1)
+			if (ft_unite(nb) == 0)
+				add_caractere(str, 1, ft_unite(nb) + 48);
+		}
+		if (nb - (int)nb > 0.5 && nb - (int)nb < 1)
 			nb += 1;
-		ft_strcat(str, ft_strdup(ft_lltoa(nb)));
+		ft_strcat(str, ft_lltoa(nb));
 	}
 	if (neg)
 		str = add_caractere_start(str, 1, '-');
