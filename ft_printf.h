@@ -33,7 +33,7 @@
 # define END				0	// 12
 # define LENGHT_TAB 		11
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
-# define FLAG				"lhjz-+.#0123456789"
+# define FLAG				"lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
 # define IRRA				"f"
 # define HEXA_MIN			"0123456789abcdef"

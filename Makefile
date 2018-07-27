@@ -36,7 +36,7 @@ FLAG = -Wall -Wextra -Werror
 
 MAIN = main.c
 
-all : lib $(NAME)
+all : $(NAME)
 
 lib :
 	clear
