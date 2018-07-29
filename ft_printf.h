@@ -30,8 +30,8 @@
 # define J_FLAG				10	// 9
 # define Z_FLAG				11	// 10
 # define POINT				12	// 11
-# define END				0	// 12
-# define LENGHT_TAB 		11
+								// 12
+# define LENGHT_TAB 		13	// 13
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
 # define FLAG				"lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
@@ -44,6 +44,7 @@ typedef struct				s_fonc
 {
 	char					c;
 	char					*f;
+	unsigned char			carac;
 }							t_tab;
 
 int							ft_printf(const char *format, ...);
@@ -57,16 +58,15 @@ int							params_int(char *param, const char *list);
 t_tab						*list_add_conversion(char c, char *string);
 void						list_add(t_tab	**list, t_tab *new);
 int							precision_params(char *param);
-int							precision_params_point(char *param);
 char						*add_caractere(char *params, int len,
-							long caractere);
+							unsigned char caractere);
 char						*add_caractere_start(char *params, int len,
-							long caractere);
+							unsigned char caractere);
 int							nb_percent(char *format);
 int							p_of_params(char *format);
 char						*flag_string(char *res, int i, char *string,
 							int *flag);
-char						*flag_char(char *res, int i, char caractere,
+char						*flag_char(char *res, int i, unsigned char caractere,
 							int *flag);
 int							*flag_optional(char *param);
 int							binary(int *tab);
@@ -99,9 +99,11 @@ t_tab						*flag(char c, t_tab *list, int *z, va_list ap);
 t_tab						*flag_u(char c, t_tab *list, int *z, va_list ap);
 t_tab						*flag_x(char c, t_tab *list, int *z, va_list ap);
 char						*add_prefix(char c);
+int							free_strlen(char *res);
+char						*precision(char *string, int len, int precision);
 
 char						*string_s(va_list ap);
-char						*conv_c(va_list ap);
+char						conv_c(va_list ap);
 int							conv_int(va_list ap);
 long						conv_long(va_list ap);
 long long					conv_long_long(va_list ap);

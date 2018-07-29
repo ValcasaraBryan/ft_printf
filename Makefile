@@ -28,7 +28,8 @@ OBJET_LIB = libft/ft_atoi.o libft/ft_itoa.o\
 			libft/ft_strdup.o libft/ft_strlen.o\
 			libft/ft_strncpy.o libft/ft_strndup.o\
 			libft/ft_bzero.o libft/ft_putchar.o\
-			libft/ft_strcpy.o
+			libft/ft_strcpy.o libft/ft_strjoin.o\
+			libft/ft_strnchr.o libft/ft_strndup.o
 
 HEAD = -I ft_printf.h
 

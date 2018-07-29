@@ -36,6 +36,7 @@ char		*option_right(char *string, int i, int len, int *flag)
 	char	*tmp;
 
 	sign = NULL;
+	tmp = NULL;
 	if (!(space = ft_memalloc(i + 1)))
 		return (NULL);
 	sign = ft_strdup("+");
@@ -52,9 +53,13 @@ char		*option_right(char *string, int i, int len, int *flag)
 		&& value_pos(0, flag, ZERO))
 		space = blank_option(string, &i, flag);
 	option_space_zero(space, i, len, flag);
-	ft_strcat(tmp, string);
-	tmp = ft_strcat(space, tmp);
-	return (tmp);
+	if (tmp)
+	{
+		ft_strcat(tmp, string);
+		return (ft_strcat(space, tmp));
+	}
+	else
+		return (ft_strcat(space, string));
 }
 
 char		*option_left(char *string, int i, int len, int *flag)
@@ -73,15 +78,13 @@ char		*option_left(char *string, int i, int len, int *flag)
 		add_caractere(space, i - len, ' ');
 		tmp = ft_strcat(tmp, space);
 		tmp = ft_strcat(string, tmp);
-		tmp = ft_strcat(sign, tmp);
-		return (tmp);
+		return (ft_strcat(sign, tmp));
 	}
 	if (value_pos(0, flag, BLANK) && ft_atoll(string))
 		tmp = blank_option(string, &i, flag);
 	ft_strcat(tmp, string);
 	add_caractere(space, i - len, ' ');
-	tmp = ft_strcat(tmp, space);
-	return (tmp);
+	return (ft_strcat(tmp, space));
 }
 
 char		*option_zero_space(char *sign, char *tmp, int i, int *flag)
@@ -108,13 +111,15 @@ int			value_pos(int i, int *tab, int flag)
 	int		j;
 
 	j = -1;
-	while (++j < LENGHT_TAB)
+	while (++j < LENGHT_TAB - 1)
+	{
 		if (tab[j] == flag)
 		{
 			if (i)
-				return (i - 1);
+				return (i);
 			else
 				return (1);
 		}
+	}
 	return (i);
 }

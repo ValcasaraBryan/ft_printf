@@ -34,7 +34,7 @@ char		*option_space_zero(char *space, int i, int len, int *flag)
 	return (space);
 }
 
-char		*add_caractere_start(char *params, int len, long caractere)
+char		*add_caractere_start(char *params, int len, unsigned char caractere)
 {
 	char	*tmp;
 
@@ -43,7 +43,7 @@ char		*add_caractere_start(char *params, int len, long caractere)
 	if (*params && (len >= 0))
 	{
 		tmp = (char *)ft_memset(tmp, caractere, len);
-		ft_strcat(tmp, params);
+		tmp = ft_strcat(tmp, params);
 		return (tmp);
 	}
 	else if (!*params && (len >= 0))

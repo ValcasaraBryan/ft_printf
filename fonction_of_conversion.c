@@ -34,7 +34,7 @@ t_tab		*init_list(va_list ap, char c, int *z)
 	{
 		if (c == 'C')
 			z[INT_LONG - 1] = INT_LONG;
-		list = list_add_conversion(c, conv_c(ap));
+		list = list_add_conversion(c, NULL);
 	}
 	else if (c == 'd' || c == 'i' || c == 'D')
 	{
@@ -74,7 +74,7 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	else if (c == '%')
 		list = list_add_conversion('%', NULL);
 	else if (c == 'f')
-		list = list_add_conversion(c, ft_dotoa(conv_float(ap), 5));
+		list = list_add_conversion(c, ft_dotoa(conv_float(ap), z[POINT]));
 	else
 		list = list_add_conversion(c, ft_strdup(""));
 	return (list);
@@ -87,6 +87,9 @@ t_tab		*list_add_conversion(char c, char *string)
 	if (!(tmp = ft_memalloc(sizeof(t_tab))))
 		return (NULL);
 	tmp->c = c;
-	tmp->f = string;
+	if (!string)
+		tmp->f = ft_strdup("(null)");
+	else
+		tmp->f = string;
 	return (tmp);
 }

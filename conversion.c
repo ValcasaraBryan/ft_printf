@@ -20,15 +20,12 @@ char				*string_s(va_list ap)
 	return (str);
 }
 
-char				*conv_c(va_list ap)
+char				conv_c(va_list ap)
 {
 	int				c;
-	char			*tmp;
 
 	c = va_arg(ap, int);
-	tmp = ft_strdup("");
-	tmp[0] = (char)c;
-	return (tmp);
+	return ((unsigned char)c);
 }
 
 int					conv_int(va_list ap)

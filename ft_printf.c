@@ -47,22 +47,25 @@ int		ft_printf(const char *format, ...)
 													//  + len_flag
 		list = list_param(&i, ap, param, &z);
 		if (z[POINT - 1] == POINT && params_int(param, ENT))
-			if (precision_params_point(param) > (int)ft_strlen(list->f))
-				list->f = add_caractere_start(list->f, precision_params_point(param) - (int)ft_strlen(list->f), '0');
+		{
+			list->f = precision(list->f, (int)ft_strlen(list->f), z[POINT]);
+			if (z[ZERO - 1])
+				z[ZERO - 1] = 0;
+		}
+		if (z[POINT - 1] == POINT && list->c == 's')
+			list->f = ft_strndup(list->f, z[POINT]);
+
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
 			flag_char(res, i, '%', z);
+		else if (list->c == 'c' || list->c == 'C')
+			flag_char(res, i, conv_c(ap), z);
 		else if (list->f)
 			flag_string(res, i, list->f, z);
 		len_param += ret;							// met len_param a la longueur debut_format
 		if (nb)						// s'il y a plusieurs arguments et qu'il y a du texte 
 		{							// entre ceux ci, l'ajoute au resultat final
-			if (list->f == NULL && list->c != '%')
-			{
-				flag_string(res, i, "(null)", z);
-				va_arg(ap, void *);
-			}
 			if (!(list->c == '%'))
 			{
 				ft_strncpy(res + ft_strlen(res), format + len_param, p_of_params((char *)format + len_param));
@@ -76,12 +79,24 @@ int		ft_printf(const char *format, ...)
 			else
 				res = inter_flag_of_conv(format, res, &ret, len_param);
 		}
+		free(param);
 		i = 0;
 	}
+	free(z);
+	free(list);
 	ft_strcat(res, format + len_param); 	// ajout la fin de format apres les flags
-	ft_putstr_len(res, ft_strlen(res));					// affiche la nouvelle string avec conversion
 	va_end(ap);						// reset ap à start
-	return (ft_strlen(res));		// renvoi la longueur de la nouvelle string
+	return (free_strlen(res));		// renvoi la longueur de la nouvelle string
+}
+
+int		free_strlen(char *res)
+{
+	int i;
+	
+	i = ft_strlen(res);
+	ft_putstr_len(res, i);
+	free(res);
+	return (i);
 }
 
 // char *string()

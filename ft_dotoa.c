@@ -59,7 +59,7 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		add_caractere(str, 1, '.');
 	else
 		str = ft_strdup("0.");
-	if (nb < 1 && nb > 0)
+	if (nb < 1 && nb >= 0)
 	{
 		while (precision--)
 		{
@@ -69,7 +69,8 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		}
 		if (nb - (int)nb > 0.5 && nb - (int)nb < 1)
 			nb += 1;
-		ft_strcat(str, ft_lltoa(nb));
+		if (nb > 1)
+			ft_strcat(str, ft_lltoa(nb));
 	}
 	if (neg)
 		str = add_caractere_start(str, 1, '-');

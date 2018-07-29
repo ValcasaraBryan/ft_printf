@@ -25,8 +25,8 @@ t_tab		*list_param(int *index, va_list ap, char *param, int **z)
 		list = return_list(*param, ap, *z);
 	else if (params(param[ft_strlen(param) - 1], CONV))
 	{
-		j = binary(*z);
 		*z = flag_optional(param);
+		j = binary(*z);
 		i = precision_params(param);
 		if ((j + ft_strlen(ft_lltoa(i))) == ft_strlen(param) - 1)
 			list = return_list(param[(j + ft_strlen(ft_lltoa(i)))], ap, *z);
