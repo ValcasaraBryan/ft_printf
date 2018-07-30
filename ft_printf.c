@@ -46,15 +46,17 @@ int		ft_printf(const char *format, ...)
 		param = ft_strndup(format + ret, len_param);		// recupere les flags
 													//  + len_flag
 		list = list_param(&i, ap, param, &z);
-		if (z[POINT - 1] == POINT && params_int(param, ENT))
+		if (z[POINT - 1] == POINT && params_int(param, ENT) && z[POINT])
 		{
 			list->f = precision(list->f, (int)ft_strlen(list->f), z[POINT]);
 			if (z[ZERO - 1])
 				z[ZERO - 1] = 0;
 		}
+		else if (z[POINT] == 0 && z[POINT - 1] == POINT)
+			list->f = point_precision(list->f);
+
 		if (z[POINT - 1] == POINT && list->c == 's')
 			list->f = ft_strndup(list->f, z[POINT]);
-
 		if (test-- > 0 && format[0] != '%')
 			res = ft_strncpy(res, format, ret - 1); 	// ajout le debut de format avant '%' a res
 		if (list->c == '%')
@@ -97,6 +99,24 @@ int		free_strlen(char *res)
 	ft_putstr_len(res, i);
 	free(res);
 	return (i);
+}
+
+char *point_precision(char *string)
+{
+	char *tmp;
+	int i;
+
+	i = 0;
+	while (string[i] && string[i] != '.')
+		i++;
+	if (i)
+	{
+		tmp = ft_strndup(string, i);
+		free(string);
+		return (tmp);
+	}
+	else
+		return (string);
 }
 
 // char *string()

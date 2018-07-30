@@ -101,6 +101,7 @@ t_tab						*flag_x(char c, t_tab *list, int *z, va_list ap);
 char						*add_prefix(char c);
 int							free_strlen(char *res);
 char						*precision(char *string, int len, int precision);
+char						*point_precision(char *string);
 
 char						*string_s(va_list ap);
 char						conv_c(va_list ap);

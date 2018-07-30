@@ -62,7 +62,7 @@ char		*inter_flag_of_conv(const char *format, char *string, int *index,
 	}
 	else if (!parsing_params((char *)format + ret))
 		ft_strncpy(res + ft_strlen(res), format + len_param,
-			p_of_params((char *)format + len_param + 1));
+			p_of_params((char *)format + ret));
 	*index = ret;
 	return (string);
 }

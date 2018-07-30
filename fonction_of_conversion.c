@@ -62,6 +62,10 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 		if (c == 'U')
 			z[INT_LONG - 1] = INT_LONG;
 		list = flag_u(c, list, z, ap);
+		if (z[BLANK - 1] == BLANK)
+			z[BLANK - 1] = 0;
+		if (z[SIGN - 1] == SIGN)
+			z[SIGN - 1] = 0;
 	}
 	else if (c == 'x' || c == 'X' || c == 'p')
 	{
@@ -74,7 +78,7 @@ t_tab		*init_list_next(t_tab *list, va_list ap, char c, int *z)
 	else if (c == '%')
 		list = list_add_conversion('%', NULL);
 	else if (c == 'f')
-		list = list_add_conversion(c, ft_dotoa(conv_float(ap), z[POINT]));
+			list = list_add_conversion(c, ft_dotoa(conv_float(ap), z[POINT]));
 	else
 		list = list_add_conversion(c, ft_strdup(""));
 	return (list);
