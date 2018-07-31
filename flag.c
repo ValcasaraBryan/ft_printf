@@ -57,15 +57,12 @@ char		*flag_char(char *res, int i, unsigned char caractere, int *flag)
 	return (res);
 }
 
-int			*flag_optional(char *param)
+int			*flag_optional(char *param, int *tab)
 {
-	int		*tab;
 	int		i;
 
 	i = -1;
 
-	if (!(tab = (int *)malloc(sizeof(int) * LENGHT_TAB + 1)))
-		return (0);
 	reset_tab_int(tab, LENGHT_TAB);
 	if (!param)
 		return (tab);

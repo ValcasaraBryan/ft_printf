@@ -36,9 +36,5 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
-	ft_printf("%%%", "test");
-	printf("%%%", "test");
-	ft_printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
-	printf("%c%c%c%c%c\n", 's', 'a', 'l', 'u', 't');
 	return (0);
 }

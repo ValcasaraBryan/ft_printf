@@ -68,7 +68,7 @@ char						*flag_string(char *res, int i, char *string,
 							int *flag);
 char						*flag_char(char *res, int i, unsigned char caractere,
 							int *flag);
-int							*flag_optional(char *param);
+int							*flag_optional(char *param, int *tab);
 int							binary(int *tab);
 char						*add_precision(char *string, int i, int len,
 							int *flag);
