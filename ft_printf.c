@@ -51,7 +51,7 @@ int		ft_printf(const char *format, ...)
 		if (z[POINT - 1] == POINT && params_int(param, ENT) && z[POINT])
 		{
 			list->f = precision(list->f, (int)ft_strlen(list->f), z[POINT]);
-			if (z[ZERO - 1])
+			if (z[ZERO - 1] == ZERO)
 				z[ZERO - 1] = 0;
 		}
 		else if (z[POINT] == 0 && z[POINT - 1] == POINT)

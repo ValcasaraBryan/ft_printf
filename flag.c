@@ -70,7 +70,7 @@ int			*flag_optional(char *param, int *tab)
 	{
 		if (param[i] == '-')
 			tab[LEFT - 1] = LEFT;
-		if (!((param[i - 1] <= '9' && param[i - 1] >= '0')) && (param[i] == '0' &&  param[i - 1] != '.'))
+		if (param[i] == '0' && !((param[i - 1] <= '9' && param[i - 1] >= '0')) && !(param[i - 1] == '.'))
 			tab[ZERO - 1] = ZERO;
 		if (param[i] == '+')
 			tab[SIGN - 1] = SIGN;
