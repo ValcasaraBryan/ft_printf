@@ -12,36 +12,99 @@
 
 #include "ft_printf.h"
 
+int			binary_flag(int *tab)
+{
+	int		i;
+	int		j;
 
+	i = -1;
+	j = 0;
+	if (!tab)
+		return (0);
+	while (++i <= LENGHT_TAB)
+		if (tab[i] > 0 && tab[i] <= LENGHT_TAB)
+			++j;
+	return (j);
+}
 
+void print_tab(t_string l, int len)
+{
+	int i;
 
+	i = 0;
+	printf("l.tab[ ] = " );
+	while (i < len)
+			printf("%5d", i++);
+	i = 0;
+	printf("\n");
+	printf("l.tab    = ");
+	while (len-- > 0)
+		printf("%5d", l.tab[i++]);
+	printf("\n\n");
+}
 
+void	change_string(t_string *l, t_tab *list)
+{
+	if (binary_flag(l->tab))
+	{
+		printf("FLAG !\n");
+		printf("%s|%s\n", l->str, list->f);
 
+		add_precision(l, list);
 
+		printf("%s|%s\n", l->str, list->f);
+	}
+	else
+		printf("NO FLAG\n");
+}
 
-t_tab	*parsign_arg(char *argument, va_list ap, int len, t_string l)
+t_tab	*init_list(va_list ap, char c, t_string l)
+{
+	if (c == 's' || c == 'S')
+	{
+		if (c == 'S')
+			l.tab[INT_LONG - 1] = INT_LONG;
+		return (list_add_conversion(c, string_s(ap), l));
+	}
+	return (list_add_conversion(c, NULL, l));
+}
+
+t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 {
 	if (params(argument[len - 1], CONV))
 	{
 		flag_optional(argument, l);
-		return (init_list(ap, argument[len - 1], l.tab));
+		return (init_list(ap, argument[len - 1], *l));
 	}
+	else
+		return (NULL);
 }
 
-
-
-void	parsing(const char *format, t_string l, t_tab *list, va_list ap)
+void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 {
 	int		i_of_format;
 	int		len_arg;
 	char	*arg;
 
 	i_of_format = p_of_params((char *)format);
-	while (l.nb_percent--)
+	printf("l->nb_pe = [%d]\n\n", l->nb_percent);
+	if (i_of_format > 0)
+		l->str = ft_strndup(format, (l->len = i_of_format));
+	while (l->nb_percent--)
 	{
+		reset_tab_int(l, LENGHT_TAB);
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
+													print_tab(*l, LENGHT_TAB);/////////////////////////////////////
+		i_of_format += len_arg;
+		change_string(l, list);
+		if (l->nb_percent)
+			ft_strcat(l->str, ft_strndup(format + i_of_format, (l->len += p_of_params((char *)format + i_of_format))));
+		//printf("list->f  = [%s]\n", list->f);
+		//printf("list->c  = [%c]\n\n", list->c);
+		//printf("l->str   = [%s]\n", l->str);
+		//printf("l->len   = [%d]\n\n", l->len);
 	}
 }
 
@@ -56,11 +119,14 @@ int		ft_printf(const char *format, ...)
 	va_start(ap, format);
 	l.nb_percent = nb_percent((char *)format);
 	if (l.nb_percent)
-		parsing(format, l, &list, ap);
+		parsing(format, &l, &list, ap);
 	else
 		return (no_arguments(format, ap, l));
 	va_end(ap);
+	printf("     ---     \n");
 	ft_putstr_len(l.str, l.len);
+	printf("|\n");
+	printf("-------------\n");
 	return (l.len);	
 }
 
@@ -88,24 +154,82 @@ int		ft_printf(const char *format, ...)
 
 
 
+t_tab		*list_add_conversion(char c, char *string, t_string l)
+{
+	t_tab	*tmp;
 
+	if (!(tmp = ft_memalloc(sizeof(t_tab))))
+		return (NULL);
+	tmp->c = c;
+	if (!string)
+		tmp->f = ft_strdup("(null)");
+	else
+		tmp->f = string;
+	return (tmp);
+}
 
+void		largeur_of_camp(char *arg, t_string *l, int i)
+{
+	if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
+		l->tab[LARGEUR] = ft_atoll(arg + i);
+}
 
+int		flag_optional_suit(char *arg, t_string *l, int i)
+{
+	if (arg[i] == 'z')
+		l->tab[Z_FLAG - 1] = Z_FLAG;
+	if (arg[i] == 'l' && l->tab[INT_LONG - 1] == 0 && l->tab[INT_LONG_LONG - 1] == 0)
+	{
+	if (arg[i] == 'l' && arg[i + 1] == 'l')
+		{
+			l->tab[INT_LONG_LONG - 1] = INT_LONG_LONG;
+			i++;
+		}
+		else
+			l->tab[INT_LONG - 1] = INT_LONG;
+	}
+	if (arg[i] == 'h' && l->tab[INT_SHORT - 1] == 0 && l->tab[INT_SHORT_SHORT - 1] == 0)
+	{
+		if (arg[i] == 'h' && arg[i + 1] == 'h')
+	{
+			l->tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
+			i++;
+		}
+		else
+			l->tab[INT_SHORT - 1] = INT_SHORT;
+	}
+	return (i);
+}
 
+void		flag_optional(char *arg, t_string *l)
+{
+	int		i;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	i = -1;
+	while (arg[++i])
+	{
+		if (arg[i] == '-')
+			l->tab[LEFT - 1] = LEFT;
+		if (arg[i] == '0' && !((arg[i - 1] <= '9' && arg[i - 1] >= '0')) && !(arg[i - 1] == '.'))
+			l->tab[ZERO - 1] = ZERO;
+		if (arg[i] == '+')
+			l->tab[SIGN - 1] = SIGN;
+		if (arg[i] == ' ')
+			l->tab[BLANK - 1] = BLANK;
+		if (arg[i] == '#')
+			l->tab[HASHTAG - 1] = HASHTAG;
+		if (arg[i] == '.')
+		{
+			l->tab[POINT - 1] = POINT;
+			l->tab[POINT] = ft_atoll(arg + i + 1);
+		}
+		if (arg[i] == 'j')
+			l->tab[J_FLAG - 1] = J_FLAG;
+		i = flag_optional_suit(arg, l, i);
+		if (l->tab[LARGEUR] == 0)
+			largeur_of_camp(arg, l, i);
+	}
+}
 
 int			p_of_params(char *format)
 {
@@ -180,70 +304,13 @@ int			precision_params(char *param)
 	return (0);
 }
 
-void			reset_tab_int(t_string l, int len)
+void		reset_tab_int(t_string *l, int len)
 {
 	int		i;
 
 	i = -1;
-	while (++i <= len)
-		l.tab[i] = 0;
-}
-
-void			flag_optional_two(char *param, t_string l, int *i)
-{
-	if (param[*i] == 'j')
-		l.tab[J_FLAG - 1] = J_FLAG;
-	if (param[*i] == 'z')
-		l.tab[Z_FLAG - 1] = Z_FLAG;
-	if (param[*i] == 'l' && l.tab[INT_LONG - 1] == 0 && l.tab[INT_LONG_LONG - 1] == 0)
-	{
-		if (param[*i] == 'l' && param[*i + 1] == 'l')
-		{
-			l.tab[INT_LONG_LONG - 1] = INT_LONG_LONG;
-			*i++;
-		}
-		else
-			l.tab[INT_LONG - 1] = INT_LONG;
-	}
-	if (param[*i] == 'h' && l.tab[INT_SHORT - 1] == 0 && l.tab[INT_SHORT_SHORT - 1] == 0)
-	{
-		if (param[*i] == 'h' && param[*i + 1] == 'h')
-	{
-			l.tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
-			*i++;
-		}
-		else
-			l.tab[INT_SHORT - 1] = INT_SHORT;
-	}
-}
-
-void			flag_optional(char *param, t_string l)
-{
-	int		i;
-
-	i = -1;
-	reset_tab_int(l, LENGHT_TAB);
-	while (param[++i])
-	{
-		if (param[i] == '-')
-			l.tab[LEFT - 1] = LEFT;
-		if (param[i] == '0' && !((param[i - 1] <= '9' && param[i - 1] >= '0')) && !(param[i - 1] == '.'))
-			l.tab[ZERO - 1] = ZERO;
-		if (param[i] == '+')
-			l.tab[SIGN - 1] = SIGN;
-		if (param[i] == ' ')
-			l.tab[BLANK - 1] = BLANK;
-		if (param[i] == '#')
-			l.tab[HASHTAG - 1] = HASHTAG;
-		if (param[i] == '.')
-		{
-			l.tab[POINT - 1] = POINT;
-			l.tab[POINT] = ft_atoll(param + i + 1);
-		}
-		l.tab[LARGEUR - 1] = precision_params(param + i);
-		flag_optional_two(param, l, &i);
-		flag_optional_three(param, l, &i);
-	}
+	while (++i < len)
+		l->tab[i] = 0;
 }
 
 int			params(char comp, const char *list)
