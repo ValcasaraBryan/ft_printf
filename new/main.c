@@ -17,7 +17,7 @@ int		main(int argc, char **argv)
 	int ret;
 	int ret_2;
 	char *str;
-	const char format[500] = "[%-11.5s]";
+	const char format[500] = "[% +10d]";
 
 	(void)argc;
 	(void)argv;
@@ -25,8 +25,8 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-	ret = ft_printf(format, "salut", "yo");
-	ret_2 =  printf(format, "salut", "yo");
+	ret = ft_printf(format, 15);
+	ret_2 =  printf(format, 15);
 	printf("|\n");
 	if (ret == ret_2)
 	{

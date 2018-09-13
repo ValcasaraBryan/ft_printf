@@ -20,7 +20,8 @@ SRC = ft_printf.c fonction.c conversion.c conversion_two.c conversion_three.c \
 OBJET = $(SRC:.c=.o)
 
 OBJET_LIB = ../libft/ft_atoi.o ../ft_atoll.o ../libft/ft_memalloc.o ../libft/ft_strdup.o ../libft/ft_strlen.o ../libft/ft_strndup.o \
-			../libft/ft_bzero.o ../libft/ft_strcpy.o ../libft/ft_strncpy.o ../libft/ft_strcat.o ../libft/ft_memset.o
+			../libft/ft_bzero.o ../libft/ft_strcpy.o ../libft/ft_strncpy.o ../libft/ft_strcat.o ../libft/ft_memset.o ../libft/ft_strjoin.o\
+			../ft_lltoa.o
 HEAD = -I ft_printf.h
 
 FLAG = -Wall -Wextra -Werror

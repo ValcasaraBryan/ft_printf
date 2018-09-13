@@ -12,96 +12,132 @@
 
 #include "ft_printf.h"
 
-char		*signe(long long val, char *string, char **sign)
+char		*option_space_zero(char *space, t_string *l, t_tab *list)
 {
-	if (val < 0)
-	{
-		++string;
-		*sign[0] = '-';
-	}
-	return (string);
-}
-
-void		add_precision(t_string *l, t_tab *list)
-{
-	if (!value_pos(0, l->tab, LEFT))
-		option_right(l, list);
+	if (value_pos(0, l->tab, ZERO))
+		ft_memset(space, '0', l->tab[LARGEUR] - list->len);
 	else
-		option_left(l, list);
+		ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
+	return (space);
 }
 
-char		*option_right(t_string *l, t_tab *list)
-{
-	char	*space;
-	char	*sign;
-	char	*tmp;
-
-	sign = NULL;
-	tmp = NULL;
-//	if (!(space = ft_memalloc(i + 1)))
-//		return (NULL);
-	sign = ft_strdup("+");
-	if (value_pos(0, l->tab, SIGN) || list->f[0] == '-')
-	{
-		list->f = signe(ft_atoll(list->f), list->f, &sign);
-//		tmp = option_zero_space(sign, tmp, i - len, l->tab);
-		return (ft_strcat(tmp, list->f));
-	}
-//	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
-//		&& !value_pos(0, l->tab, ZERO))
-//		tmp = blank_option(list->f, &i, l->tab);
-//	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
-//		&& value_pos(0, l->tab, ZERO))
-//		space = blank_option(list->f, &i, l->tab);
-//	option_space_zero(space, i, len, l->tab);
-	if (tmp)
-		return (ft_strcat(space, tmp));
-	else
-		return (ft_strcat(space, list->f));
-}
-
-char		*option_left(t_string *l, t_tab *list)
-{
-	char	*space;
-	char	*sign;
-	char	*tmp;
-
-	sign = NULL;
-//	if (!(space = ft_memalloc(i + 1)))
-//		return (NULL);
-	sign = ft_strdup("+");
-	if (value_pos(0, l->tab, SIGN) || list->f[0] == '-')
-	{
-		list->f = signe(ft_atoll(list->f), list->f, &sign);
-//		ft_memset(space, ' ', i - len);
-		tmp = ft_strcat(tmp, space);
-		tmp = ft_strcat(list->f, tmp);
-		return (ft_strcat(sign, tmp));
-	}
-//	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f))
-//		tmp = blank_option(list->f, &i, l->tab);
-	ft_strcat(tmp, list->f);
-//	ft_memset(space, ' ', i - len);
-	return (ft_strcat(tmp, space));
-}
-
-char		*option_zero_space(char *sign, char *tmp, int i, int *flag)
+char		*option_zero_space(char *sign, char *tmp, t_string *l, t_tab *list)
 {
 	char	*space;
 
-	if (!(space = ft_memalloc(i + 1)))
+	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
 		return (NULL);
-	if (value_pos(0, flag, ZERO))
+	if (value_pos(0, l->tab, ZERO))
 	{
-		ft_memset(space, '0', i);
+		ft_memset(space, '0', l->tab[LARGEUR] - list->len);
 		tmp = ft_strcat(sign, space);
 	}
 	else
 	{
-		ft_memset(space, ' ', i);
+		ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
 		tmp = ft_strcat(space, sign);
 	}
 	return (tmp);
+}
+
+char		*blank_option(char *string, t_tab *list)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_memalloc(2)))
+		return (NULL);
+	list->len++;
+	ft_memset(tmp, ' ', 1);
+	return (ft_strcat(tmp, string));
+}
+
+char		*signe(long long val, t_tab *list, char **sign, t_string *l)
+{
+	char *tmp;
+
+	tmp = NULL;
+	if (val < 0)
+	{
+		tmp = ft_strdup(list->f + 1);
+		free(list->f);
+		*sign[0] = '-';
+		return (tmp);
+	}
+	if (!(l->tab[LARGEUR]))
+		l->len++;
+	if (*sign[0] == '+')
+		list->len++;
+	return (list->f);
+}
+
+void		add_precision(t_string *l, t_tab *list)
+{
+	if (l->tab[LARGEUR] < list->len)
+		l->tab[LARGEUR] = list->len;
+	if (!value_pos(0, l->tab, LEFT))
+		option_right(l, list);
+	else
+		option_left(l, list);
+	l->str = ft_strjoin(l->str, list->f);
+	l->len += l->tab[LARGEUR];
+}
+
+void		option_right(t_string *l, t_tab *list)
+{
+	char	*space;
+	char	*sign;
+	char	*tmp;
+
+	tmp = NULL;
+	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
+		return ;
+	sign = ft_strdup("+");
+	if ((value_pos(0, l->tab, SIGN) || list->f[0] == '-') && ft_atoll(list->f))
+	{
+		list->f = signe(ft_atoll(list->f), list, &sign, l);
+		tmp = option_zero_space(sign, tmp, l, list);
+		list->f = ft_strjoin(tmp, list->f);
+		return ;
+	}
+	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
+		&& !value_pos(0, l->tab, ZERO))
+		tmp = blank_option(list->f, list);
+	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
+		&& value_pos(0, l->tab, ZERO))
+		tmp = blank_option(space, list);
+	option_space_zero(space, l, list);
+	if (tmp)
+		space = ft_strcat(tmp, space);
+	list->f = ft_strcat(space, list->f);
+}
+
+void		option_left(t_string *l, t_tab *list)
+{
+	char	*space;
+	char	*sign;
+	char	*tmp;
+
+	tmp = NULL;
+	if (!(space = ft_memalloc(l->tab[LARGEUR] - list->len + 1)))
+		return ;
+	sign = ft_strdup("+");
+	if ((value_pos(0, l->tab, SIGN) || list->f[0] == '-') && ft_atoll(list->f))
+	{
+		list->f = signe(ft_atoll(list->f), list, &sign, l);
+		ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
+		tmp = ft_strjoin(list->f, space);
+		ft_strjoin(list->f, tmp);
+		list->f = ft_strcat(sign, tmp);
+		return ;
+	}
+	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f))
+		tmp = blank_option(list->f,list);
+	ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
+	if (!tmp)
+		tmp = ft_strjoin(list->f, space);
+	else
+		tmp = ft_strjoin(tmp, space);
+	list->f = tmp;
 }
 
 int			value_pos(int i, int *tab, int flag)

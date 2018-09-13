@@ -46,16 +46,12 @@ void print_tab(t_string l, int len)
 void	change_string(t_string *l, t_tab *list)
 {
 	if (binary_flag(l->tab))
-	{
-		printf("FLAG !\n");
-		printf("%s|%s\n", l->str, list->f);
-
 		add_precision(l, list);
-
-		printf("%s|%s\n", l->str, list->f);
-	}
 	else
-		printf("NO FLAG\n");
+	{
+		l->str = ft_strjoin(l->str, list->f);
+		l->len += list->len;
+	}
 }
 
 t_tab	*init_list(va_list ap, char c, t_string l)
@@ -65,6 +61,12 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 		if (c == 'S')
 			l.tab[INT_LONG - 1] = INT_LONG;
 		return (list_add_conversion(c, string_s(ap), l));
+	}
+	if (c == 'd' || c == 'i' || c == 'D')
+	{
+		if (c == 'D')
+			l.tab[INT_LONG - 1] = INT_LONG;
+		return (list_add_conversion(c, ft_lltoa(conv_int(ap)), l));
 	}
 	return (list_add_conversion(c, NULL, l));
 }
@@ -106,6 +108,8 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		//printf("l->str   = [%s]\n", l->str);
 		//printf("l->len   = [%d]\n\n", l->len);
 	}
+	l->str = ft_strjoin(l->str, format + i_of_format);
+	l->len += ft_strlen(format + i_of_format);
 }
 
 
@@ -162,9 +166,15 @@ t_tab		*list_add_conversion(char c, char *string, t_string l)
 		return (NULL);
 	tmp->c = c;
 	if (!string)
+	{
 		tmp->f = ft_strdup("(null)");
+		tmp->len = 6;
+	}
 	else
+	{
 		tmp->f = string;
+		tmp->len = ft_strlen(string);
+	}
 	return (tmp);
 }
 

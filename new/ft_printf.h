@@ -41,6 +41,7 @@ typedef struct				s_fonc
 {
 	char					c;
 	char					*f;
+	int						len;
 }							t_tab;
 
 typedef struct				s_string
@@ -73,15 +74,17 @@ int							params(char comp, const char *list);
 
 void						change_string(t_string *l, t_tab *list);
 void						add_precision(t_string *l, t_tab *list);
-char						*option_right(t_string *l, t_tab *list);
-char						*option_left(t_string *l, t_tab *list);
-char						*option_zero_space(char *sign, char *tmp, int i, int *flag);
+void						option_right(t_string *l, t_tab *list);
+void						option_left(t_string *l, t_tab *list);
+char						*option_zero_space(char *sign, char *tmp, t_string *l, t_tab *list);
 int							value_pos(int i, int *tab, int flag);
 
 
 char						*string_s(va_list ap);
+int							conv_int(va_list ap);
 
 long long					ft_atoll(const char *str);
+char						*ft_lltoa(long long n);
 
 void						ft_putstr_len(const char *str, size_t len);
 
