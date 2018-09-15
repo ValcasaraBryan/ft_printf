@@ -58,7 +58,7 @@ void	change_string(t_string *l, t_tab *list)
 		add_precision(l, list);
 	else
 	{
-		l->str = ft_strjoin(l->str, list->f);
+		ft_strcat(l->str + l->len, list->f);
 		l->len += list->len;
 	}
 }
@@ -102,9 +102,9 @@ void	add_arg(t_string *l, t_tab *list, va_list ap)
 	if (list->c != 'c' && list->c != '%')
 		change_string(l, list);
 	else if (list->c == 'c')
-		add_caractere(l, list, conv_c(ap), l->tab[LARGEUR]);
+		add_caractere(l, list, conv_c(ap), 1);
 	else if (list->c == '%')
-		add_caractere(l, list, '%', l->tab[LARGEUR]);
+		add_caractere(l, list, '%', 1);
 }
 
 int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)

@@ -33,7 +33,6 @@ NORM = norm.txt
 all : $(EXE)
 
 lib : $(OBJET_LIB)
-	@make -C ../libft
 	@make -C ../
 
 comp : $(SRC) lib main.c
@@ -42,6 +41,11 @@ comp : $(SRC) lib main.c
 exe : comp
 	#------------ execution  ------------#
 	@./$(EXE)
+	#------------ execution  ------------#
+
+exe_more : comp
+	#------------ execution  ------------#
+	@./$(EXE) | more
 	#------------ execution  ------------#
 
 debug : main.c
@@ -64,11 +68,11 @@ norm_cat: norm
 
 clean :
 	@rm -f $(OBJET)
-	@make clean -C ../libft
+	@make clean -C ../
 
 fclean : clean
 	@rm -f $(NAME)
 	@rm -f $(EXE)
-	@make fclean -C ../libft
+	@make fclean -C ../
 
 re : fclean all

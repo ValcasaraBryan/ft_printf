@@ -82,7 +82,7 @@ void		add_precision(t_string *l, t_tab *list)
 		option_right(l, list);
 	else
 		option_left(l, list);
-	l->str = ft_strjoin(l->str, list->f);
+	ft_strcat(l->str + l->len, list->f);
 	l->len += l->tab[LARGEUR];
 }
 
