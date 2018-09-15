@@ -82,6 +82,7 @@ int							value_pos(int i, int *tab, int flag);
 
 char						*string_s(va_list ap);
 int							conv_int(va_list ap);
+char						conv_c(va_list ap);
 
 long long					ft_atoll(const char *str);
 char						*ft_lltoa(long long n);

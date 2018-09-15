@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 EXE = ft_printf
 
-SRC = ft_printf.c fonction.c conversion.c conversion_two.c conversion_three.c \
+SRC = ft_printf.c conversion.c conversion_two.c conversion_three.c \
 		../ft_putstr_len.c argument_flag.c
 
 OBJET = $(SRC:.c=.o)
@@ -28,9 +28,15 @@ FLAG = -Wall -Wextra -Werror
 
 MAIN = main.c
 
+NORM = norm.txt
+
 all : $(EXE)
 
-comp : $(SRC) main.c
+lib : $(OBJET_LIB)
+	@make -C ../libft
+	@make -C ../
+
+comp : $(SRC) lib main.c
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
 
 exe : comp
@@ -40,10 +46,21 @@ exe : comp
 
 debug : main.c
 	cpp main.c
+
 norm :
-	clear
 	#------- only [*.c] and [*.h] -------#
-	@norminette *.c *.h
+	@norminette $(SRC) ft_printf.h > $(NORM)
+
+norm_line: norm
+	#------- only ["function"] and ["line has"] -------#
+	@clear
+	@cat norm.txt | grep -v "C++ comment" | grep -v "bad indentation" | grep -v "multiple empty lines"
+	@rm $(NORM)
+
+norm_cat: norm 
+	@clear
+	@cat norm.txt
+	@rm $(NORM)
 
 clean :
 	@rm -f $(OBJET)

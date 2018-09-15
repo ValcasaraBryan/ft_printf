@@ -27,7 +27,7 @@ int			binary_flag(int *tab)
 	return (j);
 }
 
-void print_tab(t_string l, int len)
+void	print_tab(t_string l, int len)
 {
 	int i;
 
@@ -40,7 +40,16 @@ void print_tab(t_string l, int len)
 	printf("l.tab    = ");
 	while (len-- > 0)
 		printf("%5d", l.tab[i++]);
-	printf("\n\n");
+	printf("\n");
+}
+
+void	add_caractere(t_string *l, t_tab *list, unsigned char caractere, int len)
+{
+	if (len <= 0)
+		len = 1;
+	ft_memset(l->str + l->len, caractere, len);
+	l->str[l->len + 1]= '\0';
+	l->len += len;
 }
 
 void	change_string(t_string *l, t_tab *list)
@@ -68,6 +77,12 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 			l.tab[INT_LONG - 1] = INT_LONG;
 		return (list_add_conversion(c, ft_lltoa(conv_int(ap)), l));
 	}
+	if (c == 'c' || c == 'C')
+	{
+		if (c == 'C')
+			l.tab[INT_LONG - 1] = INT_LONG;
+		return (list_add_conversion(c, NULL, l));
+	}
 	return (list_add_conversion(c, NULL, l));
 }
 
@@ -82,14 +97,31 @@ t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 		return (NULL);
 }
 
+void	add_arg(t_string *l, t_tab *list, va_list ap)
+{
+	if (list->c != 'c' && list->c != '%')
+		change_string(l, list);
+	else if (list->c == 'c')
+		add_caractere(l, list, conv_c(ap), l->tab[LARGEUR]);
+	else if (list->c == '%')
+		add_caractere(l, list, '%', l->tab[LARGEUR]);
+}
+
+int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
+{
+	ft_strcat(l->str + l->len, ft_strndup(format + i_of_format, tmp));
+	l->len += tmp;
+	return (tmp);
+}
+
 void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 {
 	int		i_of_format;
 	int		len_arg;
+	int		tmp;
 	char	*arg;
 
 	i_of_format = p_of_params((char *)format);
-	printf("l->nb_pe = [%d]\n\n", l->nb_percent);
 	if (i_of_format > 0)
 		l->str = ft_strndup(format, (l->len = i_of_format));
 	while (l->nb_percent--)
@@ -98,18 +130,17 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
-													print_tab(*l, LENGHT_TAB);/////////////////////////////////////
+//													print_tab(*l, LENGHT_TAB);/////////////////////////////////////
 		i_of_format += len_arg;
-		change_string(l, list);
+		add_arg(l, list, ap);
 		if (l->nb_percent)
-			ft_strcat(l->str, ft_strndup(format + i_of_format, (l->len += p_of_params((char *)format + i_of_format))));
-		//printf("list->f  = [%s]\n", list->f);
-		//printf("list->c  = [%c]\n\n", list->c);
-		//printf("l->str   = [%s]\n", l->str);
-		//printf("l->len   = [%d]\n\n", l->len);
+			i_of_format += inter_percent(format, l, i_of_format, p_of_params((char *)format + i_of_format));
 	}
-	l->str = ft_strjoin(l->str, format + i_of_format);
-	l->len += ft_strlen(format + i_of_format);
+	if (format + i_of_format)
+	{
+		ft_strcat(l->str + l->len, ft_strdup(format + i_of_format));
+		l->len += ft_strlen(format + i_of_format);
+	}
 }
 
 
@@ -127,7 +158,6 @@ int		ft_printf(const char *format, ...)
 	else
 		return (no_arguments(format, ap, l));
 	va_end(ap);
-	printf("     ---     \n");
 	ft_putstr_len(l.str, l.len);
 	printf("|\n");
 	printf("-------------\n");
@@ -170,18 +200,21 @@ t_tab		*list_add_conversion(char c, char *string, t_string l)
 		tmp->f = ft_strdup("(null)");
 		tmp->len = 6;
 	}
-	else
+	else if (c != 'c' && c != '%')
 	{
 		tmp->f = string;
 		tmp->len = ft_strlen(string);
 	}
+	else
+		tmp->len = 1;
 	return (tmp);
 }
 
 void		largeur_of_camp(char *arg, t_string *l, int i)
 {
-	if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
-		l->tab[LARGEUR] = ft_atoll(arg + i);
+	if (l->tab[LARGEUR] == 0)
+		if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
+			l->tab[LARGEUR] = ft_atoll(arg + i);
 }
 
 int		flag_optional_suit(char *arg, t_string *l, int i)
@@ -236,8 +269,7 @@ void		flag_optional(char *arg, t_string *l)
 		if (arg[i] == 'j')
 			l->tab[J_FLAG - 1] = J_FLAG;
 		i = flag_optional_suit(arg, l, i);
-		if (l->tab[LARGEUR] == 0)
-			largeur_of_camp(arg, l, i);
+		largeur_of_camp(arg, l, i);
 	}
 }
 

@@ -14,6 +14,8 @@
 
 char		*option_space_zero(char *space, t_string *l, t_tab *list)
 {
+	if (l->tab[LARGEUR] < list->len)
+		l->tab[LARGEUR] = list->len;
 	if (value_pos(0, l->tab, ZERO))
 		ft_memset(space, '0', l->tab[LARGEUR] - list->len);
 	else
@@ -27,6 +29,8 @@ char		*option_zero_space(char *sign, char *tmp, t_string *l, t_tab *list)
 
 	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
 		return (NULL);
+	if (l->tab[LARGEUR] < list->len)
+		l->tab[LARGEUR] = list->len;
 	if (value_pos(0, l->tab, ZERO))
 	{
 		ft_memset(space, '0', l->tab[LARGEUR] - list->len);
@@ -89,6 +93,7 @@ void		option_right(t_string *l, t_tab *list)
 	char	*tmp;
 
 	tmp = NULL;
+	space = NULL;
 	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
 		return ;
 	sign = ft_strdup("+");
@@ -106,9 +111,15 @@ void		option_right(t_string *l, t_tab *list)
 		&& value_pos(0, l->tab, ZERO))
 		tmp = blank_option(space, list);
 	option_space_zero(space, l, list);
-	if (tmp)
+	if (tmp && !value_pos(0, l->tab, BLANK))
+	{
 		space = ft_strcat(tmp, space);
-	list->f = ft_strcat(space, list->f);
+		list->f = ft_strcat(space, list->f);
+	}
+	else if (space && tmp)
+		list->f = ft_strcat(space, tmp);
+	else
+		list->f = ft_strcat(space, list->f);
 }
 
 void		option_left(t_string *l, t_tab *list)
