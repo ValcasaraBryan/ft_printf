@@ -12,8 +12,56 @@
 
 #include "ft_printf.h"
 
-char		*option_space_zero(char *space, t_string *l, t_tab *list)
+void	precision(t_string *l, t_tab *list)
 {
+	char *sign;
+	int i;
+
+	i = -1;
+	while (list->f[++i])
+		if (list->f[i] == '.')
+			return ;
+	sign = ft_strdup("");
+	if (l->tab[POINT] >= list->len)
+	{
+		if (*list->f == '-')
+		{
+			sign[0] = '-';
+			list->f++;
+			l->tab[POINT]++;
+		}
+		list->f = add_caractere_start(list->f, l->tab[POINT] - list->len, '0');
+		list->f = ft_strcat(sign, list->f);
+		list->len = l->tab[POINT];
+	}
+}
+
+char		*add_caractere_start(char *params, int len, unsigned char caractere)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_memalloc(len + 1)))
+		return (NULL);
+	if (*params && (len >= 0))
+	{
+		tmp = (char *)ft_memset(tmp, caractere, len);
+		tmp = ft_strcat(tmp, params);
+		return (tmp);
+	}
+	else if (!*params && (len >= 0))
+	{
+		ft_memset(params, caractere, len);
+		return (params);
+	}
+	return (params);
+}
+
+char		*option_space_zero(t_string *l, t_tab *list)
+{
+	char *space;
+
+	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
+		return (NULL);
 	if (l->tab[LARGEUR] < list->len)
 		l->tab[LARGEUR] = list->len;
 	if (value_pos(0, l->tab, ZERO))
@@ -94,8 +142,6 @@ void		option_right(t_string *l, t_tab *list)
 
 	tmp = NULL;
 	space = NULL;
-	if (!(space = ft_memalloc(l->tab[LARGEUR] + 1)))
-		return ;
 	sign = ft_strdup("+");
 	if ((value_pos(0, l->tab, SIGN) || list->f[0] == '-') && ft_atoll(list->f))
 	{
@@ -110,7 +156,7 @@ void		option_right(t_string *l, t_tab *list)
 	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
 		&& value_pos(0, l->tab, ZERO))
 		tmp = blank_option(space, list);
-	option_space_zero(space, l, list);
+	space = option_space_zero(l, list);
 	if (tmp && !value_pos(0, l->tab, BLANK))
 	{
 		space = ft_strcat(tmp, space);

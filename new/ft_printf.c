@@ -48,14 +48,17 @@ void	add_caractere(t_string *l, t_tab *list, unsigned char caractere, int len)
 	if (len <= 0)
 		len = 1;
 	ft_memset(l->str + l->len, caractere, len);
-	l->str[l->len + 1]= '\0';
+	l->str[l->len + len]= '\0';
 	l->len += len;
 }
 
 void	change_string(t_string *l, t_tab *list)
 {
 	if (binary_flag(l->tab))
+	{
+		precision(l, list);
 		add_precision(l, list);
+	}
 	else
 	{
 		ft_strcat(l->str + l->len, list->f);
@@ -83,6 +86,9 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 			l.tab[INT_LONG - 1] = INT_LONG;
 		return (list_add_conversion(c, NULL, l));
 	}
+	if (c == 'f')
+		return (list_add_conversion(c, ft_dotoa(conv_float(ap), l.tab[POINT]), l));
+
 	return (list_add_conversion(c, NULL, l));
 }
 
@@ -97,14 +103,34 @@ t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 		return (NULL);
 }
 
+void	option_char(t_string *l, t_tab *list, va_list ap, char c)
+{
+	if (l->tab[LEFT - 1])
+	{
+		add_caractere(l, list, c, 1);
+		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
+			add_caractere(l, list, '0', l->tab[LARGEUR] - 1);
+		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
+			add_caractere(l, list, ' ', l->tab[LARGEUR] - 1);
+	}
+	else
+	{
+		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
+			add_caractere(l, list, '0', l->tab[LARGEUR] - 1);
+		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
+			add_caractere(l, list, ' ', l->tab[LARGEUR] - 1);
+		add_caractere(l, list, c, 1);
+	}
+}
+
 void	add_arg(t_string *l, t_tab *list, va_list ap)
 {
 	if (list->c != 'c' && list->c != '%')
 		change_string(l, list);
-	else if (list->c == 'c')
-		add_caractere(l, list, conv_c(ap), 1);
+	if (list->c == 'c')
+		option_char(l, list, ap, conv_c(ap));
 	else if (list->c == '%')
-		add_caractere(l, list, '%', 1);
+		option_char(l, list, ap, '%');
 }
 
 int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
@@ -130,7 +156,7 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
-//													print_tab(*l, LENGHT_TAB);/////////////////////////////////////
+													//print_tab(*l, LENGHT_TAB);/////////////////////////////////////
 		i_of_format += len_arg;
 		add_arg(l, list, ap);
 		if (l->nb_percent)

@@ -77,15 +77,20 @@ void						add_precision(t_string *l, t_tab *list);
 void						option_right(t_string *l, t_tab *list);
 void						option_left(t_string *l, t_tab *list);
 char						*option_zero_space(char *sign, char *tmp, t_string *l, t_tab *list);
+char						*option_space_zero(t_string *l, t_tab *list);
 int							value_pos(int i, int *tab, int flag);
 
+char						*add_caractere_start(char *params, int len, unsigned char caractere);
+void						precision(t_string *l, t_tab *list);
 
 char						*string_s(va_list ap);
 int							conv_int(va_list ap);
 char						conv_c(va_list ap);
+double						conv_float(va_list ap);
 
 long long					ft_atoll(const char *str);
 char						*ft_lltoa(long long n);
+char						*ft_dotoa(double nb, unsigned int precision);
 
 void						ft_putstr_len(const char *str, size_t len);
 
