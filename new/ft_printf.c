@@ -184,7 +184,7 @@ int		ft_printf(const char *format, ...)
 	else
 		return (no_arguments(format, ap, l));
 	va_end(ap);
-	ft_putstr_len(l.str, l.len);
+	ft_putstr_len(l.str, l.len, 1);
 	printf("|\n");
 	printf("-------------\n");
 	return (l.len);	
@@ -359,7 +359,7 @@ unsigned int	nb_percent(char *format)
 int		no_arguments(const char *format, va_list ap, t_string l)
 {
 	l.len = (int)ft_strlen(format);
-	ft_putstr_len(format, l.len);
+	ft_putstr_len(format, l.len, 1);
 	va_end(ap);
 	return (l.len);
 }

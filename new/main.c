@@ -17,7 +17,7 @@ int		main(int argc, char **argv)
 	int ret;
 	int ret_2;
 	char *str;
-	const char format[500] = " [%s]%% %c %% %5c    %% %c    %%     %c %.5f   %.5d  ";
+	const char format[500] = " [%s]%% %c %% %5c    %% %c    %%     %c %.5f   %10.5d  %i";
 
 	(void)argc;
 	(void)argv;
@@ -25,8 +25,8 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-	ret = ft_printf(format, "salut", 'A', 0, 65,  0, 10.5, 10);
-	ret_2 =  printf(format, "salut", 'A', 0, 65,  0, 10.5, 10);
+	ret = ft_printf(format, "salut", 'A', 0, 65,  0, 10.5, 10, -5);
+	ret_2 =  printf(format, "salut", 'A', 0, 65,  0, 10.5, 10, -5);
 	printf("|\n");
 	if (ret == ret_2)
 	{
@@ -36,3 +36,13 @@ int		main(int argc, char **argv)
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 	return (0);
 }
+
+//	sSpdDioOuUxXcC
+//	%%
+//	#0- +
+//	taille minimum du champ
+//	précision
+//	hh, h, l, ll, j, et z
+
+//	Bonus :
+//	f, b
