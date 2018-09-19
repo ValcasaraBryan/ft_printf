@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
-# include "libft/libft.h"
+# include "libft/includes/libft.h"
 # define BUFF_SIZE_			1024
 # define LEFT				1	// 0
 # define ZERO				2	// 1
