@@ -22,18 +22,18 @@ SRC = ft_printf.c params.c fonction_of_conversion.c conversion.c\
 
 OBJET = $(SRC:.c=.o)
 
-OBJET_LIB = libft/ft_atoi.o libft/ft_itoa.o\
-			libft/ft_memalloc.o libft/ft_memset.o\
-			libft/ft_putstr.o libft/ft_strcat.o\
-			libft/ft_strdup.o libft/ft_strlen.o\
-			libft/ft_strncpy.o libft/ft_strndup.o\
-			libft/ft_bzero.o libft/ft_putchar.o\
-			libft/ft_strcpy.o libft/ft_strjoin.o\
-			libft/ft_strnchr.o libft/ft_strndup.o
+OBJET_LIB = libft/srcs/ft_atoi.o libft/srcs/ft_itoa.o\
+			libft/srcs/ft_memalloc.o libft/srcs/ft_memset.o\
+			libft/srcs/ft_putstr.o libft/srcs/ft_strcat.o\
+			libft/srcs/ft_strdup.o libft/srcs/ft_strlen.o\
+			libft/srcs/ft_strncpy.o libft/srcs/ft_strndup.o\
+			libft/srcs/ft_bzero.o libft/srcs/ft_putchar.o\
+			libft/srcs/ft_strcpy.o libft/srcs/ft_strjoin.o\
+			libft/srcs/ft_strnchr.o libft/srcs/ft_strndup.o
 
 HEAD = -I ft_printf.h
 
-FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra -Werror 
 
 MAIN = main.c
 

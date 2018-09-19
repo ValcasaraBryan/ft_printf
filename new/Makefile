@@ -19,9 +19,9 @@ SRC = ft_printf.c conversion.c conversion_two.c conversion_three.c \
 
 OBJET = $(SRC:.c=.o)
 
-OBJET_LIB = ../libft/ft_atoi.o ../ft_atoll.o ../libft/ft_memalloc.o ../libft/ft_strdup.o ../libft/ft_strlen.o ../libft/ft_strndup.o \
-			../libft/ft_bzero.o ../libft/ft_strcpy.o ../libft/ft_strncpy.o ../libft/ft_strcat.o ../libft/ft_memset.o ../libft/ft_strjoin.o\
-			../ft_lltoa.o ../ft_dotoa.o
+OBJET_LIB = ../libft/srcs/ft_atoi.o ../libft/srcs/ft_memalloc.o ../libft/srcs/ft_strdup.o ../libft/srcs/ft_strlen.o ../libft/srcs/ft_strndup.o \
+			../libft/srcs/ft_bzero.o ../libft/srcs/ft_strcpy.o ../libft/srcs/ft_strncpy.o ../libft/srcs/ft_strcat.o ../libft/srcs/ft_memset.o ../libft/srcs/ft_strjoin.o\
+			../ft_lltoa.o ../ft_atoll.o ../ft_dotoa.o
 HEAD = -I ft_printf.h
 
 FLAG = -Wall -Wextra -Werror
@@ -33,7 +33,7 @@ NORM = norm.txt
 all : $(EXE)
 
 lib : $(OBJET_LIB)
-	@make -C ../
+	@make -C ../libft
 
 comp : $(SRC) lib main.c
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
