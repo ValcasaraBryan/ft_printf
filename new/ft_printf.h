@@ -58,7 +58,7 @@ t_tab						*parsing_arg(char *argument, va_list ap, int len, t_string *l);
 
 
 t_tab						*init_list(va_list ap, char c, t_string l);
-t_tab						*list_add_conversion(char c, char *string, t_string l);
+t_tab						*list_add_conversion(char c, char *string);
 
 
 int							p_of_params(char *format);

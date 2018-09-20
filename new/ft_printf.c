@@ -43,7 +43,7 @@ void	print_tab(t_string l, int len)
 	printf("\n");
 }
 
-void	add_caractere(t_string *l, t_tab *list, unsigned char caractere, int len)
+void	add_caractere(t_string *l, unsigned char caractere, int len)
 {
 	if (len <= 0)
 		len = 1;
@@ -72,24 +72,24 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	{
 		if (c == 'S')
 			l.tab[INT_LONG - 1] = INT_LONG;
-		return (list_add_conversion(c, string_s(ap), l));
+		return (list_add_conversion(c, string_s(ap)));
 	}
 	if (c == 'd' || c == 'i' || c == 'D')
 	{
 		if (c == 'D')
 			l.tab[INT_LONG - 1] = INT_LONG;
-		return (list_add_conversion(c, ft_lltoa(conv_int(ap)), l));
+		return (list_add_conversion(c, ft_lltoa(conv_int(ap))));
 	}
 	if (c == 'c' || c == 'C')
 	{
 		if (c == 'C')
 			l.tab[INT_LONG - 1] = INT_LONG;
-		return (list_add_conversion(c, NULL, l));
+		return (list_add_conversion(c, NULL));
 	}
 	if (c == 'f')
-		return (list_add_conversion(c, ft_dotoa(conv_float(ap), l.tab[POINT]), l));
+		return (list_add_conversion(c, ft_dotoa(conv_float(ap), l.tab[POINT])));
 
-	return (list_add_conversion(c, NULL, l));
+	return (list_add_conversion(c, NULL));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
@@ -103,23 +103,23 @@ t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 		return (NULL);
 }
 
-void	option_char(t_string *l, t_tab *list, va_list ap, char c)
+void	option_char(t_string *l, char c)
 {
 	if (l->tab[LEFT - 1])
 	{
-		add_caractere(l, list, c, 1);
+		add_caractere(l, c, 1);
 		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
-			add_caractere(l, list, '0', l->tab[LARGEUR] - 1);
+			add_caractere(l, '0', l->tab[LARGEUR] - 1);
 		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
-			add_caractere(l, list, ' ', l->tab[LARGEUR] - 1);
+			add_caractere(l, ' ', l->tab[LARGEUR] - 1);
 	}
 	else
 	{
 		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
-			add_caractere(l, list, '0', l->tab[LARGEUR] - 1);
+			add_caractere(l, '0', l->tab[LARGEUR] - 1);
 		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
-			add_caractere(l, list, ' ', l->tab[LARGEUR] - 1);
-		add_caractere(l, list, c, 1);
+			add_caractere(l, ' ', l->tab[LARGEUR] - 1);
+		add_caractere(l, c, 1);
 	}
 }
 
@@ -128,9 +128,9 @@ void	add_arg(t_string *l, t_tab *list, va_list ap)
 	if (list->c != 'c' && list->c != '%')
 		change_string(l, list);
 	if (list->c == 'c')
-		option_char(l, list, ap, conv_c(ap));
+		option_char(l, conv_c(ap));
 	else if (list->c == '%')
-		option_char(l, list, ap, '%');
+		option_char(l, '%');
 }
 
 int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
@@ -144,7 +144,6 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 {
 	int		i_of_format;
 	int		len_arg;
-	int		tmp;
 	char	*arg;
 
 	i_of_format = p_of_params((char *)format);
@@ -214,7 +213,7 @@ int		ft_printf(const char *format, ...)
 
 
 
-t_tab		*list_add_conversion(char c, char *string, t_string l)
+t_tab		*list_add_conversion(char c, char *string)
 {
 	t_tab	*tmp;
 
