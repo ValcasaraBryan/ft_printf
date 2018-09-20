@@ -46,10 +46,14 @@ void	print_tab(t_string l, int len, char *arg)
 
 void	add_caractere(t_string *l, unsigned char caractere, int len)
 {
+	char *buf;
+
 	if (len <= 0)
 		len = 1;
+	if (!(buf = ft_memalloc(len + 1)))
+		return ;
+	ft_strcat(l->str, buf);
 	ft_memset(l->str + l->len, caractere, len);
-	l->str[l->len + len]= '\0';
 	l->len += len;
 }
 
