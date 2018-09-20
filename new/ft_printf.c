@@ -52,8 +52,8 @@ void	add_caractere(t_string *l, unsigned char caractere, int len)
 		len = 1;
 	if (!(buf = ft_memalloc(len + 1)))
 		return ;
-	ft_strcat(l->str, buf);
-	ft_memset(l->str + l->len, caractere, len);
+	ft_memset(buf, caractere, len);
+	ft_strcat(l->str + l->len, buf);
 	l->len += len;
 }
 
