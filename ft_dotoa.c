@@ -35,6 +35,26 @@ static int		ft_unite(unsigned int nb)
 	return (nb);
 }
 
+static char		*add_char(char *params, int len, unsigned char caractere)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_memalloc(len + 1)))
+		return (NULL);
+	if (*params && (len >= 0))
+	{
+		tmp = (char *)ft_memset(tmp, caractere, len);
+		ft_strcat(params, tmp);
+		return (params);
+	}
+	else if (!*params && (len >= 0))
+	{
+		ft_memset(params, caractere, len);
+		return (params);
+	}
+	return (NULL);
+}
+
 char	*ft_dotoa(double nb, unsigned int precision)
 {
 	char *str;
@@ -56,7 +76,7 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		nb -= ft_unite(nb);
 	}
 	if (str)
-		add_caractere(str, 1, '.');
+		add_char(str, 1, '.');
 	else
 		str = ft_strdup("0.");
 	if (nb < 1 && nb >= 0)
@@ -65,7 +85,7 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		{
 			nb *= 10;
 			if (ft_unite(nb) == 0)
-				add_caractere(str, 1, ft_unite(nb) + 48);
+				add_char(str, 1, ft_unite(nb) + 48);
 		}
 		if (nb - (int)nb > 0.5 && nb - (int)nb < 1)
 			nb += 1;
