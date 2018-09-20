@@ -27,12 +27,13 @@ int			binary_flag(int *tab)
 	return (j);
 }
 
-void	print_tab(t_string l, int len)
+void	print_tab(t_string l, int len, char *arg)
 {
 	int i;
 
 	i = 0;
-	printf("l.tab[ ] = " );
+	printf("\n");
+	printf("l.tab[%s] = ", arg);
 	while (i < len)
 			printf("%5d", i++);
 	i = 0;
@@ -66,6 +67,40 @@ void	change_string(t_string *l, t_tab *list)
 	}
 }
 
+char	*flag_int(t_string l, va_list ap)
+{
+	t_conv flag[7];
+	int		i;
+	int		j;
+
+	i = 0;
+	flag[0].tab = INT_LONG;
+	//flag[0].fonction = &conv_long;
+	flag[1].tab = INT_LONG_LONG;
+	//flag[1].fonction = &conv_long_long;
+	flag[2].tab = INT_SHORT;
+	//flag[2].fonction = &conv_short;
+	flag[3].tab = INT_SHORT_SHORT;
+	//flag[3].fonction = &conv_short_short;
+	flag[4].tab = J_FLAG;
+	//flag[4].fonction = &conv_int_max;
+	flag[5].tab = Z_FLAG;
+	//flag[5].fonction = &conv_size_t;
+	flag[6].tab = 0;
+	//flag[6].fonction = &conv_int;
+	flag[7].tab = 0;
+	flag[7].fonction = NULL;
+	while (i++ < 5)
+	{
+		j = 0;
+		while (j < LENGHT_TAB)
+			if (flag[i].tab == l.tab[j++])
+				return (ft_lltoa(flag[i].fonction(ap)));
+	}
+	return (ft_lltoa(flag[6].fonction(ap)));
+}
+
+
 t_tab	*init_list(va_list ap, char c, t_string l)
 {
 	if (c == 's' || c == 'S')
@@ -78,6 +113,7 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	{
 		if (c == 'D')
 			l.tab[INT_LONG - 1] = INT_LONG;
+		//printf("%s\n", flag_int(l, ap));
 		return (list_add_conversion(c, ft_lltoa(conv_int(ap))));
 	}
 	if (c == 'c' || c == 'C')
@@ -155,7 +191,7 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
-													//print_tab(*l, LENGHT_TAB);/////////////////////////////////////
+//													print_tab(*l, LENGHT_TAB, arg);/////////////////////////////////////
 		i_of_format += len_arg;
 		add_arg(l, list, ap);
 		if (l->nb_percent)
@@ -185,7 +221,6 @@ int		ft_printf(const char *format, ...)
 	va_end(ap);
 	ft_putstr_len(l.str, l.len, 1);
 	printf("|\n");
-	printf("-------------\n");
 	return (l.len);	
 }
 

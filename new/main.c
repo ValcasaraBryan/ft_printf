@@ -37,12 +37,9 @@ int		main(int argc, char **argv)
 	return (0);
 }
 
-//	sSpdDioOuUxXcC
-//	%%
-//	#0- +
-//	taille minimum du champ
-//	précision
+//	SpDoOuUxXC
+//	#
 //	hh, h, l, ll, j, et z
 
 //	Bonus :
-//	f, b
+//	b

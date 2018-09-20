@@ -14,8 +14,7 @@ NAME = libftprintf.a
 
 EXE = ft_printf
 
-SRC = ft_printf.c conversion.c conversion_two.c conversion_three.c \
-		../ft_putstr_len.c argument_flag.c
+SRC = ft_printf.c conversion.c argument_flag.c ../ft_putstr_len.c
 
 OBJET = $(SRC:.c=.o)
 
