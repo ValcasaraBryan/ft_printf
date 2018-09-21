@@ -55,6 +55,25 @@ static char		*add_char(char *params, int len, unsigned char caractere)
 	return (NULL);
 }
 
+static void	add_prec(char **str, unsigned int precision, double nb, int neg)
+{
+	if (nb < 1 && nb >= 0)
+	{
+		while (precision--)
+		{
+			nb *= 10;
+			if (ft_unite(nb) == 0)
+				add_char(*str, 1, ft_unite(nb) + 48);
+		}
+		if (nb - (int)nb > 0.5 && nb - (int)nb < 1)
+			nb += 1;
+		if (nb > 1)
+			ft_strcat(*str, ft_lltoa(nb));
+	}
+	if (neg)
+		*str = add_caractere_start(*str, 1, '-');
+}
+
 char	*ft_dotoa(double nb, unsigned int precision)
 {
 	char *str;
@@ -79,21 +98,6 @@ char	*ft_dotoa(double nb, unsigned int precision)
 		add_char(str, 1, '.');
 	else
 		str = ft_strdup("0.");
-	if (nb < 1 && nb >= 0)
-	{
-		while (precision--)
-		{
-			nb *= 10;
-			if (ft_unite(nb) == 0)
-				add_char(str, 1, ft_unite(nb) + 48);
-		}
-		if (nb - (int)nb > 0.5 && nb - (int)nb < 1)
-			nb += 1;
-		if (nb > 1)
-			ft_strcat(str, ft_lltoa(nb));
-	}
-	if (neg)
-		str = add_caractere_start(str, 1, '-');
+	add_prec(&str, precision, nb, neg);
 	return (str);
 }
-
