@@ -59,6 +59,8 @@ void	add_caractere(t_string *l, unsigned char caractere, int len)
 
 void	change_string(t_string *l, t_tab *list)
 {
+	if (!l->str && !l->len)
+		l->str = ft_strdup("");
 	if (binary_flag(l->tab))
 	{
 		precision(l, list);
