@@ -129,12 +129,28 @@ char	*flag_int_unsigned(t_string l, va_list ap, char *hexa)
 	return (conv_uint(ap, hexa));
 }
 
+t_tab	*unsigned_value(va_list ap, char c, t_string l)
+{
+	char *hexa;
+
+	hexa = NULL;
+	if (c == 'u')
+		hexa = DECIMAL;
+	else if (c == 'o')
+		hexa = OCTAL;
+	else if (c == 'x')
+		hexa = HEXA_MIN;
+	else if (c == 'X')
+		hexa = HEXA_MAJ;
+	return (list_add_conversion(c, flag_int_unsigned(l, ap, hexa)));
+}
+
 t_tab	*init_list(va_list ap, char c, t_string l)
 {
 	if (c == 's' || c == 'S')
 	{
 		if (c == 'S')
-			l.tab[INT_LONG - 1] = INT_LONG;
+			return (list_add_conversion(c, NULL));
 		return (list_add_conversion(c, string_s(ap)));
 	}
 	if (c == 'd' || c == 'i' || c == 'D')
@@ -142,21 +158,6 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 		if (c == 'D')
 			l.tab[INT_LONG - 1] = INT_LONG;
 		return (list_add_conversion(c, flag_int_sign(l, ap)));
-	}
-	if (c == 'u' || c == 'o' || c == 'x')
-	{
-		char *hexa;
-
-		hexa = NULL;
-		if (c == 'u')
-			hexa = DECIMAL;
-		else if (c == 'o')
-			hexa = OCTAL;
-		else if (c == 'x')
-			hexa = HEXA_MIN;
-		else if (c == 'X')
-			hexa = HEXA_MAJ;
-		return (list_add_conversion(c, flag_int_unsigned(l, ap, hexa)));
 	}
 	if (c == 'c' || c == 'C')
 	{
@@ -166,7 +167,10 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	}
 	if (c == 'f')
 		return (list_add_conversion(c, conv_float(ap, l.tab[POINT])));
-
+	if (c == 'p')
+		return (list_add_conversion(c, conv_void(ap, HEXA_MIN)));
+	if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
+		return (unsigned_value(ap, c, l));
 	return (list_add_conversion(c, NULL));
 }
 

@@ -62,10 +62,10 @@ char			*conv_char(va_list ap)
 
 char			*conv_uchar(va_list ap, char *hexa)
 {
-	unsigned int c;
+	int c;
 
-	c = va_arg(ap, unsigned char);
-	return (ft_ulltoa_base(c, hexa));
+	c = va_arg(ap, int);
+	return (ft_ulltoa_base((unsigned char)c, hexa));
 }
 
 char			*conv_intmax(va_list ap)
@@ -134,16 +134,24 @@ char				*conv_ulong_long(va_list ap, char *hexa)
 
 char				*conv_short(va_list ap)
 {
-	short			c;
+	int			c;
 
-	c = va_arg(ap, short);
-	return (ft_lltoa(c));
+	c = va_arg(ap, int);
+	return (ft_lltoa((short)c));
 }
 
 char				*conv_ushort(va_list ap, char *hexa)
 {
-	unsigned short	c;
+	int	c;
 
-	c = va_arg(ap, unsigned short);
-	return (ft_ulltoa_base(c, hexa));
+	c = va_arg(ap, int);
+	return (ft_ulltoa_base((unsigned short)c, hexa));
+}
+
+char				*conv_void(va_list ap, char *hexa)
+{
+	void			*c;
+
+	c = va_arg(ap, void *);
+	return (ft_strcat(ft_strdup("0x"), ft_ulltoa_base((long long)c, hexa)));
 }

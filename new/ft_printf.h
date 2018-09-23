@@ -112,7 +112,7 @@ char						*conv_intmax(va_list ap);
 char						*conv_uintmax(va_list ap, char *hexa);
 char						*conv_size_t(va_list ap, char *hexa);
 char						*conv_ssize_t(va_list ap);
-
+char						*conv_void(va_list ap, char *hexa);
 char						*conv_uint(va_list ap, char *hexa);
 char						*conv_ulong(va_list ap, char *hexa);
 char						*conv_ulong_long(va_list ap, char *hexa);
