@@ -33,12 +33,12 @@ void	print_tab(t_string l, int len, char *arg)
 
 	i = 0;
 	printf("\n");
-	printf("l.tab[%s] = ", arg);
+	printf("l.tab[%5s] = ", arg);
 	while (i < len)
 			printf("%5d", i++);
 	i = 0;
 	printf("\n");
-	printf("l.tab    = ");
+	printf("l.tab%9    = ");
 	while (len-- > 0)
 		printf("%5d", l.tab[i++]);
 	printf("\n");
@@ -71,37 +71,34 @@ void	change_string(t_string *l, t_tab *list)
 	}
 }
 
-char	*flag_int(t_string l, va_list ap)
+char	*flag_int_sign(t_string l, va_list ap)
 {
 	t_conv flag[7];
 	int		i;
 	int		j;
 
-	i = 0;
-	flag[0].tab = INT_LONG;
-	//flag[0].fonction = &conv_long;
-	flag[1].tab = INT_LONG_LONG;
-	//flag[1].fonction = &conv_long_long;
-	flag[2].tab = INT_SHORT;
-	//flag[2].fonction = &conv_short;
-	flag[3].tab = INT_SHORT_SHORT;
-	//flag[3].fonction = &conv_short_short;
-	flag[4].tab = J_FLAG;
-	//flag[4].fonction = &conv_int_max;
-	flag[5].tab = Z_FLAG;
-	//flag[5].fonction = &conv_size_t;
-	flag[6].tab = 0;
-	//flag[6].fonction = &conv_int;
-	flag[7].tab = 0;
-	flag[7].fonction = NULL;
-	while (i++ < 5)
+	i = -1;
+	flag[0].tab = l.tab[INT_LONG - 1];
+	flag[0].fonction = &conv_long;
+	flag[1].tab = l.tab[INT_LONG_LONG - 1];
+	flag[1].fonction = &conv_long_long;
+	flag[2].tab = l.tab[INT_SHORT - 1];
+	flag[2].fonction = &conv_short;
+	flag[3].tab = l.tab[INT_SHORT_SHORT - 1];
+	flag[3].fonction = &conv_char;
+	flag[4].tab = l.tab[J_FLAG - 1];
+	flag[4].fonction = &conv_intmax;
+	flag[5].tab = l.tab[Z_FLAG - 1];
+	flag[5].fonction = &conv_size_t;
+	flag[6].fonction = &conv_int;
+	while (++i < 6)
 	{
-		j = 0;
-		while (j < LENGHT_TAB)
-			if (flag[i].tab == l.tab[j++])
-				return (ft_lltoa(flag[i].fonction(ap)));
+		j = -1;
+		while (++j < LENGHT_TAB - 1)
+			if (flag[i].tab == l.tab[j] && l.tab[j] != 0)
+				return (flag[i].fonction(ap));
 	}
-	return (ft_lltoa(flag[6].fonction(ap)));
+	return (flag[6].fonction(ap));
 }
 
 
@@ -117,8 +114,7 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	{
 		if (c == 'D')
 			l.tab[INT_LONG - 1] = INT_LONG;
-		//printf("%s\n", flag_int(l, ap));
-		return (list_add_conversion(c, ft_lltoa(conv_int(ap))));
+		return (list_add_conversion(c, flag_int_sign(l, ap)));
 	}
 	if (c == 'c' || c == 'C')
 	{

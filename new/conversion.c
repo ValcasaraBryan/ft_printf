@@ -28,36 +28,36 @@ char				conv_c(va_list ap)
 	return ((unsigned char)c);
 }
 
-int					conv_int(va_list ap)
+char				*conv_int(va_list ap)
 {
 	int				c;
 
 	c = va_arg(ap, int);
-	return (c);
+	return (ft_lltoa(c));
 }
 
-long				conv_long(va_list ap)
+char				*conv_long(va_list ap)
 {
 	long			c;
 
 	c = va_arg(ap, long);
-	return (c);
+	return (ft_lltoa(c));
 }
 
-long long			conv_long_long(va_list ap)
+char				*conv_long_long(va_list ap)
 {
 	long long		c;
 
 	c = va_arg(ap, long long);
-	return (c);
+	return (ft_lltoa(c));
 }
 
-char			conv_char(va_list ap)
+char			*conv_char(va_list ap)
 {
 	int		c;
 
 	c = va_arg(ap, int);
-	return (c);
+	return (ft_lltoa(c));
 }
 
 unsigned char	conv_uchar(va_list ap)
@@ -68,12 +68,12 @@ unsigned char	conv_uchar(va_list ap)
 	return (c);
 }
 
-intmax_t	conv_intmax(va_list ap)
+char			*conv_intmax(va_list ap)
 {
 	intmax_t	c;
 
 	c = va_arg(ap, intmax_t);
-	return (c);
+	return (ft_lltoa(c));
 }
 
 uintmax_t	conv_uintmax(va_list ap)
@@ -84,12 +84,12 @@ uintmax_t	conv_uintmax(va_list ap)
 	return (c);
 }
 
-size_t	conv_size_t(va_list ap)
+char			*conv_size_t(va_list ap)
 {
 	size_t	c;
 
 	c = va_arg(ap, size_t);
-	return (c);
+	return (ft_lltoa(c));
 }
 
 ssize_t	conv_ssize_t(va_list ap)
@@ -132,14 +132,14 @@ unsigned long long	conv_ulong_long(va_list ap)
 	return (c);
 }
 
-//short				conv_short(va_list ap)
-//{
-//	short			c;
-//
-//	c = va_arg(ap, short);
-//	return (c);	
-//}
-//
+char				*conv_short(va_list ap)
+{
+	short			c;
+
+	c = va_arg(ap, short);
+	return (ft_lltoa(c));
+}
+
 //unsigned short		conv_ushort(va_list ap)
 //{
 //	unsigned short	c;

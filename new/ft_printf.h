@@ -55,7 +55,7 @@ typedef struct				s_string
 typedef struct				s_conver
 {
 	int						tab;
-	long long				(*fonction)(va_list ap);
+	char					*(*fonction)(va_list ap);
 }							t_conv;
 
 int							ft_printf(const char *format, ...);
@@ -90,17 +90,17 @@ char						*add_caractere_start(char *params, int len, unsigned char caractere);
 void						precision(t_string *l, t_tab *list);
 
 char						*string_s(va_list ap);
-int							conv_int(va_list ap);
+char						*conv_int(va_list ap);
 char						conv_c(va_list ap);
 double						conv_float(va_list ap);
-long						conv_long(va_list ap);
-long long					conv_long_long(va_list ap);
-//short						conv_short(va_list ap);
-char						conv_char(va_list ap);
+char						*conv_long(va_list ap);
+char						*conv_long_long(va_list ap);
+char						*conv_short(va_list ap);
+char						*conv_char(va_list ap);
 unsigned char				conv_uchar(va_list ap);
-intmax_t					conv_intmax(va_list ap);
+char						*conv_intmax(va_list ap);
 uintmax_t					conv_uintmax(va_list ap);
-size_t						conv_size_t(va_list ap);
+char						*conv_size_t(va_list ap);
 ssize_t						conv_ssize_t(va_list ap);
 unsigned int				conv_uint(va_list ap);
 unsigned long				conv_ulong(va_list ap);
