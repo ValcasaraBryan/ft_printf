@@ -20,7 +20,8 @@ OBJET = $(SRC:.c=.o)
 
 OBJET_LIB = ../libft/srcs/ft_atoi.o ../libft/srcs/ft_memalloc.o ../libft/srcs/ft_strdup.o ../libft/srcs/ft_strlen.o ../libft/srcs/ft_strndup.o \
 			../libft/srcs/ft_bzero.o ../libft/srcs/ft_strcpy.o ../libft/srcs/ft_strncpy.o ../libft/srcs/ft_strcat.o ../libft/srcs/ft_memset.o ../libft/srcs/ft_strjoin.o\
-			../ft_lltoa.o ../ft_atoll.o ../ft_dotoa.o
+			../ft_lltoa.o ../ft_atoll.o ../ft_dotoa.o ../ft_ulltoa_base.o
+
 HEAD = -I ft_printf.h
 
 FLAG = -Wall -Wextra -Werror

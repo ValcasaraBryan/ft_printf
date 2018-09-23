@@ -73,7 +73,7 @@ void	change_string(t_string *l, t_tab *list)
 
 char	*flag_int_sign(t_string l, va_list ap)
 {
-	t_conv flag[7];
+	t_conv flag[6];
 	int		i;
 	int		j;
 
@@ -89,8 +89,7 @@ char	*flag_int_sign(t_string l, va_list ap)
 	flag[4].tab = l.tab[J_FLAG - 1];
 	flag[4].fonction = &conv_intmax;
 	flag[5].tab = l.tab[Z_FLAG - 1];
-	flag[5].fonction = &conv_size_t;
-	flag[6].fonction = &conv_int;
+	flag[5].fonction = &conv_ssize_t;
 	while (++i < 6)
 	{
 		j = -1;
@@ -98,9 +97,37 @@ char	*flag_int_sign(t_string l, va_list ap)
 			if (flag[i].tab == l.tab[j] && l.tab[j] != 0)
 				return (flag[i].fonction(ap));
 	}
-	return (flag[6].fonction(ap));
+	return (conv_int(ap));
 }
 
+char	*flag_int_unsigned(t_string l, va_list ap, char *hexa)
+{
+	t_conv_base flag[6];
+	int			i;
+	int			j;
+
+	i = -1;
+	flag[0].tab = l.tab[INT_LONG - 1];
+	flag[0].fonction = &conv_ulong;
+	flag[1].tab = l.tab[INT_LONG_LONG - 1];
+	flag[1].fonction = &conv_ulong_long;
+	flag[2].tab = l.tab[INT_SHORT - 1];
+	flag[2].fonction = &conv_ushort;
+	flag[3].tab = l.tab[INT_SHORT_SHORT - 1];
+	flag[3].fonction = &conv_uchar;
+	flag[4].tab = l.tab[J_FLAG - 1];
+	flag[4].fonction = &conv_uintmax;
+	flag[5].tab = l.tab[Z_FLAG - 1];
+	flag[5].fonction = &conv_size_t;
+	while (++i < 6)
+	{
+		j = -1;
+		while (++j < LENGHT_TAB - 1)
+			if (flag[i].tab == l.tab[j] && l.tab[j] != 0)
+				return (flag[i].fonction(ap, hexa));
+	}
+	return (conv_uint(ap, hexa));
+}
 
 t_tab	*init_list(va_list ap, char c, t_string l)
 {
@@ -116,6 +143,21 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 			l.tab[INT_LONG - 1] = INT_LONG;
 		return (list_add_conversion(c, flag_int_sign(l, ap)));
 	}
+	if (c == 'u' || c == 'o' || c == 'x')
+	{
+		char *hexa;
+
+		hexa = NULL;
+		if (c == 'u')
+			hexa = DECIMAL;
+		else if (c == 'o')
+			hexa = OCTAL;
+		else if (c == 'x')
+			hexa = HEXA_MIN;
+		else if (c == 'X')
+			hexa = HEXA_MAJ;
+		return (list_add_conversion(c, flag_int_unsigned(l, ap, hexa)));
+	}
 	if (c == 'c' || c == 'C')
 	{
 		if (c == 'C')
@@ -123,7 +165,7 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 		return (list_add_conversion(c, NULL));
 	}
 	if (c == 'f')
-		return (list_add_conversion(c, ft_dotoa(conv_float(ap), l.tab[POINT])));
+		return (list_add_conversion(c, conv_float(ap, l.tab[POINT])));
 
 	return (list_add_conversion(c, NULL));
 }

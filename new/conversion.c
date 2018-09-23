@@ -60,12 +60,12 @@ char			*conv_char(va_list ap)
 	return (ft_lltoa(c));
 }
 
-unsigned char	conv_uchar(va_list ap)
+char			*conv_uchar(va_list ap, char *hexa)
 {
 	unsigned int c;
 
-	c = va_arg(ap, unsigned int);
-	return (c);
+	c = va_arg(ap, unsigned char);
+	return (ft_ulltoa_base(c, hexa));
 }
 
 char			*conv_intmax(va_list ap)
@@ -76,60 +76,60 @@ char			*conv_intmax(va_list ap)
 	return (ft_lltoa(c));
 }
 
-uintmax_t	conv_uintmax(va_list ap)
+char			*conv_uintmax(va_list ap, char *hexa)
 {
 	uintmax_t	c;
 
 	c = va_arg(ap, uintmax_t);
-	return (c);
+	return (ft_ulltoa_base(c, hexa));
 }
 
-char			*conv_size_t(va_list ap)
+char			*conv_size_t(va_list ap, char *hexa)
 {
 	size_t	c;
 
 	c = va_arg(ap, size_t);
-	return (ft_lltoa(c));
+	return (ft_ulltoa_base(c, hexa));
 }
 
-ssize_t	conv_ssize_t(va_list ap)
+char			*conv_ssize_t(va_list ap)
 {
 	ssize_t	c;
 
 	c = va_arg(ap, ssize_t);
-	return (c);
+	return (ft_lltoa(c));
 }
 
-double	conv_float(va_list ap)
+char			*conv_float(va_list ap, unsigned int precision)
 {
 	double	c;
 
 	c = va_arg(ap, double);
-	return (c);	
+	return (ft_dotoa(c, precision));	
 }
 
-unsigned int		conv_uint(va_list ap)
+char				*conv_uint(va_list ap, char *hexa)
 {
 	unsigned int	c;
 
 	c = va_arg(ap, unsigned int);
-	return (c);
+	return (ft_ulltoa_base(c, hexa));
 }
 
-unsigned long		conv_ulong(va_list ap)
+char				*conv_ulong(va_list ap, char *hexa)
 {
 	unsigned long	c;
 
 	c = va_arg(ap, unsigned long);
-	return (c);
+	return (ft_ulltoa_base(c, hexa));
 }
 
-unsigned long long	conv_ulong_long(va_list ap)
+char				*conv_ulong_long(va_list ap, char *hexa)
 {
 	unsigned long long	c;
 
 	c = va_arg(ap, unsigned long long);
-	return (c);
+	return (ft_ulltoa_base(c, hexa));
 }
 
 char				*conv_short(va_list ap)
@@ -140,10 +140,10 @@ char				*conv_short(va_list ap)
 	return (ft_lltoa(c));
 }
 
-//unsigned short		conv_ushort(va_list ap)
-//{
-//	unsigned short	c;
-//
-//	c = va_arg(ap, unsigned short);
-//	return (c);
-//}
+char				*conv_ushort(va_list ap, char *hexa)
+{
+	unsigned short	c;
+
+	c = va_arg(ap, unsigned short);
+	return (ft_ulltoa_base(c, hexa));
+}

@@ -36,6 +36,10 @@
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
 # define FLAG				"lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
+# define HEXA_MIN			"0123456789abcdef"
+# define HEXA_MAJ			"0123456789ABCEDF"
+# define OCTAL				"01234567"
+# define DECIMAL			"0123456789"
 
 typedef struct				s_fonc
 {
@@ -57,6 +61,12 @@ typedef struct				s_conver
 	int						tab;
 	char					*(*fonction)(va_list ap);
 }							t_conv;
+
+typedef struct				s_conver_base
+{
+	int						tab;
+	char					*(*fonction)(va_list ap, char *hexa);
+}							t_conv_base;
 
 int							ft_printf(const char *format, ...);
 void						parsing(const char *format, t_string *l, t_tab *list, va_list ap);
@@ -92,24 +102,26 @@ void						precision(t_string *l, t_tab *list);
 char						*string_s(va_list ap);
 char						*conv_int(va_list ap);
 char						conv_c(va_list ap);
-double						conv_float(va_list ap);
+char						*conv_float(va_list ap, unsigned int precision);
 char						*conv_long(va_list ap);
 char						*conv_long_long(va_list ap);
 char						*conv_short(va_list ap);
 char						*conv_char(va_list ap);
-unsigned char				conv_uchar(va_list ap);
+char						*conv_uchar(va_list ap, char *hexa);
 char						*conv_intmax(va_list ap);
-uintmax_t					conv_uintmax(va_list ap);
-char						*conv_size_t(va_list ap);
-ssize_t						conv_ssize_t(va_list ap);
-unsigned int				conv_uint(va_list ap);
-unsigned long				conv_ulong(va_list ap);
-unsigned long long			conv_ulong_long(va_list ap);
-//unsigned short				conv_ushort(va_list ap);
+char						*conv_uintmax(va_list ap, char *hexa);
+char						*conv_size_t(va_list ap, char *hexa);
+char						*conv_ssize_t(va_list ap);
+
+char						*conv_uint(va_list ap, char *hexa);
+char						*conv_ulong(va_list ap, char *hexa);
+char						*conv_ulong_long(va_list ap, char *hexa);
+char						*conv_ushort(va_list ap, char *hexa);
 
 long long					ft_atoll(const char *str);
 char						*ft_lltoa(long long n);
 char						*ft_dotoa(double nb, unsigned int precision);
+char						*ft_ulltoa_base(unsigned long long nb, const char *base);
 
 int							ft_putstr_len(const char *str, size_t len, int fd);
 
