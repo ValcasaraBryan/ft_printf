@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "includes/ft_printf.h"
 
 int		main(int argc, char **argv)
 {
 	int ret;
 	int ret_2;
 	char *str;
+	const char format[500] = " %%";
 
 	(void)argc;
 	(void)argv;
@@ -24,12 +25,10 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-
-	ret = ft_printf("[%-.10d][%.5D][%5.2s %s%2%][%c%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%20.0fsalut][%jd]\n", 
-		-42, 15, NULL ,"et toi ?", 0,97, '.',	        "hey", 2,      2,    2,     2,     2,     2,      2,       2,     &str, 20.0000000015464979, 15);
-
-	ret_2 =  printf("[%-.10d][%.5D][%5.2s %s%2%][%c%-2Ccccent%2c][%-11p][%-4x%%][%-#4x][%-3X][%-#4X][%-uu][%-25UU][%-#3oo][%-17OO][%15p][%20.0fsalut][%jd]\n", 
-		-42, 15, NULL ,"et toi ?", 0,97, '.',	        "hey", 2,      2,    2,     2,     2,     2,      2,       2,     &str, 20.0000000015464979, 15);
+	ret = ft_printf(format);
+	printf("%d\n", ret);
+	ret_2 =  printf(format);
+	printf("%d\n", ret);
 	if (ret == ret_2)
 	{
 		printf("len -- OK --\n\n");
@@ -38,3 +37,9 @@ int		main(int argc, char **argv)
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 	return (0);
 }
+
+//	SOUC
+//	#
+
+//	Bonus :
+//	b

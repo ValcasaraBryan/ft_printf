@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_len.c                                    :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/27 22:36:27 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/06/27 22:36:28 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/09/24 16:19:59 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/09/24 16:20:02 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-void	ft_putstr_len(const char *str, size_t len)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	write(1, str, len);
+	char	*str;
+	int		i;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = ft_strlen(s1);
+	if (!(str = ft_memalloc(i + ft_strlen(s2) + 1)))
+		return (NULL);
+	ft_strcpy(str, s1);
+	ft_strcpy(str + i, s2);
+	free(s1);
+	free(s2);
+	return (str);
 }

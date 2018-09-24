@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 int			binary_flag(int *tab)
 {
@@ -27,22 +27,22 @@ int			binary_flag(int *tab)
 	return (j);
 }
 
-void	print_tab(t_string l, int len, char *arg)
-{
-	int i;
-
-	i = 0;
-	printf("\n");
-	printf("l.tab[%5s] = ", arg);
-	while (i < len)
-			printf("%5d", i++);
-	i = 0;
-	printf("\n");
-	printf("l.tab%9    = ");
-	while (len-- > 0)
-		printf("%5d", l.tab[i++]);
-	printf("\n");
-}
+//void	print_tab(t_string l, int len, char *arg)
+//{
+//	int i;
+//
+//	i = 0;
+//	printf("\n");
+//	printf("l.tab[%5s] = ", arg);
+//	while (i < len)
+//			printf("%5d", i++);
+//	i = 0;
+//	printf("\n");
+//	printf("l.tab%9    = ");
+//	while (len-- > 0)
+//		printf("%5d", l.tab[i++]);
+//	printf("\n");
+//}
 
 void	add_caractere(t_string *l, unsigned char caractere, int len)
 {
@@ -149,31 +149,25 @@ t_tab	*unsigned_value(va_list ap, char c, t_string l)
 
 t_tab	*init_list(va_list ap, char c, t_string l)
 {
-	if (c == 's' || c == 'S')
+	if (c == 'D' || c == 'O' || c == 'U')
 	{
-		if (c == 'S')
-			return (list_add_conversion(c, NULL));
+		c = c + 32;
+		l.tab[INT_LONG - 1] = INT_LONG;
+	}
+	if (c == 's')
 		return (list_add_conversion(c, string_s(ap)));
-	}
-	if (c == 'd' || c == 'i' || c == 'D')
-	{
-		if (c == 'D')
-			l.tab[INT_LONG - 1] = INT_LONG;
+	else if (c == 'd' || c == 'i')
 		return (list_add_conversion(c, flag_int_sign(l, ap)));
-	}
-	if (c == 'c' || c == 'C')
-	{
-		if (c == 'C')
-			l.tab[INT_LONG - 1] = INT_LONG;
+	else if (c == 'c')
 		return (list_add_conversion(c, NULL));
-	}
-	if (c == 'f')
+	else if (c == 'f')
 		return (list_add_conversion(c, conv_float(ap, l.tab[POINT])));
-	if (c == 'p')
+	else if (c == 'p')
 		return (list_add_conversion(c, conv_void(ap, HEXA_MIN)));
-	if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
+	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (unsigned_value(ap, c, l));
-	return (list_add_conversion(c, NULL));
+	else
+		return (list_add_conversion(c, NULL));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
@@ -239,7 +233,6 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
-//													print_tab(*l, LENGHT_TAB, arg);/////////////////////////////////////
 		i_of_format += len_arg;
 		add_arg(l, list, ap);
 		if (l->nb_percent)
@@ -268,7 +261,6 @@ int		ft_printf(const char *format, ...)
 		return (no_arguments(format, ap, l));
 	va_end(ap);
 	ft_putstr_len(l.str, l.len, 1);
-	printf("|\n");
 	return (l.len);	
 }
 

@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-static unsigned long long	ft_len(unsigned long long n, unsigned long long val_base)
+static unsigned long long	ft_len(unsigned long long n,
+				unsigned long long val_base)
 {
 	unsigned long long		i;
 
@@ -25,7 +26,8 @@ static unsigned long long	ft_len(unsigned long long n, unsigned long long val_ba
 	return (i);
 }
 
-static char			*conv(unsigned long long val_base, unsigned long long nb, long long i, char *str)
+static char					*conv(unsigned long long val_base,
+				unsigned long long nb, long long i, char *str)
 {
 	while (nb > 9)
 	{
@@ -51,7 +53,8 @@ static char			*conv(unsigned long long val_base, unsigned long long nb, long lon
 	return (str);
 }
 
-static char			*conv_maj(unsigned long long val_base, unsigned long long nb, unsigned long long i, char *str)
+static char					*conv_maj(unsigned long long val_base,
+				unsigned long long nb, unsigned long long i, char *str)
 {
 	while (nb > 9)
 	{
@@ -77,7 +80,8 @@ static char			*conv_maj(unsigned long long val_base, unsigned long long nb, unsi
 	return (str);
 }
 
-char				*ft_ulltoa_base(unsigned long long nb, const char *base)
+char						*ft_ulltoa_base(unsigned long long nb,
+				const char *base)
 {
 	unsigned long long		val_base;
 	unsigned long long		i;

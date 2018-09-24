@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoull.c                                        :+:      :+:    :+:   */
+/*   ft_lltoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,19 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-unsigned long long		ft_atoull(const char *str)
+static long long	ft_len(long long n)
 {
-	unsigned long long	rep;
+	long long		i;
 
-	rep = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
-	while (*str >= 48 && *str <= 57)
+	i = 0;
+	if (n < 0)
 	{
-		rep = rep * 10 + *str - '0';
-		str++;
+		n *= -1;
+		i++;
 	}
-	return (rep);
+	while (n > 9)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+char				*ft_lltoa(long long n)
+{
+	char			*str;
+	long long		i;
+
+	if (n < -9223372036854775807)
+		return (ft_strdup("-9223372036854775808"));
+	i = ft_len(n);
+	if (!(str = ft_memalloc(i + 2)))
+		return (NULL);
+	str[i + 1] = '\0';
+	if (n < 0)
+	{
+		str[0] = '-';
+		n *= -1;
+	}
+	while (n > 9)
+	{
+		str[i] = (n % 10) + '0';
+		n = n / 10;
+		i--;
+	}
+	str[i] = n + '0';
+	return (str);
 }

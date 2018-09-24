@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-static int		ft_recursive_power(int nb, int power)
+static int			ft_recursive_power(int nb, int power)
 {
-	int nb_init;
+	int				nb_init;
 
 	nb_init = nb;
 	if (power < 0)
@@ -28,16 +28,16 @@ static int		ft_recursive_power(int nb, int power)
 	return (0);
 }
 
-static int		ft_unite(unsigned int nb)
+static int			ft_unite(unsigned int nb)
 {
 	while (nb > 9)
 		nb = nb / 10;
 	return (nb);
 }
 
-static char		*add_char(char *params, int len, unsigned char caractere)
+static char			*add_char(char *params, int len, unsigned char caractere)
 {
-	char	*tmp;
+	char			*tmp;
 
 	if (!(tmp = ft_memalloc(len + 1)))
 		return (NULL);
@@ -55,8 +55,12 @@ static char		*add_char(char *params, int len, unsigned char caractere)
 	return (NULL);
 }
 
-static void	add_prec(char **str, unsigned int precision, double nb, int neg)
+static void			add_prec(char **str, unsigned int precision,
+					double nb, int neg)
 {
+	char			*tmp;
+
+	tmp = NULL;
 	if (nb < 1 && nb >= 0)
 	{
 		while (precision--)
@@ -71,14 +75,19 @@ static void	add_prec(char **str, unsigned int precision, double nb, int neg)
 			ft_strcat(*str, ft_lltoa(nb));
 	}
 	if (neg)
-		*str = add_caractere_start(*str, 1, '-');
+	{
+		if (!(tmp = ft_memalloc(2)))
+			return ;
+		tmp = (char *)ft_memset(tmp, '-', 1);
+		tmp = ft_strcat(tmp, *str);
+	}
 }
 
-char	*ft_dotoa(double nb, unsigned int precision)
+char				*ft_dotoa(double nb, unsigned int precision)
 {
-	char *str;
-	unsigned int i;
-	int neg;
+	char			*str;
+	unsigned int	i;
+	int				neg;
 
 	neg = 0;
 	if (nb < 0)

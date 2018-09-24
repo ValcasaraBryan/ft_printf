@@ -10,22 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "../GNL/get_next_line.h"
+#include "../includes/libft.h"
 
-int		ft_buff_printf(char **str, int fd, const char *format, ...)
+int			ft_buff_printf(int fd, int fd_sortie)
 {
-	int ret;
-	char *buf;
+	char	buf[2];
+	char	*str;
+	int		ret;
+	int		err;
 
-	if (!*str)
-		*str = ft_strdup("");
-	while ((ret = get_next_line(fd, &buf)))
+	ret = 0;
+	err = 0;
+	str = NULL;
+	buf[1] = '\0';
+	while ((err = read(fd, buf, 1)))
 	{
-		ret = ft_strlen(buf);
-		buf[ft_strlen(buf)] = '\n';
-		buf[ret + 1] = '\0';
-		ft_strcat(*str, buf);
+		if (err == -1)
+			return (-2);
+		if (str == NULL)
+			str = ft_strdup(buf);
+		else
+			ft_strcat(str, buf);
+		ret += err;
 	}
-	return (ret);
+	if (ret)
+		return (ft_putstr_len(str, ret, fd_sortie));
+	return (-3);
+}
+
+int			main(int ac, char **av)
+{
+	int		err;
+
+	err = 0;
+	if (ac == 3)
+	{
+		if ((err = ft_buff_printf(ft_atoi(av[1]), open(av[2],
+			O_CREAT, O_RDWR))) == -3)
+			ft_putstr_len("Error\n", 6, 2);
+		else if (err == -2)
+			ft_putstr_len("Error Reading\n", 14, 2);
+		else if (err == -1)
+			ft_putstr_len("Error Writing\n", 14, 2);
+	}
+	else
+	{
+		ft_putstr_len("Usage : exe_buff [fd_lecture]
+			[nom de fichier]\n", 47, 2);
+		return (-1);
+	}
+	return (err);
 }

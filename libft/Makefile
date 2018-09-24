@@ -29,7 +29,10 @@ SRC = srcs/ft_atoi.c srcs/ft_bzero.c srcs/ft_isalnum.c srcs/ft_strnchr.c\
 	srcs/ft_strsplit.c srcs/ft_strstr.c srcs/ft_strsub.c srcs/ft_strtrim.c\
 	srcs/ft_tolower.c srcs/ft_toupper.c srcs/ft_lstdelone.c srcs/ft_lstadd.c\
 	srcs/ft_lstiter.c srcs/ft_lstmap.c srcs/ft_lstdel.c srcs/ft_strnjoin.c\
-	srcs/ft_print_words_tables.c srcs/ft_strndup.c srcs/ft_print_lst.c
+	srcs/ft_print_words_tables.c srcs/ft_strndup.c srcs/ft_print_lst.c\
+	srcs/ft_lltoa.c srcs/ft_atoll.c srcs/ft_dotoa.c srcs/ft_ulltoa_base.c\
+	srcs/ft_atoull.c srcs/ft_lltoa_base.c srcs/ft_strjoin_free.c\
+	srcs/ft_ulltoa.c srcs/ft_putstr_len.c
 
 OBJET = $(SRC:.c=.o)
 
@@ -52,6 +55,21 @@ exe : comp
 	@./$(EXE)
 debug : main.c
 	cpp main.c
+
+norm :
+	#------- only [*.c] and [*.h] -------#
+	@norminette **/*.[ch] > norm.txt
+
+norm_line: norm
+	#------- only ["function"] and ["line has"] -------#
+	@clear
+	@cat norm.txt | grep -v "C++ comment" | grep -v "bad indentation" | grep -v "multiple empty lines"
+	@rm norm.txt
+
+norm_cat: norm 
+	@clear
+	@cat norm.txt
+	@rm norm.txt
 
 clean :
 	@rm -f $(OBJET)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
 static long	long	ft_len(long long n, long long val_base)
 {
@@ -30,7 +30,8 @@ static long	long	ft_len(long long n, long long val_base)
 	return (i);
 }
 
-static char			*conv(long long val_base, long long nb, long long i, char *str)
+static char			*conv(long long val_base, long long nb, long long i,
+					char *str)
 {
 	while (nb > 9)
 	{
@@ -56,7 +57,8 @@ static char			*conv(long long val_base, long long nb, long long i, char *str)
 	return (str);
 }
 
-static char			*conv_maj(long long val_base, long long nb, long long i, char *str)
+static char			*conv_maj(long long val_base, long long nb, long long i,
+					char *str)
 {
 	while (nb > 9)
 	{
@@ -87,7 +89,6 @@ char				*ft_lltoa_base(long long nb, const char *base)
 	long long		val_base;
 	long long		i;
 	char			*str;
-
 
 	val_base = ft_strlen(base);
 	i = ft_len(nb, val_base);

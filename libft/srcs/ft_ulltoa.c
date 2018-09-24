@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lltoa.c                                         :+:      :+:    :+:   */
+/*   ft_ulltoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/libft.h"
 
-static long long	ft_len(long long n)
+static unsigned long long	ft_u_len(unsigned long long n)
 {
-	long long		i;
+	unsigned long long		i;
 
 	i = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		i++;
-	}
 	while (n > 9)
 	{
 		n = n / 10;
@@ -30,22 +25,15 @@ static long long	ft_len(long long n)
 	return (i);
 }
 
-char				*ft_lltoa(long long n)
+char						*ft_ulltoa(unsigned long long n)
 {
-	char			*str;
-	long long		i;
+	char					*str;
+	unsigned long long		i;
 
-	if (n < -9223372036854775807)
-		return (ft_strdup("-9223372036854775808"));
-	i = ft_len(n);
+	i = ft_u_len(n);
 	if (!(str = ft_memalloc(i + 2)))
 		return (NULL);
 	str[i + 1] = '\0';
-	if (n < 0)
-	{
-		str[0] = '-';
-		n *= -1;
-	}
 	while (n > 9)
 	{
 		str[i] = (n % 10) + '0';

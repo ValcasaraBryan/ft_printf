@@ -16,6 +16,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 /*
 **	Fonction Part1 & Part2
@@ -96,5 +99,15 @@ char				*ft_strndup(const char *src, size_t len);
 int					ft_print_lst(t_list *list);
 char				*ft_strnjoin(char const *s1, char const *s2, size_t len);
 int					ft_strnchr(const char *s, int c, size_t len);
+/*
+** Fonction pour ft_printf
+*/
+char				*ft_lltoa(long long n);
+long long			ft_atoll(const char *str);
+char				*ft_lltoa(long long n);
+char				*ft_dotoa(double nb, unsigned int precision);
+char				*ft_ulltoa_base(unsigned long long nb, const char *base);
+char				*ft_strjoin_free(char *s1, char *s2);
+int					ft_putstr_len(const char *str, size_t len, int fd);
 
 #endif
