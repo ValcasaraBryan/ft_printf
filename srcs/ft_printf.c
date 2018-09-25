@@ -53,7 +53,10 @@ void	add_caractere(t_string *l, unsigned char caractere, int len)
 	if (!(buf = ft_memalloc(len + 1)))
 		return ;
 	ft_memset(buf, caractere, len);
-	ft_strcat(l->str + l->len, buf);
+	if (l->str + l->len)
+		ft_strcat(l->str + l->len, buf);
+	else
+		l->str = ft_strdup(buf);
 	l->len += len;
 }
 
@@ -239,7 +242,7 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		if (l->nb_percent)
 			i_of_format += inter_percent(format, l, i_of_format, p_of_params((char *)format + i_of_format));
 	}
-	if (format + i_of_format)
+	if (format + i_of_format && *format + i_of_format)
 	{
 		ft_strcat(l->str + l->len, ft_strdup(format + i_of_format));
 		l->len += ft_strlen(format + i_of_format);
