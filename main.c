@@ -17,7 +17,7 @@ int		main(int argc, char **argv)
 	int ret;
 	int ret_2;
 	char *str;
-	const char format[500] = " %%";
+	const char format[500] = "null %c and text";
 
 	(void)argc;
 	(void)argv;
@@ -25,10 +25,12 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-	ret = ft_printf(format);
-	printf("%d\n", ret);
-	ret_2 =  printf(format);
-	printf("%d\n", ret);
+	ret = ft_printf(format, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format, 0);
+	printf("| %d\n", ret_2);
+
+
 	if (ret == ret_2)
 	{
 		printf("len -- OK --\n\n");
