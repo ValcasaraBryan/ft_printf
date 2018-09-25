@@ -50,8 +50,8 @@ char		*add_caractere_start(char *params, int len, unsigned char caractere)
 	}
 	else if (!*params && (len >= 0))
 	{
-		ft_memset(params, caractere, len);
-		return (params);
+		ft_memset(tmp, caractere, len);
+		return (tmp);
 	}
 	return (params);
 }
@@ -193,7 +193,7 @@ void		option_left(t_string *l, t_tab *list)
 	if (!tmp)
 		tmp = ft_strjoin(list->f, space);
 	else
-		tmp = ft_strjoin(tmp, space);
+		ft_strjoin(tmp, space);
 	list->f = tmp;
 }
 
