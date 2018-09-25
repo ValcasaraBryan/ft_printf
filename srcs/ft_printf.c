@@ -27,22 +27,22 @@ int			binary_flag(int *tab)
 	return (j);
 }
 
-//void	print_tab(t_string l, int len, char *arg)
-//{
-//	int i;
-//
-//	i = 0;
-//	printf("\n");
-//	printf("l.tab[%5s] = ", arg);
-//	while (i < len)
-//			printf("%5d", i++);
-//	i = 0;
-//	printf("\n");
-//	printf("l.tab%9    = ");
-//	while (len-- > 0)
-//		printf("%5d", l.tab[i++]);
-//	printf("\n");
-//}
+void	print_tab(t_string l, int len, char *arg)
+{
+	int i;
+
+	i = 0;
+	printf("\n");
+	printf("l.tab[%5s] = ", arg);
+	while (i < len)
+			printf("%5d", i++);
+	i = 0;
+	printf("\n");
+	printf("l.tab%9    = ");
+	while (len-- > 0)
+		printf("%5d", l.tab[i++]);
+	printf("\n");
+}
 
 void	add_caractere(t_string *l, unsigned char caractere, int len)
 {
@@ -68,6 +68,8 @@ void	change_string(t_string *l, t_tab *list)
 	{
 		if (params(list->c, ENT))
 			precision(l, list);
+		else
+			precision_string(l, list);
 		add_precision(l, list);
 	}
 	else
@@ -222,6 +224,20 @@ int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
 	return (tmp);
 }
 
+char	*end_of_format(t_string *l, t_tab *list, const char *format, int i_of_format)
+{
+	char	*tmp;
+	if (format + i_of_format && *format + i_of_format)
+	{
+		tmp = (char *)ft_memjoin((void *)l->str, l->len, (void *)format + i_of_format, ft_strlen(format + i_of_format));
+		free(l->str);
+		l->str = tmp;
+		l->len += ft_strlen(format + i_of_format);
+		return (l->str);
+	}
+	return (NULL);
+}
+
 void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 {
 	int		i_of_format;
@@ -242,13 +258,8 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		if (l->nb_percent)
 			i_of_format += inter_percent(format, l, i_of_format, p_of_params((char *)format + i_of_format));
 	}
-	if (format + i_of_format && *format + i_of_format)
-	{
-		l->str = ft_strjoin(l->str, ft_strcat(ft_strdup(l->str + l->len), ft_strdup(format + i_of_format)));
-		l->len += ft_strlen(format + i_of_format);
-	}
+	l->str = end_of_format(l, list, format, i_of_format);
 }
-
 
 int		ft_printf(const char *format, ...)
 {

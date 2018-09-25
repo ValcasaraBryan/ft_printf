@@ -98,6 +98,7 @@ int							value_pos(int i, int *tab, int flag);
 
 char						*add_caractere_start(char *params, int len, unsigned char caractere);
 void						precision(t_string *l, t_tab *list);
+void						precision_string(t_string *l, t_tab *list);
 
 char						*string_s(va_list ap);
 char						*conv_int(va_list ap);

@@ -57,7 +57,7 @@ char			*conv_char(va_list ap)
 	int		c;
 
 	c = va_arg(ap, int);
-	return (ft_lltoa(c));
+	return (ft_lltoa((char)c));
 }
 
 char			*conv_uchar(va_list ap, char *hexa)

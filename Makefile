@@ -39,6 +39,7 @@ $(NAME) : $(OBJET)
 	@gcc $(FLAG) $(HEAD) -o $@ -c $< 
 
 comp : $(NAME) main.c
+	@make -C libft
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
 
 exe : comp

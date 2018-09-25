@@ -36,6 +36,18 @@ void	precision(t_string *l, t_tab *list)
 	}
 }
 
+void		precision_string(t_string *l, t_tab *list)
+{
+	char	*tmp;
+
+	if (list && l->tab[POINT - 1] && l->tab[POINT] < list->len)
+	{
+		tmp = ft_strndup(list->f, l->tab[POINT]);
+		list->f = tmp;
+		list->len = l->tab[POINT];
+	}
+}
+
 char		*add_caractere_start(char *params, int len, unsigned char caractere)
 {
 	char	*tmp;
