@@ -38,7 +38,7 @@ $(NAME) : $(OBJET)
 %.o:%.c %.h
 	@gcc $(FLAG) $(HEAD) -o $@ -c $< 
 
-comp : $(SRC) main.c
+comp : $(NAME) main.c
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
 
 exe : comp

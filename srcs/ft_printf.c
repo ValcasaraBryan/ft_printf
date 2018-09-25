@@ -244,7 +244,7 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 	}
 	if (format + i_of_format && *format + i_of_format)
 	{
-		ft_strcat(l->str + l->len, ft_strdup(format + i_of_format));
+		l->str = ft_strjoin(l->str, ft_strcat(ft_strdup(l->str + l->len), ft_strdup(format + i_of_format)));
 		l->len += ft_strlen(format + i_of_format);
 	}
 }
