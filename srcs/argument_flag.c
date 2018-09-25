@@ -64,7 +64,7 @@ char		*option_space_zero(t_string *l, t_tab *list)
 		return (NULL);
 	if (l->tab[LARGEUR] < list->len)
 		l->tab[LARGEUR] = list->len;
-	if (value_pos(0, l->tab, ZERO))
+	if (l->tab[ZERO - 1])
 		ft_memset(space, '0', l->tab[LARGEUR] - list->len);
 	else
 		ft_memset(space, ' ', l->tab[LARGEUR] - list->len);

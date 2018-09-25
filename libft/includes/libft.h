@@ -107,7 +107,7 @@ long long			ft_atoll(const char *str);
 char				*ft_lltoa(long long n);
 char				*ft_dotoa(double nb, unsigned int precision);
 char				*ft_ulltoa_base(unsigned long long nb, const char *base);
-char				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_free(char *s1, char *s2, int select_to_free);
 int					ft_putstr_len(const char *str, size_t len, int fd);
 
 #endif
