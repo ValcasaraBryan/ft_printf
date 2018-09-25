@@ -17,7 +17,7 @@ int		main(int argc, char **argv)
 	int ret;
 	int ret_2;
 	char *str;
-	const char format[500] = "null %c and text";
+	const char format[500] = "@moulitest: %5.x %5.0x";
 
 	(void)argc;
 	(void)argv;
@@ -25,9 +25,10 @@ int		main(int argc, char **argv)
 	ret_2 = 0;
 	str = NULL;
 
-	ret = ft_printf(format, 0);
+	printf("%s\n", format);
+	ret = ft_printf(format, 0, 0);
 	printf("| %d\n", ret);
-	ret_2 =  printf(format, 0);
+	ret_2 =  printf(format, 0, 0);
 	printf("| %d\n", ret_2);
 
 

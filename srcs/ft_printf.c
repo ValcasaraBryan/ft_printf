@@ -227,12 +227,15 @@ int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
 char	*end_of_format(t_string *l, t_tab *list, const char *format, int i_of_format)
 {
 	char	*tmp;
+	int		i;
+
 	if (format + i_of_format && *format + i_of_format)
 	{
-		tmp = (char *)ft_memjoin((void *)l->str, l->len, (void *)format + i_of_format, ft_strlen(format + i_of_format));
+		i = ft_strlen(format + i_of_format);
+		tmp = (char *)ft_memjoin((void *)l->str, l->len, (void *)format + i_of_format, i);
 		free(l->str);
 		l->str = tmp;
-		l->len += ft_strlen(format + i_of_format);
+		l->len += i;
 		return (l->str);
 	}
 	return (NULL);

@@ -143,7 +143,10 @@ void		add_precision(t_string *l, t_tab *list)
 	else
 		option_left(l, list);
 	ft_strcat(l->str + l->len, list->f);
-	l->len += l->tab[LARGEUR];
+	if (l->tab[LARGEUR] > list->len)
+		l->len += l->tab[LARGEUR];
+	else
+		l->len += list->len;
 }
 
 void		option_right(t_string *l, t_tab *list)
@@ -178,6 +181,11 @@ void		option_right(t_string *l, t_tab *list)
 		list->f = ft_strcat(space, tmp);
 	else
 		list->f = ft_strcat(space, list->f);
+	//if (value_pos(0, l->tab, HASHTAG) &&*list->f != '0')
+	//{
+	//	list->f = ft_strjoin_free(ft_strjoin_free(ft_strdup("0"), ft_strdup(&list->c), 3), list->f, 3);
+	//	list->len += 2;
+	//}
 }
 
 void		option_left(t_string *l, t_tab *list)
