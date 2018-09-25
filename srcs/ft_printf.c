@@ -63,7 +63,8 @@ void	change_string(t_string *l, t_tab *list)
 		l->str = ft_strdup("");
 	if (binary_flag(l->tab))
 	{
-		precision(l, list);
+		if (params(list->c, ENT))
+			precision(l, list);
 		add_precision(l, list);
 	}
 	else
