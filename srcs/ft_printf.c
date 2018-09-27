@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int			binary_flag(int *tab)
+int			binary_flag(int *tab , int len)
 {
 	int		i;
 	int		j;
@@ -21,8 +21,8 @@ int			binary_flag(int *tab)
 	j = 0;
 	if (!tab)
 		return (0);
-	while (++i <= LENGHT_TAB)
-		if (tab[i] > 0 && tab[i] <= LENGHT_TAB)
+	while (++i <= len)
+		if (tab[i] > -1 && tab[i] <= len)
 			++j;
 	return (j);
 }
@@ -33,12 +33,12 @@ void	print_tab(t_string l, int len, char *arg)
 
 	i = 0;
 	printf("\n");
-	printf("l.tab[%5s] = ", arg);
+	printf("l.tab[|%s|] = ", arg);
 	while (i < len)
 			printf("%5d", i++);
 	i = 0;
 	printf("\n");
-	printf("l.tab%9    = ");
+	printf("l.tab[|%s|] = ", arg);
 	while (len-- > 0)
 		printf("%5d", l.tab[i++]);
 	printf("\n");
@@ -64,12 +64,12 @@ void	change_string(t_string *l, t_tab *list)
 {
 	if (!l->str && !l->len)
 		l->str = ft_strdup("");
-	if (binary_flag(l->tab))
+	if (binary_flag(l->tab, LENGHT_TAB + 1))
 	{
-		if (params(list->c, ENT))
-			precision(l, list);
-		else
-			precision_string(l, list);
+		//if (params(list->c, ENT))
+		//	precision(l, list);
+		//else
+		//	precision_string(l, list);
 		add_precision(l, list);
 	}
 	else
@@ -102,7 +102,7 @@ char	*flag_int_sign(t_string l, va_list ap)
 	{
 		j = -1;
 		while (++j < LENGHT_TAB - 1)
-			if (flag[i].tab == l.tab[j] && l.tab[j] != 0)
+			if (flag[i].tab == l.tab[j] && l.tab[j] != -1)
 				return (flag[i].fonction(ap));
 	}
 	return (conv_int(ap));
@@ -131,7 +131,7 @@ char	*flag_int_unsigned(t_string l, va_list ap, char *hexa)
 	{
 		j = -1;
 		while (++j < LENGHT_TAB - 1)
-			if (flag[i].tab == l.tab[j] && l.tab[j] != 0)
+			if (flag[i].tab == l.tab[j] && l.tab[j] != -1)
 				return (flag[i].fonction(ap, hexa));
 	}
 	return (conv_uint(ap, hexa));
@@ -257,6 +257,7 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
 		i_of_format += len_arg;
+//								print_tab(*l, LENGHT_TAB, arg);
 		add_arg(l, list, ap);
 		if (l->nb_percent)
 			i_of_format += inter_percent(format, l, i_of_format, p_of_params((char *)format + i_of_format));
@@ -330,7 +331,7 @@ t_tab		*list_add_conversion(char c, char *string)
 
 void		largeur_of_camp(char *arg, t_string *l, int i)
 {
-	if (l->tab[LARGEUR] == 0)
+	if (l->tab[LARGEUR] == -1)
 		if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
 			l->tab[LARGEUR] = ft_atoll(arg + i);
 }
@@ -373,10 +374,10 @@ void		flag_optional(char *arg, t_string *l)
 			l->tab[LEFT - 1] = LEFT;
 		if (arg[i] == '0' && !((arg[i - 1] <= '9' && arg[i - 1] >= '0')) && !(arg[i - 1] == '.'))
 			l->tab[ZERO - 1] = ZERO;
-		if (arg[i] == '+')
-			l->tab[SIGN - 1] = SIGN;
 		if (arg[i] == ' ')
 			l->tab[BLANK - 1] = BLANK;
+		if (arg[i] == '+')
+			l->tab[SIGN - 1] = SIGN;
 		if (arg[i] == '#')
 			l->tab[HASHTAG - 1] = HASHTAG;
 		if (arg[i] == '.')
@@ -388,6 +389,7 @@ void		flag_optional(char *arg, t_string *l)
 			l->tab[J_FLAG - 1] = J_FLAG;
 		i = flag_optional_suit(arg, l, i);
 		largeur_of_camp(arg, l, i);
+
 	}
 }
 
@@ -470,7 +472,7 @@ void		reset_tab_int(t_string *l, int len)
 
 	i = -1;
 	while (++i < len)
-		l->tab[i] = 0;
+		l->tab[i] = -1;
 }
 
 int			params(char comp, const char *list)

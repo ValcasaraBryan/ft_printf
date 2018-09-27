@@ -136,12 +136,8 @@ char		*signe(long long val, t_tab *list, char **sign, t_string *l)
 
 void		add_precision(t_string *l, t_tab *list)
 {
-	if (l->tab[LARGEUR] < list->len)
-		l->tab[LARGEUR] = list->len;
-	if (!value_pos(0, l->tab, LEFT))
-		option_right(l, list);
-	else
-		option_left(l, list);
+	priority_flag(l, list);
+	option(l, list);
 	ft_strcat(l->str + l->len, list->f);
 	if (l->tab[LARGEUR] > list->len)
 		l->len += l->tab[LARGEUR];
@@ -149,71 +145,119 @@ void		add_precision(t_string *l, t_tab *list)
 		l->len += list->len;
 }
 
-void		option_right(t_string *l, t_tab *list)
+int			value_tab(int *tab, int len)
 {
-	char	*space;
-	char	*sign;
-	char	*tmp;
+	int		i;
+	int		ret;
 
-	tmp = NULL;
-	space = NULL;
-	sign = ft_strdup("+");
-	if ((value_pos(0, l->tab, SIGN) || list->f[0] == '-') && ft_atoll(list->f))
-	{
-		list->f = signe(ft_atoll(list->f), list, &sign, l);
-		tmp = option_zero_space(sign, tmp, l, list);
-		list->f = ft_strjoin(tmp, list->f);
-		return ;
-	}
-	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
-		&& !value_pos(0, l->tab, ZERO))
-		tmp = blank_option(list->f, list);
-	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f) != 0
-		&& value_pos(0, l->tab, ZERO))
-		tmp = blank_option(space, list);
-	space = option_space_zero(l, list);
-	if (tmp && !value_pos(0, l->tab, BLANK))
-	{
-		space = ft_strcat(tmp, space);
-		list->f = ft_strcat(space, list->f);
-	}
-	else if (space && tmp)
-		list->f = ft_strcat(space, tmp);
-	else
-		list->f = ft_strcat(space, list->f);
-	//if (value_pos(0, l->tab, HASHTAG) &&*list->f != '0')
-	//{
-	//	list->f = ft_strjoin_free(ft_strjoin_free(ft_strdup("0"), ft_strdup(&list->c), 3), list->f, 3);
-	//	list->len += 2;
-	//}
+	i = -1;
+	if (len <= 0)
+		return (-1);
+	while (++i < len)
+		if (tab[i] > 0 && tab[i] < len - 1 && i > -1 && i <= len)
+		{
+			ret = tab[i];
+			tab[i] = -1;
+			return (ret);
+		}
+	return (0);
 }
 
-void		option_left(t_string *l, t_tab *list)
+void	priority_flag(t_string *l, t_tab *list)
 {
-	char	*space;
-	char	*sign;
-	char	*tmp;
+	if (l->tab[LEFT  - 1] == LEFT)
+		l->tab[ZERO - 1] = -1;
+	if (l->tab[SIGN - 1] == SIGN || *list->f == '-')
+		l->tab[BLANK - 1] = -1;
+	if (l->tab[LARGEUR] > list->len && l->tab[BLANK - 1] == -1)
+		l->tab[BLANK - 1] = -1;
+	if (l->tab[LARGEUR] < list->len)
+		l->tab[LARGEUR] = list->len;
+	else if (l->tab[LARGEUR] < l->tab[POINT])
+		l->tab[LARGEUR] = l->tab[POINT];
+}
 
-	tmp = NULL;
-	if (!(space = ft_memalloc(l->tab[LARGEUR] - list->len + 1)))
+char		sign_of_tmp(t_string *l, t_tab *list)
+{
+	if (*list->f == '-')
+		return ('-');
+	else if (l->tab[SIGN - 1] == SIGN)
+		return ('+');
+	return (-1);
+}
+
+void		option(t_string *l, t_tab *list)
+{
+	char	*tmp;
+	int		index_of_tmp;
+	int		zero;
+	int		plus;
+
+	index_of_tmp = 0;
+	plus = 0;
+	if (l->tab[SIGN - 1] == SIGN && l->tab[LARGEUR] <= list->len)
+		plus++;
+	if (l->tab[BLANK - 1] == BLANK && l->tab[LARGEUR] == list->len)
+		plus++;
+	zero = l->tab[LARGEUR] - list->len - plus;
+	if (!(tmp = ft_memalloc(l->tab[LARGEUR] + plus + 1)))
 		return ;
-	sign = ft_strdup("+");
-	if ((value_pos(0, l->tab, SIGN) || list->f[0] == '-') && ft_atoll(list->f))
+	while (index_of_tmp + list->len < l->tab[LARGEUR] || index_of_tmp < plus)
 	{
-		list->f = signe(ft_atoll(list->f), list, &sign, l);
-		ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
-		tmp = ft_strjoin(list->f, space);
-		ft_strjoin(list->f, tmp);
-		list->f = ft_strcat(sign, tmp);
-		return ;
+		while (l->tab[BLANK - 1] == BLANK || l->tab[ZERO - 1] == ZERO || l->tab[SIGN - 1] == SIGN)
+		{
+			if (l->tab[BLANK - 1] == BLANK)
+			{
+				ft_memset(tmp + index_of_tmp++, ' ', 1);
+				l->tab[BLANK - 1] = -1;
+				zero--;
+			}
+			if (((l->tab[ZERO - 1] == ZERO && zero > 0) || (l->tab[ZERO - 1] == -1 && zero <= 1)) && l->tab[SIGN - 1] == SIGN)
+			{
+				ft_memset(tmp + index_of_tmp++, sign_of_tmp(l, list), 1);
+				l->tab[SIGN - 1] = -1;
+				zero--;
+			}
+			else if (l->tab[ZERO - 1] == -1 && zero > 0 && l->tab[SIGN - 1] == SIGN && l->tab[LEFT - 1] == -1)
+				ft_memset(tmp + index_of_tmp++, ' ', zero--);
+			else if (l->tab[ZERO - 1] == ZERO && zero > 0 && l->tab[SIGN - 1] == -1)
+				ft_memset(tmp + index_of_tmp++, '0', zero--);
+			if (zero <= 0)
+				l->tab[ZERO - 1] = -1;
+			/*
+			**	reglage left a finir
+			*/
+			if (l->tab[LEFT - 1] == LEFT && (l->tab[BLANK - 1] == -1 || l->tab[ZERO - 1] == -1 || l->tab[SIGN - 1] == -1))
+			{
+				if (*list->f == '-')
+				{
+					list->len--;
+					ft_memcpy(tmp + index_of_tmp, list->f + 1, list->len);
+				}
+				else
+					ft_memcpy(tmp + index_of_tmp, list->f, list->len);
+				index_of_tmp += list->len;
+				if (index_of_tmp < (l->tab[LARGEUR] - (list->len + plus)))
+					ft_memset(tmp + index_of_tmp++, ' ', l->tab[LARGEUR] - (list->len + plus));
+				list->len = l->tab[LARGEUR] + plus;
+				list->f = tmp;
+				return ;
+			}
+			/*
+			**	reglage left a finir
+			*/
+		}
+		if (index_of_tmp < (l->tab[LARGEUR] - (list->len + plus)))
+			ft_memset(tmp + index_of_tmp++, ' ', 1);
 	}
-	if (value_pos(0, l->tab, BLANK) && ft_atoll(list->f))
-		tmp = blank_option(list->f,list);
-	ft_memset(space, ' ', l->tab[LARGEUR] - list->len);
-	if (!tmp)
-		tmp = ft_strjoin(list->f, space);
+	if (*list->f == '-')
+	{
+		list->len--;
+		ft_memcpy(tmp + index_of_tmp, list->f + 1, list->len);
+	}
 	else
-		ft_strjoin(tmp, space);
+		ft_memcpy(tmp + index_of_tmp, list->f, list->len);
+	list->len = l->tab[LARGEUR] + plus;
 	list->f = tmp;
 }
 
