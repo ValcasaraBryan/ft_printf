@@ -121,17 +121,24 @@ void	priority_flag(t_string *l, t_tab *list)
 
 char		sign_of_tmp(t_string *l, t_tab *list)
 {
+	char	c;
+
+	c = 0;
 	if (*list->f == '-')
-		return ('-');
+		c = '-';
 	else if (l->tab[SIGN - 1] == SIGN)
-		return ('+');
-	return (-1);
+		c = '+';
+	l->tab[SIGN - 1] = -1;
+	return (c);
 }
 
 int		conditionnal(t_string *l, int zero)
 {
 	if (l->tab[BLANK - 1] == BLANK)
+	{
+		l->tab[BLANK - 1] = -1;
 		return (1);
+	}
 	if ((((l->tab[ZERO - 1] == ZERO && zero > 0)
 		|| (l->tab[ZERO - 1] == -1 && zero <= 1))
 		|| l->tab[LEFT - 1] == LEFT)
@@ -155,16 +162,11 @@ int 	set_option(t_string *l, t_tab *list, int zero, char *tmp)
 	index_of_tmp = 0;
 	while (conditionnal(l, zero) != -1)
 	{
-		if (conditionnal(l, zero) == 1)
-		{
+		if (conditionnal(l, zero) == 1 && zero--)
 			ft_memset(tmp + index_of_tmp++, ' ', 1);
-			l->tab[BLANK - 1] = -1;
-			zero--;
-		}
 		if (conditionnal(l, zero) == 2)
 		{
 			ft_memset(tmp + index_of_tmp++, sign_of_tmp(l, list), 1);
-			l->tab[SIGN - 1] = -1;
 			zero--;
 		}
 		else if (conditionnal(l, zero) == 3 && zero-- > 0)
