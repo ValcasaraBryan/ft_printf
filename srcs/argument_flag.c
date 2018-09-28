@@ -128,33 +128,49 @@ char		sign_of_tmp(t_string *l, t_tab *list)
 	return (-1);
 }
 
+int		conditionnal(t_string *l, int zero)
+{
+	if (l->tab[BLANK - 1] == BLANK)
+		return (1);
+	if ((((l->tab[ZERO - 1] == ZERO && zero > 0)
+		|| (l->tab[ZERO - 1] == -1 && zero <= 1))
+		|| l->tab[LEFT - 1] == LEFT)
+		&& l->tab[SIGN - 1] == SIGN)
+		return (2);
+	if (l->tab[ZERO - 1] == -1
+		&& l->tab[SIGN - 1] == SIGN && l->tab[LEFT - 1] == -1)
+		return (3);
+	if (l->tab[ZERO - 1] == ZERO && l->tab[SIGN - 1] == -1)
+		return (4);
+	if (l->tab[BLANK - 1] == BLANK || l->tab[ZERO - 1] == ZERO
+		|| l->tab[SIGN - 1] == SIGN)
+		return (5);
+	return (-1);
+}
+
 int 	set_option(t_string *l, t_tab *list, int zero, char *tmp)
 {
 	int index_of_tmp;
 
 	index_of_tmp = 0;
-	while (l->tab[BLANK - 1] == BLANK || l->tab[ZERO - 1] == ZERO
-		|| l->tab[SIGN - 1] == SIGN)
+	while (conditionnal(l, zero) != -1)
 	{
-		if (l->tab[BLANK - 1] == BLANK)
+		if (conditionnal(l, zero) == 1)
 		{
 			ft_memset(tmp + index_of_tmp++, ' ', 1);
 			l->tab[BLANK - 1] = -1;
 			zero--;
 		}
-		if ((((l->tab[ZERO - 1] == ZERO && zero > 0) ||
-			(l->tab[ZERO - 1] == -1 && zero <= 1)) || l->tab[LEFT - 1] == LEFT)
-			&& l->tab[SIGN - 1] == SIGN)
+		if (conditionnal(l, zero) == 2)
 		{
 			ft_memset(tmp + index_of_tmp++, sign_of_tmp(l, list), 1);
 			l->tab[SIGN - 1] = -1;
 			zero--;
 		}
-		else if (l->tab[ZERO - 1] == -1 && zero > 0 && l->tab[SIGN - 1] == SIGN
-			&& l->tab[LEFT - 1] == -1)
-			ft_memset(tmp + index_of_tmp++, ' ', zero--);
-		else if (l->tab[ZERO - 1] == ZERO && zero > 0 && l->tab[SIGN - 1] == -1)
-			ft_memset(tmp + index_of_tmp++, '0', zero--);
+		else if (conditionnal(l, zero) == 3 && zero-- > 0)
+			ft_memset(tmp + index_of_tmp++, ' ', 1);
+		else if (conditionnal(l, zero) == 4 && zero-- > 0)
+			ft_memset(tmp + index_of_tmp++, '0', 1);
 		if (zero <= 0)
 			l->tab[ZERO - 1] = -1;
 	}
