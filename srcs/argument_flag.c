@@ -186,9 +186,7 @@ void		option(t_string *l, t_tab *list)
 	int		zero;
 	int		plus;
 
-	plus = 0;
-	if (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK)
-		plus++;
+	plus = (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1]) == BLANK ? 1 : 0;
 	zero = l->tab[LARGEUR] - list->len;
 	if (!(tmp = ft_memalloc(l->tab[LARGEUR] + plus + 1)))
 		return ;
