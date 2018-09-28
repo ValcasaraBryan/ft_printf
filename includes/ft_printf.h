@@ -91,9 +91,6 @@ int							params(char comp, const char *list);
 void						change_string(t_string *l, t_tab *list);
 void						add_precision(t_string *l, t_tab *list);
 void						option(t_string *l, t_tab *list);
-char						*option_zero_space(char *sign, char *tmp, t_string *l, t_tab *list);
-char						*option_space_zero(t_string *l, t_tab *list);
-int							value_pos(int i, int *tab, int flag);
 
 char						*add_caractere_start(char *params, int len, unsigned char caractere);
 void						precision(t_string *l, t_tab *list);

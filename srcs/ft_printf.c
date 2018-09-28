@@ -238,6 +238,7 @@ char	*end_of_format(t_string *l, t_tab *list, const char *format, int i_of_forma
 		l->len += i;
 		return (l->str);
 	}
+	l->len = -1;
 	return (NULL);
 }
 
