@@ -31,7 +31,7 @@ NORM = norm.txt
 all : $(NAME)
 
 $(NAME) : $(OBJET)
-	@make -C libft
+	make -C libft
 	@libtool -static -o $@ $(OBJET_LIB) $^
 	@ranlib $@
 
@@ -39,7 +39,6 @@ $(NAME) : $(OBJET)
 	@gcc $(FLAG) $(HEAD) -o $@ -c $< 
 
 comp : $(NAME) main.c
-	@make -C libft
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
 
 exe : comp
