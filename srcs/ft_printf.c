@@ -53,7 +53,7 @@ void	add_caractere(t_string *l, unsigned char caractere, int len)
 	if (!(buf = ft_memalloc(len + 1)))
 		return ;
 	ft_memset(buf, caractere, len);
-	if (l->str + l->len)
+	if (l->len > 0)
 		ft_strcat(l->str + l->len, buf);
 	else
 		l->str = ft_strdup(buf);
@@ -189,19 +189,19 @@ t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 
 void	option_char(t_string *l, char c)
 {
-	if (l->tab[LEFT - 1])
+	if (l->tab[LEFT - 1] == LEFT)
 	{
 		add_caractere(l, c, 1);
-		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
+		if (l->tab[LARGEUR] != -1 && l->tab[ZERO - 1] == ZERO)
 			add_caractere(l, '0', l->tab[LARGEUR] - 1);
-		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
+		else if (l->tab[LARGEUR] != -1 && l->tab[ZERO - 1] == -1)
 			add_caractere(l, ' ', l->tab[LARGEUR] - 1);
 	}
 	else
 	{
-		if (l->tab[LARGEUR] && l->tab[ZERO - 1])
+		if (l->tab[LARGEUR] != -1 && l->tab[ZERO - 1] == ZERO)
 			add_caractere(l, '0', l->tab[LARGEUR] - 1);
-		else if (l->tab[LARGEUR] && !l->tab[ZERO - 1])
+		else if (l->tab[LARGEUR] != -1 && l->tab[ZERO - 1] == -1)
 			add_caractere(l, ' ', l->tab[LARGEUR] - 1);
 		add_caractere(l, c, 1);
 	}
@@ -227,9 +227,11 @@ int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
 char	*end_of_format(t_string *l, t_tab *list, const char *format, int i_of_format)
 {
 	char	*tmp;
+	int		len_format;
 	int		i;
 
-	if (format + i_of_format && *format + i_of_format)
+	len_format = ft_strlen(format);
+	if (i_of_format <= len_format)
 	{
 		i = ft_strlen(format + i_of_format);
 		tmp = (char *)ft_memjoin((void *)l->str, l->len, (void *)format + i_of_format, i);
@@ -251,6 +253,8 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 	i_of_format = p_of_params((char *)format);
 	if (i_of_format > 0)
 		l->str = ft_strndup(format, (l->len = i_of_format));
+	else
+		l->str = NULL;
 	while (l->nb_percent--)
 	{
 		reset_tab_int(l, LENGHT_TAB);

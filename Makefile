@@ -51,6 +51,10 @@ exe_more : comp
 	#------------ execution  ------------#
 	@./$(EXE) | more
 	#------------ execution  ------------#
+exe_grep : comp
+	#------------ execution  ------------#
+	@./$(EXE) | grep "len "
+	#------------ execution  ------------#
 
 debug : main.c
 	cpp main.c

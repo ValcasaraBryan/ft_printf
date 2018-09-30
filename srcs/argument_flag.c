@@ -180,6 +180,25 @@ int 	set_option(t_string *l, t_tab *list, int zero, char *tmp)
 	return (index_of_tmp);
 }
 
+char	*add_arg_to_option(t_tab *list, char *tmp, int index_of_tmp)
+{
+	char	*str;
+
+	if (index_of_tmp >= 0 && list->len >= 0)
+	{
+		if (!(str = ft_memalloc(index_of_tmp + list->len + 1)))
+			return (NULL);
+		if (*list->f == '-')
+			str = ft_memjoin(tmp, index_of_tmp, list->f + 1, list->len);
+		else
+			str = ft_memjoin(tmp, index_of_tmp, list->f, list->len);
+		//free(tmp);
+		return (str);
+	}
+	else
+		return (NULL);
+}
+
 void		option(t_string *l, t_tab *list)
 {
 	char	*tmp;
@@ -197,15 +216,12 @@ void		option(t_string *l, t_tab *list)
 		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - list->len - plus);
 		index_of_tmp += l->tab[LARGEUR] - list->len - plus;
 	}
-	if (*list->f == '-')
-		tmp = ft_memjoin(tmp, index_of_tmp, list->f + 1, list->len);
-	else
-		tmp = ft_memjoin(tmp, index_of_tmp, list->f, list->len);
+	tmp = add_arg_to_option(list, tmp, index_of_tmp);
 	index_of_tmp += list->len;
-	if (l->tab[LEFT - 1] == LEFT && index_of_tmp < (l->tab[LARGEUR] - list->len))
+	if (l->tab[LEFT - 1] == LEFT && index_of_tmp < l->tab[LARGEUR])
 	{
-		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - list->len - plus);
-		index_of_tmp += l->tab[LARGEUR] - list->len - plus;
+		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - index_of_tmp);
+		index_of_tmp += l->tab[LARGEUR] - index_of_tmp;
 	}
 	list->len = index_of_tmp;
 	list->f = tmp;
