@@ -149,9 +149,6 @@ int		conditionnal(t_string *l, int zero)
 		return (3);
 	if (l->tab[ZERO - 1] == ZERO && l->tab[SIGN - 1] == -1)
 		return (4);
-	if (l->tab[BLANK - 1] == BLANK || l->tab[ZERO - 1] == ZERO
-		|| l->tab[SIGN - 1] == SIGN)
-		return (5);
 	return (-1);
 }
 
@@ -160,10 +157,14 @@ int 	set_option(t_string *l, t_tab *list, int zero, char *tmp)
 	int index_of_tmp;
 
 	index_of_tmp = 0;
-	while (conditionnal(l, zero) != -1)
+	while (l->tab[BLANK - 1] == BLANK || l->tab[ZERO - 1] == ZERO
+		|| l->tab[SIGN - 1] == SIGN)
 	{
-		if (conditionnal(l, zero) == 1 && zero--)
+		if (conditionnal(l, zero) == 1)
+		{
 			ft_memset(tmp + index_of_tmp++, ' ', 1);
+			zero--;
+		}
 		if (conditionnal(l, zero) == 2)
 		{
 			ft_memset(tmp + index_of_tmp++, sign_of_tmp(l, list), 1);
@@ -186,7 +187,7 @@ void		option(t_string *l, t_tab *list)
 	int		zero;
 	int		plus;
 
-	plus = (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1]) == BLANK ? 1 : 0;
+	plus = (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK) ? 1 : 0;
 	zero = l->tab[LARGEUR] - list->len;
 	if (!(tmp = ft_memalloc(l->tab[LARGEUR] + plus + 1)))
 		return ;
