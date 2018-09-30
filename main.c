@@ -97,6 +97,7 @@ int		main(int argc, char **argv)
 	const char format_53[500] = "%%";
 	const char format_54[500] = "%-5d";
 
+	const char format_55[500] = "%+u";
 
 
 	(void)argc;
@@ -767,6 +768,19 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_55);
+	ret = ft_printf(format_55, -128);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_55, -128);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
 
 
 	return (0);

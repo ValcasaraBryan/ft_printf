@@ -210,7 +210,14 @@ void	option_char(t_string *l, char c)
 void	add_arg(t_string *l, t_tab *list, va_list ap)
 {
 	if (list->c != 'c' && list->c != '%')
+	{
+		if (list->c == 'u')
+		{
+			l->tab[BLANK - 1] = -1;
+			l->tab[SIGN - 1] = -1;
+		}
 		change_string(l, list);
+	}
 	if (list->c == 'c')
 		option_char(l, conv_c(ap));
 	else if (list->c == '%')
@@ -345,7 +352,7 @@ int		flag_optional_suit(char *arg, t_string *l, int i)
 {
 	if (arg[i] == 'z')
 		l->tab[Z_FLAG - 1] = Z_FLAG;
-	if (arg[i] == 'l' && l->tab[INT_LONG - 1] == 0 && l->tab[INT_LONG_LONG - 1] == 0)
+	if (arg[i] == 'l' && l->tab[INT_LONG - 1] == -1 && l->tab[INT_LONG_LONG - 1] == -1)
 	{
 	if (arg[i] == 'l' && arg[i + 1] == 'l')
 		{
@@ -355,10 +362,10 @@ int		flag_optional_suit(char *arg, t_string *l, int i)
 		else
 			l->tab[INT_LONG - 1] = INT_LONG;
 	}
-	if (arg[i] == 'h' && l->tab[INT_SHORT - 1] == 0 && l->tab[INT_SHORT_SHORT - 1] == 0)
+	if (arg[i] == 'h' && l->tab[INT_SHORT - 1] == -1 && l->tab[INT_SHORT_SHORT - 1] == -1)
 	{
 		if (arg[i] == 'h' && arg[i + 1] == 'h')
-	{
+		{
 			l->tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
 			i++;
 		}
@@ -394,7 +401,6 @@ void		flag_optional(char *arg, t_string *l)
 			l->tab[J_FLAG - 1] = J_FLAG;
 		i = flag_optional_suit(arg, l, i);
 		largeur_of_camp(arg, l, i);
-
 	}
 }
 
