@@ -110,10 +110,14 @@ void	priority_flag(t_string *l, t_tab *list)
 			list->len--;
 		}
 	}
+	if (l->tab[BLANK - 1] == BLANK && l->tab[LARGEUR] > list->len)
+		l->tab[BLANK - 1] = -1;
 	if (l->tab[LARGEUR] < list->len)
 		l->tab[LARGEUR] = list->len;
-	else if (l->tab[LARGEUR] < l->tab[POINT])
+	else if (l->tab[POINT] > l->tab[LARGEUR])
 		l->tab[LARGEUR] = l->tab[POINT];
+	if (l->tab[POINT] < list->len)
+		l->tab[POINT] = list->len;
 	if (l->tab[LARGEUR] == list->len &&  l->tab[LEFT - 1] == LEFT
 		&& (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK))
 		l->tab[LARGEUR] = list->len + 1;
@@ -213,8 +217,13 @@ void		option(t_string *l, t_tab *list)
 	index_of_tmp = set_option(l, list, zero, tmp);
 	if (index_of_tmp < (l->tab[LARGEUR] - list->len) && l->tab[LEFT - 1] == -1)
 	{
-		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - list->len - plus);
-		index_of_tmp += l->tab[LARGEUR] - list->len - plus;
+		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - l->tab[POINT] - plus);
+		index_of_tmp += l->tab[LARGEUR] - l->tab[POINT] - plus;
+	}
+	if (l->tab[POINT - 1] == POINT && l->tab[SIGN - 1] == -1)
+	{
+		ft_memset(tmp + index_of_tmp, '0', l->tab[POINT] - list->len);
+		index_of_tmp += l->tab[POINT] - list->len;
 	}
 	tmp = add_arg_to_option(list, tmp, index_of_tmp);
 	index_of_tmp += list->len;
