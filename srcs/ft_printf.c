@@ -289,10 +289,12 @@ int		ft_printf(const char *format, ...)
 	t_tab		list;
 
 	l.len = 0;
-	va_start(ap, format);
 	l.nb_percent = nb_percent((char *)format);
 	if (l.nb_percent)
+	{
+		va_start(ap, format);
 		parsing(format, &l, &list, ap);
+	}
 	else
 		return (no_arguments(format, ap, l));
 	va_end(ap);
