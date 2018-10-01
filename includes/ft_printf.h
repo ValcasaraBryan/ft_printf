@@ -92,7 +92,6 @@ void						change_string(t_string *l, t_tab *list);
 void						add_precision(t_string *l, t_tab *list);
 void						option(t_string *l, t_tab *list);
 
-char						*add_caractere_start(char *params, int len, unsigned char caractere);
 void						precision(t_string *l, t_tab *list);
 void						precision_string(t_string *l, t_tab *list);
 int							binary_flag(int *tab , int len);

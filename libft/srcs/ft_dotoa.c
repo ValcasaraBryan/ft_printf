@@ -61,7 +61,7 @@ static void			add_prec(char **str, unsigned int precision,
 	char			*tmp;
 
 	tmp = NULL;
-	if (nb < 1 && nb >= 0)
+	if (nb < 1 && nb > 0)
 	{
 		while (precision--)
 		{
@@ -89,6 +89,7 @@ char				*ft_dotoa(double nb, unsigned int precision)
 	unsigned int	i;
 	int				neg;
 
+	str = NULL;
 	neg = 0;
 	if (nb < 0)
 	{

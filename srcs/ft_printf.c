@@ -66,10 +66,10 @@ void	change_string(t_string *l, t_tab *list)
 		l->str = ft_strdup("");
 	if (binary_flag(l->tab, LENGHT_TAB + 1))
 	{
-		//if (params(list->c, ENT))
-		//	precision(l, list);
-		//else
-		//	precision_string(l, list);
+		if (params(list->c, "oxd"))
+			precision(l, list);
+		else if (params(list->c, "s"))
+			precision_string(l, list);
 		add_precision(l, list);
 	}
 	else
@@ -167,13 +167,19 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	else if (c == 'c')
 		return (list_add_conversion(c, NULL));
 	else if (c == 'f')
+	{
+		if (l.tab[POINT - 1] != POINT)
+			l.tab[POINT] = 6;
 		return (list_add_conversion(c, conv_float(ap, l.tab[POINT])));
+	}
 	else if (c == 'p')
 		return (list_add_conversion(c, conv_void(ap, HEXA_MIN)));
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (unsigned_value(ap, c, l));
-	else
+	else if (c)
 		return (list_add_conversion(c, NULL));
+	else
+		return (list_add_conversion(NULL, ""));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
@@ -184,7 +190,7 @@ t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 		return (init_list(ap, argument[len - 1], *l));
 	}
 	else
-		return (NULL);
+		return (init_list(ap, 0, *l));
 }
 
 void	option_char(t_string *l, char c)
@@ -269,7 +275,6 @@ void	parsing(const char *format, t_string *l, t_tab *list, va_list ap)
 		arg = ft_strndup(format + i_of_format, len_arg);
 		list = parsing_arg(arg, ap, len_arg, l);
 		i_of_format += len_arg;
-//								print_tab(*l, LENGHT_TAB, arg);
 		add_arg(l, list, ap);
 		if (l->nb_percent)
 			i_of_format += inter_percent(format, l, i_of_format, p_of_params((char *)format + i_of_format));
@@ -435,7 +440,7 @@ int			parsing_params(char *arg)
 				if (params(arg[i + j], CONV) > 0)
 					return (j);
 				if (params(arg[i + j], FLAG) == 0)
-					return (x + 1);
+					return (x);
 				x++;
 			}
 	return (0);
