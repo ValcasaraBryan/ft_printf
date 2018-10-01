@@ -99,7 +99,7 @@ int			value_tab(int *tab, int len)
 
 void	priority_flag(t_string *l, t_tab *list)
 {
-	if (l->tab[LEFT  - 1] == LEFT)
+	if (l->tab[LEFT  - 1] == LEFT || (l->tab[LARGEUR] > l->tab[POINT] && l->tab[POINT] > list->len))
 		l->tab[ZERO - 1] = -1;
 	if (l->tab[SIGN - 1] == SIGN || *list->f == '-')
 	{
@@ -110,8 +110,6 @@ void	priority_flag(t_string *l, t_tab *list)
 			list->len--;
 		}
 	}
-	if (l->tab[BLANK - 1] == BLANK && l->tab[LARGEUR] > list->len)
-		l->tab[BLANK - 1] = -1;
 	if (l->tab[LARGEUR] < list->len)
 		l->tab[LARGEUR] = list->len;
 	else if (l->tab[POINT] > l->tab[LARGEUR])
@@ -121,6 +119,8 @@ void	priority_flag(t_string *l, t_tab *list)
 	if (l->tab[LARGEUR] == list->len &&  l->tab[LEFT - 1] == LEFT
 		&& (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK))
 		l->tab[LARGEUR] = list->len + 1;
+	if (l->tab[BLANK - 1] == BLANK && l->tab[ZERO - 1] == ZERO && l->tab[LARGEUR] < list->len)
+		l->tab[BLANK - 1] = -1;
 }
 
 char		sign_of_tmp(t_string *l, t_tab *list)
@@ -211,18 +211,24 @@ void		option(t_string *l, t_tab *list)
 	int		plus;
 
 	plus = (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK) ? 1 : 0;
-	zero = l->tab[LARGEUR] - list->len;
+	zero = (l->tab[POINT] > list->len) ? l->tab[LARGEUR] - l->tab[POINT] : l->tab[LARGEUR] - list->len;
 	if (!(tmp = ft_memalloc(l->tab[LARGEUR] + plus + 1)))
 		return ;
 	index_of_tmp = set_option(l, list, zero, tmp);
-	if (index_of_tmp < (l->tab[LARGEUR] - list->len) && l->tab[LEFT - 1] == -1)
+	if (index_of_tmp < (l->tab[LARGEUR] - l->tab[POINT] - plus) && l->tab[LEFT - 1] == -1)
 	{
 		ft_memset(tmp + index_of_tmp, ' ', l->tab[LARGEUR] - l->tab[POINT] - plus);
 		index_of_tmp += l->tab[LARGEUR] - l->tab[POINT] - plus;
 	}
-	if (l->tab[POINT - 1] == POINT && l->tab[SIGN - 1] == -1)
+	//printf("%d, %d\n", l->tab[LARGEUR], list->len);
+	if (l->tab[POINT - 1] == POINT && l->tab[SIGN - 1] == -1 && list->len > 0)
 	{
 		ft_memset(tmp + index_of_tmp, '0', l->tab[POINT] - list->len);
+		index_of_tmp += l->tab[POINT] - list->len;
+	}
+	else if ((l->tab[POINT] < list->len || l->tab[POINT] < l->tab[LARGEUR]) && l->tab[SIGN - 1] == -1)
+	{
+		ft_memset(tmp + index_of_tmp, ' ', l->tab[POINT] - list->len);
 		index_of_tmp += l->tab[POINT] - list->len;
 	}
 	tmp = add_arg_to_option(list, tmp, index_of_tmp);
