@@ -179,7 +179,7 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	else if (c)
 		return (list_add_conversion(c, NULL));
 	else
-		return (list_add_conversion(NULL, ""));
+		return (list_add_conversion(c, ""));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
