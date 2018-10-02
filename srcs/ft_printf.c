@@ -177,7 +177,11 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (unsigned_value(ap, c, l));
 	else
+<<<<<<< HEAD
 		return (list_add_conversion(c, NULL));
+=======
+		return (list_add_conversion(c, ""));
+>>>>>>> 133109633d4242080d837385d4c71abbef7f191e
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
