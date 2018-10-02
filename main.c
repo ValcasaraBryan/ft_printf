@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -17,6 +18,7 @@ int		main(int argc, char **argv)
 	int ret;
 	int ret_2;
 	char *str;
+	long c_long = -9223372036854775808;
 	const char format[500] = "@moulitest: %d %4s";
 	
 	const char format_2[500] = "@moulitest: %+d %4s";
@@ -124,7 +126,7 @@ int		main(int argc, char **argv)
 	const char format_76[500] = "%";
 	const char format_77[500] = "% Zoooo";
 	const char format_78[500] = "{%}";
-
+	const char format_79[500] = "%lld\n";
 
 	(void)argc;
 	(void)argv;
@@ -1078,6 +1080,19 @@ int		main(int argc, char **argv)
 	ret = ft_printf(format_78);
 	printf("| %d\n", ret);
 	ret_2 =  printf(format_78);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_79);
+	ret = ft_printf(format_79, c_long);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_79, c_long);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{

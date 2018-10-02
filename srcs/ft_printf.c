@@ -176,10 +176,8 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 		return (list_add_conversion(c, conv_void(ap, HEXA_MIN)));
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (unsigned_value(ap, c, l));
-	else if (c)
-		return (list_add_conversion(c, NULL));
 	else
-		return (list_add_conversion(NULL, ""));
+		return (list_add_conversion(c, NULL));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
