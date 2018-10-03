@@ -176,21 +176,14 @@ t_tab	*init_list(va_list ap, char c, t_string l)
 		return (list_add_conversion(c, conv_void(ap, HEXA_MIN)));
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
 		return (unsigned_value(ap, c, l));
-	else if (c)
+	else if (ft_isprint(c))
 		return (list_add_conversion(c, NULL));
-	else
-		return (list_add_conversion(c, ""));
 }
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 {
-	if (params(argument[len - 1], CONV))
-	{
-		flag_optional(argument, l);
-		return (init_list(ap, argument[len - 1], *l));
-	}
-	else
-		return (init_list(ap, 0, *l));
+	flag_optional(argument, l);
+	return (init_list(ap, argument[len - 1], *l));
 }
 
 void	option_char(t_string *l, char c)
@@ -215,19 +208,25 @@ void	option_char(t_string *l, char c)
 
 void	add_arg(t_string *l, t_tab *list, va_list ap)
 {
-	if (list->c != 'c' && list->c != '%')
+	if (params(list->c, NO_C))
 	{
 		if (list->c == 'u')
 		{
 			l->tab[BLANK - 1] = -1;
 			l->tab[SIGN - 1] = -1;
 		}
+		if (params(list->c, CONV) == 0)
+		{
+			l->tab[BLANK - 1] = -1;
+			l->tab[SIGN - 1] = -1;
+		}
 		change_string(l, list);
+		return ;
 	}
 	if (list->c == 'c')
 		option_char(l, conv_c(ap));
-	else if (list->c == '%')
-		option_char(l, '%');
+	else if (ft_isprint(list->c))
+		option_char(l, list->c);
 }
 
 int		inter_percent(const char *format, t_string *l, int i_of_format, int tmp)
@@ -332,19 +331,24 @@ t_tab		*list_add_conversion(char c, char *string)
 
 	if (!(tmp = ft_memalloc(sizeof(t_tab))))
 		return (NULL);
+	tmp->len = 0;
 	tmp->c = c;
-	if (!string)
+	if (!string && params(c, NO_C) > 0)
 	{
 		tmp->f = ft_strdup("(null)");
 		tmp->len = 6;
 	}
-	else if (c != 'c' && c != '%')
+	else if (params(c, NO_C) > 0)
 	{
 		tmp->f = string;
 		tmp->len = ft_strlen(string);
 	}
 	else
-		tmp->len = 1;
+	{
+		tmp->f = ft_memalloc(2);
+		tmp->f[tmp->len++] = c;
+		tmp->f[tmp->len] = 0;
+	}
 	return (tmp);
 }
 
@@ -442,7 +446,7 @@ int			parsing_params(char *arg)
 				if (params(arg[i + j], CONV) > 0)
 					return (j);
 				if (params(arg[i + j], FLAG) == 0)
-					return (x);
+					return (x + 1);
 				x++;
 			}
 	return (0);

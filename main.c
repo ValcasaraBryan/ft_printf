@@ -127,6 +127,8 @@ int		main(int argc, char **argv)
 	const char format_77[500] = "% Zoooo";
 	const char format_78[500] = "{%}";
 	const char format_79[500] = "%lld\n";
+	const char format_80[500] = "{%-15Z}";
+	const char format_81[500] = "@moulitest: %c";
 
 	(void)argc;
 	(void)argv;
@@ -1100,6 +1102,33 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_80);
+	ret = ft_printf(format_80, 123);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_80, 123);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_81);
+	ret = ft_printf(format_81, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_81, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
 
 	return (0);
 }

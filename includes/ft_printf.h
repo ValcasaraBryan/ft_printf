@@ -34,6 +34,7 @@
 # define LENGHT_TAB 		14	// 14
 
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
+# define NO_C				"sSpdDioOuUxXfFeEaAn"
 # define FLAG				"lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
 # define HEXA_MIN			"0123456789abcdef"
