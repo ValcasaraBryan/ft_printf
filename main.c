@@ -142,6 +142,7 @@ int		main(int argc, char **argv)
 	const char format_92[500] = "%-13p";
 	const char format_93[500] = "coucou|%s| |%S|%s\n";
 	const char format_94[500] = "%p";
+	const char format_95[500] = "%C|%C|%C";
 
 
 	(void)argc;
@@ -1292,6 +1293,18 @@ int		main(int argc, char **argv)
 	ret = ft_printf(format_94, 0);
 	printf("| %d\n", ret);
 	ret_2 =  printf(format_94, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_95);
+	ret = ft_printf(format_95, 0x02b, 0x07e, 0x0c7);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_95, 0x02b, 0x07e, 0x0c7);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
