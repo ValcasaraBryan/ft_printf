@@ -129,6 +129,20 @@ int		main(int argc, char **argv)
 	const char format_79[500] = "%lld\n";
 	const char format_80[500] = "{%-15Z}";
 	const char format_81[500] = "@moulitest: %c";
+	const char format_82[500] = "@moulitest: % s";
+	const char format_83[500] = "%.X, %.0X";
+	const char format_84[500] = "%.O, %.0O";
+	const char format_85[500] = "%4.15d";
+	const char format_86[500] = "%.p, %.0p";
+	const char format_87[500] = "%.5p";
+	const char format_88[500] = "%.15p";
+	const char format_89[500] = "%9.2p";
+	const char format_90[500] = "%-15p";
+	const char format_91[500] = "%05.s";
+	const char format_92[500] = "%-13p";
+	const char format_93[500] = "coucou|%s| |%S|%s\n";
+	const char format_94[500] = "%p";
+
 
 	(void)argc;
 	(void)argv;
@@ -1128,6 +1142,164 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_82);
+	ret = ft_printf(format_82, NULL);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_82, NULL);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_83);
+	ret = ft_printf(format_83, 0, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_83, 0, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_84);
+	ret = ft_printf(format_84, 0, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_84, 0, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_85);
+	ret = ft_printf(format_85, -42);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_85, -42);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_86);
+	ret = ft_printf(format_86, 0, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_86, 0, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_87);
+	ret = ft_printf(format_87, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_87, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_88);
+	ret = ft_printf(format_88, "salut");
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_88, "salut");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_89);
+	ret = ft_printf(format_89, 1234);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_89, 1234);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_90);
+	ret = ft_printf(format_90, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_90, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_91);
+	ret = ft_printf(format_91, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_91, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_92);
+	ret = ft_printf(format_92, &strlen);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_92, &strlen);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_93);
+	ret = ft_printf(format_93, "salut", "salut", "salut");
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_93, "salut", "salut", "salut");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_94);
+	ret = ft_printf(format_94, 0);
+	printf("| %d\n", ret);
+	ret_2 =  printf(format_94, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
 
 
 	return (0);

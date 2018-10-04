@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#define ANSI_COLOR_RESET   "\033[0;30m"
+#define ANSI_COLOR_RED     "\033[0;31m"
+
 
 void	hashtag_option_before(t_string *l, t_tab *list, char c)
 {
@@ -67,7 +70,9 @@ void	hashtag_option_after(t_string *l, t_tab *list, char c)
 void	precision(t_string *l, t_tab *list)
 {
 	if (list->f && l->tab[POINT] == 0 && list->len == 1 && ft_atoi(list->f) == 0)
-		list->len = 0;		
+		list->len = 0;
+	if (list->f && l->tab[POINT] >= 0 && list->len == 1 && ft_atoi(list->f) == 0 && list->c == 'p')
+		list->len = 1;
 }
 
 void		precision_string(t_string *l, t_tab *list)
@@ -82,12 +87,74 @@ void		precision_string(t_string *l, t_tab *list)
 	}
 }
 
+void	hashtag_p(t_string *l, t_tab *list)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	if (!(tmp = ft_memalloc(2 + list->len + 1)))
+		return ;
+	if (list->c == 'p')
+	{
+		while (list->f[i] == ' ' && list->f[i])
+				i++;
+		if (i-- > -1 && ((l->tab[POINT] > l->tab[LARGEUR] && l->tab[LARGEUR] < list->len) || l->tab[POINT] == list->len) && ft_atoi(list->f) > 0)
+		{
+			tmp[1] = 'x';
+			tmp[0] = '0';
+			tmp = ft_memjoin(tmp, 2, list->f, list->len);
+			free(list->f);
+			list->f = tmp;
+			list->len += 2;
+			l->tab[HASHTAG - 1] = -1;
+		}
+	}
+	if (l->tab[POINT] >= 0 && list->c == 'p')
+		l->tab[POINT] += 2;
+}
+
+void		priority_flag_p(t_string *l, t_tab *list)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	if (!(tmp = ft_memalloc(3)))
+		return ;
+	while (i++ <= list->len)
+		if (i < list->len - 1 && list->f[i] == '0' && list->f[i + 1] == '0')
+		{
+			list->f[i + 1] = 'x';
+			l->tab[HASHTAG - 1] = -1;
+			return ;
+		}
+		else if (i < list->len - 1 && list->f[i] == '0' && list->f[i - 1] == ' ' && list->f[i - 2] == ' ')
+		{
+			list->f[i - 1] = 'x';
+			list->f[i - 2] = '0';
+			l->tab[HASHTAG - 1] = -1;
+			return ;
+		}
+	tmp[0] = '0';
+	tmp[1] = 'x';
+	free(list->f);
+	list->f = tmp;
+	list->len += 2;
+}
+
 void		add_precision(t_string *l, t_tab *list)
 {
 	if (l->tab[HASHTAG - 1] == HASHTAG)
 		hashtag_option_before(l, list, list->c);
 	priority_flag(l, list);
+//	printf("%d, %d, %d\n", l->tab[LARGEUR], l->tab[POINT], list->len);
+	if (l->tab[HASHTAG - 1] == HASHTAG && list->c == 'p')
+		hashtag_p(l, list);
 	option(l, list);
+//	printf("%d, %d, %d\n", l->tab[LARGEUR], l->tab[POINT], list->len);
+	if (l->tab[HASHTAG - 1] == HASHTAG && list->c == 'p')
+		priority_flag_p(l, list);
 	if (l->tab[HASHTAG - 1] == HASHTAG)
 		hashtag_option_after(l, list, list->c);
 	ft_strcat(l->str + l->len, list->f);
@@ -241,6 +308,6 @@ void		option(t_string *l, t_tab *list)
 		index_of_tmp += l->tab[LARGEUR] - index_of_tmp;
 	}
 	list->len = index_of_tmp;
+	free(list->f);
 	list->f = tmp;
-	free(tmp);
 }

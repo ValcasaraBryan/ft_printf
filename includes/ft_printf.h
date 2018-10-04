@@ -70,11 +70,11 @@ typedef struct				s_conver_base
 }							t_conv_base;
 
 int							ft_printf(const char *format, ...);
-void						parsing(const char *format, t_string *l, t_tab *list, va_list ap);
+int							parsing(const char *format, t_string *l, t_tab *list, va_list ap);
 t_tab						*parsing_arg(char *argument, va_list ap, int len, t_string *l);
 
 
-t_tab						*init_list(va_list ap, char c, t_string l);
+t_tab						*init_list(va_list ap, char c, t_string *l);
 t_tab						*list_add_conversion(char c, char *string);
 
 
@@ -89,7 +89,7 @@ void						flag_optional(char *param, t_string *l);
 int							flag_optional_suit(char *param, t_string *l, int i);
 int							params(char comp, const char *list);
 
-void						change_string(t_string *l, t_tab *list);
+int							change_string(t_string *l, t_tab *list);
 void						add_precision(t_string *l, t_tab *list);
 void						option(t_string *l, t_tab *list);
 

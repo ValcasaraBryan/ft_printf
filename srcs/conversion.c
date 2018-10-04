@@ -155,5 +155,5 @@ char				*conv_void(va_list ap, char *hexa)
 	void			*c;
 
 	c = va_arg(ap, void *);
-	return (ft_strcat(ft_strdup("0x"), ft_ulltoa_base((long long)c, hexa)));
+	return (ft_ulltoa_base((long long)c, hexa));
 }

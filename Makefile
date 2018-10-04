@@ -52,7 +52,11 @@ exe_more : comp
 	#------------ execution  ------------#
 exe_grep : comp
 	#------------ execution  ------------#
-	@./$(EXE) | grep "len "
+	@./$(EXE) | grep "len -- OK --"
+	#------------ execution  ------------#
+exe_grep_no : comp
+	#------------ execution  ------------#
+	@./$(EXE) | grep "len // NO //"
 	#------------ execution  ------------#
 
 debug : main.c
