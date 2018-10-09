@@ -13,143 +13,140 @@
 
 #include "includes/ft_printf.h"
 
+
 int		main(int argc, char **argv)
 {
 	int ret;
 	int ret_2;
-	char *str;
 	long c_long = -9223372036854775808;
+
 	const char format[500] = "@moulitest: %d %4s";
 	
-	const char format_2[500] = "@moulitest: %+d %4s";
-	const char format_3[500] = "@moulitest: % d %4s";
-	const char format_4[500] = "@moulitest: %0d %4s";
+	const char format_2[50] = "@moulitest: %+d %4s";
+	const char format_3[50] = "@moulitest: % d %4s";
+	const char format_4[50] = "@moulitest: %0d %4s";
 	
-	const char format_5[500] = "@moulitest: %+ d %4s";
-	const char format_6[500] = "@moulitest: %+0d %4s";
-	const char format_7[500] = "@moulitest: % 0d %4s";
+	const char format_5[50] = "@moulitest: %+ d %4s";
+	const char format_6[50] = "@moulitest: %+0d %4s";
+	const char format_7[50] = "@moulitest: % 0d %4s";
 
-	const char format_8[500] = "@moulitest: %+0 d %4s";
-	const char format_9[500] = "@moulitest: %+0 5d %4s";
+	const char format_8[50] = "@moulitest: %+0 d %4s";
+	const char format_9[50] = "@moulitest: %+0 5d %4s";
 	
-	const char format_10[500] = "@moulitest: %+10d %4s";
-	const char format_11[500] = "@moulitest: % 10d %4s";
-	const char format_12[500] = "@moulitest: %010d %4s";
+	const char format_10[50] = "@moulitest: %+10d %4s";
+	const char format_11[50] = "@moulitest: % 10d %4s";
+	const char format_12[50] = "@moulitest: %010d %4s";
 
-	const char format_13[500] = "@moulitest: %+ 10d %4s";
-	const char format_14[500] = "@moulitest: %+010d %4s";
-	const char format_15[500] = "@moulitest: % 010d %4s";
+	const char format_13[50] = "@moulitest: %+ 10d %4s";
+	const char format_14[50] = "@moulitest: %+010d %4s";
+	const char format_15[50] = "@moulitest: % 010d %4s";
 	
-	const char format_16[500] = "@moulitest: %+0 10d %4s";
+	const char format_16[50] = "@moulitest: %+0 10d %4s";
 	
-	const char format_17[500] = "@moulitest: %-d %4s";
+	const char format_17[50] = "@moulitest: %-d %4s";
 	
-	const char format_18[500] = "@moulitest: %+-d %4s";
-	const char format_19[500] = "@moulitest: % -d %4s";
-	const char format_20[500] = "@moulitest: %0-d %4s";
+	const char format_18[50] = "@moulitest: %+-d %4s";
+	const char format_19[50] = "@moulitest: % -d %4s";
+	const char format_20[50] = "@moulitest: %0-d %4s";
 	
-	const char format_21[500] = "@moulitest: %+0-d %4s";
-	const char format_22[500] = "@moulitest: % 0-d %4s";
-	const char format_23[500] = "@moulitest: % +-d %4s";
+	const char format_21[50] = "@moulitest: %+0-d %4s";
+	const char format_22[50] = "@moulitest: % 0-d %4s";
+	const char format_23[50] = "@moulitest: % +-d %4s";
 	
-	const char format_24[500] = "@moulitest: % +0-d %4s";
-	const char format_25[500] = "@moulitest: % +0-5d %4s";
-	const char format_26[500] = "@moulitest: % 0-5d %4s";
-
-
+	const char format_24[50] = "@moulitest: % +0-d %4s";
+	const char format_25[50] = "@moulitest: % +0-5d %4s";
+	const char format_26[50] = "@moulitest: % 0-5d %4s";
 
 
-	const char format_27[500] = "@moulitest: %d %4s";
-	
-	const char format_28[500] = "@moulitest: %+d %4s";
-	const char format_29[500] = "@moulitest: % d %4s";
-	const char format_30[500] = "@moulitest: %0d %4s";
-	
-	const char format_31[500] = "@moulitest: %+ d %4s";
-	const char format_32[500] = "@moulitest: %+0d %4s";
-	const char format_33[500] = "@moulitest: % 0d %4s";
 
-	const char format_34[500] = "@moulitest: %+0 d %4s";
-	const char format_35[500] = "@moulitest: %+0 5d %4s";
+
+	const char format_27[50] = "@moulitest: %d %4s";
 	
-	const char format_36[500] = "@moulitest: %+10d %4s";
-	const char format_37[500] = "@moulitest: % 10d %4s";
-	const char format_38[500] = "@moulitest: %010d %4s";
-
-	const char format_39[500] = "@moulitest: %+ 10d %4s";
-	const char format_40[500] = "@moulitest: %+010d %4s";
-	const char format_41[500] = "@moulitest: % 010d %4s";
+	const char format_28[50] = "@moulitest: %+d %4s";
+	const char format_29[50] = "@moulitest: % d %4s";
+	const char format_30[50] = "@moulitest: %0d %4s";
 	
-	const char format_42[500] = "@moulitest: %+0 10d %4s";
+	const char format_31[50] = "@moulitest: %+ d %4s";
+	const char format_32[50] = "@moulitest: %+0d %4s";
+	const char format_33[50] = "@moulitest: % 0d %4s";
+
+	const char format_34[50] = "@moulitest: %+0 d %4s";
+	const char format_35[50] = "@moulitest: %+0 5d %4s";
 	
-	const char format_43[500] = "@moulitest: %-d %4s";
+	const char format_36[50] = "@moulitest: %+10d %4s";
+	const char format_37[50] = "@moulitest: % 10d %4s";
+	const char format_38[50] = "@moulitest: %010d %4s";
+
+	const char format_39[50] = "@moulitest: %+ 10d %4s";
+	const char format_40[50] = "@moulitest: %+010d %4s";
+	const char format_41[50] = "@moulitest: % 010d %4s";
 	
-	const char format_44[500] = "@moulitest: %+-d %4s";
-	const char format_45[500] = "@moulitest: % -d %4s";
-	const char format_46[500] = "@moulitest: %0-d %4s";
+	const char format_42[50] = "@moulitest: %+0 10d %4s";
 	
-	const char format_47[500] = "@moulitest: %+0-d %4s";
-	const char format_48[500] = "@moulitest: % 0-d %4s";
-	const char format_49[500] = "@moulitest: % +-d %4s";
+	const char format_43[50] = "@moulitest: %-d %4s";
 	
-	const char format_50[500] = "@moulitest: % +0-d %4s";
-	const char format_51[500] = "@moulitest: % +0-5d %4s";
-	const char format_52[500] = "@moulitest: % 0-5d %4s";
+	const char format_44[50] = "@moulitest: %+-d %4s";
+	const char format_45[50] = "@moulitest: % -d %4s";
+	const char format_46[50] = "@moulitest: %0-d %4s";
+	
+	const char format_47[50] = "@moulitest: %+0-d %4s";
+	const char format_48[50] = "@moulitest: % 0-d %4s";
+	const char format_49[50] = "@moulitest: % +-d %4s";
+	
+	const char format_50[50] = "@moulitest: % +0-d %4s";
+	const char format_51[50] = "@moulitest: % +0-5d %4s";
+	const char format_52[50] = "@moulitest: % 0-5d %4s";
 
-	const char format_53[500] = "%%";
-	const char format_54[500] = "%-5d";
+	const char format_53[50] = "%%";
+	const char format_54[50] = "%-5d";
 
-	const char format_55[500] = "%02.d";
-	const char format_56[500] = "%+.10d";
-	const char format_57[500] = "% 10.5d";
-	const char format_58[500] = "%4.15d";
+	const char format_55[50] = "%02.d";
+	const char format_56[50] = "%+.10d";
+	const char format_57[50] = "% 10.5d";
+	const char format_58[50] = "%4.15d";
 
-	const char format_59[500] = "%-.2s is a string";
-	const char format_60[500] = "%+10.5d";
-	const char format_61[500] = "%5.2s is a string";
-	const char format_62[500] = "%03.2d";
-	const char format_63[500] = "%-5.2s is a string";
-	const char format_64[500] = "@moulitest: %.x %.0x";
-	const char format_65[500] = "@moulitest: %.o %.0o";
-	const char format_66[500] = "@moulitest: %.d %.0d";
-	const char format_67[500] = "@moulitest: %#.o %#.0o";
+	const char format_59[50] = "%-.2s is a string";
+	const char format_60[50] = "%+10.5d";
+	const char format_61[50] = "%5.2s is a string";
+	const char format_62[50] = "%03.2d";
+	const char format_63[50] = "%-5.2s is a string";
+	const char format_64[50] = "@moulitest: %.x %.0x";
+	const char format_65[50] = "@moulitest: %.o %.0o";
+	const char format_66[50] = "@moulitest: %.d %.0d";
+	const char format_67[50] = "@moulitest: %#.o %#.0o";
 
-	const char format_68[500] = "%#x";
-	const char format_69[500] = "%#X";
-	const char format_70[500] = "%#8x";
-	const char format_71[500] = "%#08x";
-	const char format_72[500] = "%#-08x";
-	const char format_73[500] = "%#6o";
-	const char format_74[500] = "%-#6o";
-	const char format_75[500] = "%.5f";
+	const char format_68[50] = "%#x";
+	const char format_69[50] = "%#X";
+	const char format_70[50] = "%#8x";
+	const char format_71[50] = "%#08x";
+	const char format_72[50] = "%#-08x";
+	const char format_73[50] = "%#6o";
+	const char format_74[50] = "%-#6o";
+	const char format_75[50] = "%.5f";
 
-	const char format_76[500] = "%";
-	const char format_77[500] = "% Zoooo";
-	const char format_78[500] = "{%}";
-	const char format_79[500] = "%lld\n";
-	const char format_80[500] = "{%-15Z}";
-	const char format_81[500] = "@moulitest: %c";
-	const char format_82[500] = "@moulitest: % s";
-	const char format_83[500] = "%.X, %.0X";
-	const char format_84[500] = "%.O, %.0O";
-	const char format_85[500] = "%4.15d";
-	const char format_86[500] = "%.p, %.0p";
-	const char format_87[500] = "%.5p";
-	const char format_88[500] = "%.15p";
-	const char format_89[500] = "%9.2p";
-	const char format_90[500] = "%-15p";
-	const char format_91[500] = "%05.s";
-	const char format_92[500] = "%-13p";
-	const char format_93[500] = "coucou|%s| |%S|%s\n";
-	const char format_94[500] = "%p";
-	const char format_95[500] = "%C|%C|%C";
-
+	const char format_76[50] = "%";
+	const char format_77[50] = "% Zoooo";
+	const char format_78[50] = "{%}";
+	const char format_79[50] = "%lld\n";
+	const char format_80[50] = "{%-15Z}";
+	const char format_81[50] = "@moulitest: %c";
+	const char format_82[50] = "@moulitest: % s";
+	const char format_83[50] = "%.X, %.0X";
+	const char format_84[50] = "%.O, %.0O";
+	const char format_85[50] = "%4.15d";
+	const char format_86[50] = "%.p, %.0p";
+	const char format_87[50] = "%.5p";
+	const char format_88[50] = "%.15p";
+	const char format_89[50] = "%9.2p";
+	const char format_90[50] = "%-15p";
+	const char format_91[50] = "%05.s";
+	const char format_92[50] = "%-13p";
+	
 
 	(void)argc;
 	(void)argv;
 	ret = 0;
 	ret_2 = 0;
-	str = NULL;
 
 	printf("%s\n", format);
 	ret = ft_printf(format, 5, "salut");
@@ -466,12 +463,6 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
-
-
-
-
-
 
 	printf("%s\n", format_27);
 	ret = ft_printf(format_27, -5, "salut");
@@ -1231,7 +1222,7 @@ int		main(int argc, char **argv)
 	printf("%s\n", format_89);
 	ret = ft_printf(format_89, 1234);
 	printf("| %d\n", ret);
-	ret_2 =  printf(format_89, 1234);
+	ret_2 = printf(format_89, 1234);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
@@ -1240,11 +1231,10 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
-
 	printf("%s\n", format_90);
 	ret = ft_printf(format_90, 0);
 	printf("| %d\n", ret);
-	ret_2 =  printf(format_90, 0);
+	ret_2 = printf(format_90, 0);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
@@ -1268,7 +1258,7 @@ int		main(int argc, char **argv)
 	printf("%s\n", format_92);
 	ret = ft_printf(format_92, &strlen);
 	printf("| %d\n", ret);
-	ret_2 =  printf(format_92, &strlen);
+	ret_2 = printf(format_92, &strlen);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
@@ -1276,43 +1266,6 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
-	printf("%s\n", format_93);
-	ret = ft_printf(format_93, "salut", "salut", "salut");
-	printf("| %d\n", ret);
-	ret_2 =  printf(format_93, "salut", "salut", "salut");
-	printf("| %d\n", ret_2);
-	if (ret == ret_2)
-	{
-		printf("len -- OK --\n\n");
-	}
-	else
-		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
-	printf("%s\n", format_94);
-	ret = ft_printf(format_94, 0);
-	printf("| %d\n", ret);
-	ret_2 =  printf(format_94, 0);
-	printf("| %d\n", ret_2);
-	if (ret == ret_2)
-	{
-		printf("len -- OK --\n\n");
-	}
-	else
-		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
-	printf("%s\n", format_95);
-	ret = ft_printf(format_95, 0x02b, 0x07e, 0x0c7);
-	printf("| %d\n", ret);
-	ret_2 =  printf(format_95, 0x02b, 0x07e, 0x0c7);
-	printf("| %d\n", ret_2);
-	if (ret == ret_2)
-	{
-		printf("len -- OK --\n\n");
-	}
-	else
-		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
 
 
 	return (0);

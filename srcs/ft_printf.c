@@ -192,12 +192,7 @@ t_tab	*init_list(va_list ap, char c, t_string *l)
 
 t_tab	*parsing_arg(char *argument, va_list ap, int len, t_string *l)
 {
-	int		i;
-
-	i = 0;
-	if (argument)
-		i = ft_strlen(argument);
-	if (i > 0)
+	if (len > 0)
 	{
 		flag_optional(argument, l);
 		return (init_list(ap, argument[len - 1], l));

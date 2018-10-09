@@ -21,8 +21,8 @@ void	hashtag_option_before(t_string *l, t_tab *list, char c)
 
 	if (!(tmp = ft_memalloc(2 + list->len + 1)))
 		return ;
-	if ((c == 'x' || c == 'X') && (l->tab[LARGEUR] == -1
-		| l->tab[LEFT - 1] == LEFT) && ft_atoi(list->f) > 0)
+	if ((c == 'x' || c == 'X') && ((l->tab[LARGEUR] == -1
+		|| l->tab[LEFT - 1] == LEFT) && l->tab[POINT - 1] == -1) && ft_atoi(list->f) > 0)
 	{
 		tmp[0] = '0';
 		tmp[1] = c;
@@ -46,7 +46,7 @@ void	hashtag_option_after(t_string *l, t_tab *list, char c)
 	int		i;
 
 	i = 0;
-	if ((c == 'x' || c == 'X') && l->tab[LARGEUR] == list->len)
+	if ((c == 'x' || c == 'X') && l->tab[LARGEUR] == list->len && l->tab[POINT - 1] == -1)
 	{
 		while (list->f[i] == ' ' && list->f[i])
 			i++;
@@ -166,29 +166,30 @@ void		add_precision(t_string *l, t_tab *list)
 
 void	priority_flag(t_string *l, t_tab *list)
 {
-	if (l->tab[LEFT  - 1] == LEFT || (((l->tab[LARGEUR] > l->tab[POINT]
+	if ((l->tab[LEFT  - 1] == LEFT || (((l->tab[LARGEUR] > l->tab[POINT]
 		&& l->tab[POINT] > list->len) || (l->tab[LARGEUR] > l->tab[POINT]
 		&& l->tab[POINT] <= list->len && l->tab[POINT] != -1))))
+		&& params(list->c, "s") == 0)
 		l->tab[ZERO - 1] = -1;
-	if (l->tab[SIGN - 1] == SIGN || *list->f == '-')
+	if (*list->f == '-')
 	{
-		l->tab[BLANK - 1] = -1;
-		if (*list->f == '-')
-		{
-			l->tab[SIGN - 1] = SIGN;
-			list->len--;
-		}
+		l->tab[SIGN - 1] = SIGN;
+		list->len--;
 	}
+	if (params(list->c, "s") && l->tab[POINT] > list->len)
+		l->tab[POINT] = list->len;
 	if (l->tab[LARGEUR] < list->len)
 		l->tab[LARGEUR] = list->len;
-	else if (l->tab[POINT] > l->tab[LARGEUR])
+	if (l->tab[POINT] > l->tab[LARGEUR] && params(list->c, "s") == 0)
 		l->tab[LARGEUR] = l->tab[POINT];
 	if (l->tab[POINT] < list->len)
 		l->tab[POINT] = list->len;
 	if (l->tab[LARGEUR] == list->len &&  l->tab[LEFT - 1] == LEFT
 		&& (l->tab[SIGN - 1] == SIGN || l->tab[BLANK - 1] == BLANK))
 		l->tab[LARGEUR] = list->len + 1;
-	if (l->tab[BLANK - 1] == BLANK && l->tab[ZERO - 1] == ZERO && l->tab[LARGEUR] < list->len)
+	if ((l->tab[BLANK - 1] == BLANK && l->tab[ZERO - 1] == ZERO
+		&& l->tab[LARGEUR] < list->len) || (l->tab[SIGN - 1] == SIGN
+		|| *list->f == '-'))
 		l->tab[BLANK - 1] = -1;
 }
 

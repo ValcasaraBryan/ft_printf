@@ -40,10 +40,12 @@ $(NAME) : $(OBJET)
 
 comp : $(NAME) main.c
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
+	@gcc $(SRC) $(HEAD) $(OBJET_LIB) main_2.c -o ft_printf_2
 
 exe : comp
 	#------------ execution  ------------#
 	@./$(EXE)
+	@./ft_printf_2
 	#------------ execution  ------------#
 
 exe_more : comp
