@@ -14,68 +14,89 @@
 #include <locale.h>
 #include <unistd.h>
 
-int		ft_wset_plage(wchar_t c)
+int		ft_wchar_len(wchar_t c)
 {
-	if (c <= 0x7F && c >= 0)
-		return (0);
-	else if (c <= 0xFF && c > 0x7F)
+	unsigned int quatre_bit;
+	int i;
+
+	quatre_bit = 2147483648;
+	i = 32;
+	while (!(quatre_bit & c) && quatre_bit)
+	{
+		quatre_bit /= 2;
+		i--;
+	}
+	return (i);
+}
+
+int		ft_wset_plage_byte(int len)
+{
+	if (len < 8)
 		return (1);
-	else if (c <= 0xFFFF && c > 0xFF)
+	else if (len >= 8 && len <= 11)
 		return (2);
-	else if (c <= 0x6FE && c > 0xFFFF)
+	else if (len >= 12 && len <= 16)
 		return (3);
-	else if (c <= 0x2FFFF && c > 0x6FE)
+	else if (len >= 17 && len <= 21)
 		return (4);
-	return (-1);
+	else
+		return (-1);
+}
+
+int		ft_putwchar(wchar_t c)
+{
+	return (write(1, &c, 1));
 }
 
 int main(void)
 {
 	unsigned char a;
+	int d;
 
-	int lil = 0;
-	int i;
-	printf("%-3d|%-7d|%-6X\n", ft_wset_plage(L'α'), L'α', L'α');
-	printf("%-3d|%-7d|%-6X\n", ft_wset_plage(0x2FFFF), 0x2FFFF, 0x2FFFF);
-	printf("%-3d|%-7d|%-6X\n", ft_wset_plage(L'𐀀'), L'𐀀', L'𐀀');
-	//11101100 01
+	d = L'α';
+	printf("%d\n", ft_wset_plage_byte(ft_wchar_len(d)));
+	d = 0x2FFFF;
+	printf("%d\n", ft_wset_plage_byte(ft_wchar_len(d)));
+	d = L'𐀀';
+	printf("%d\n", ft_wset_plage_byte(ft_wchar_len(d)));
 
+	//      11 10110001
 	//11001110 10110001
 	//	0xCE 	0xB1
 	a = 0xCE;
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = 0xB1;
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = '\n';// 0x0A
-	write(1, &a, 1);
+	ft_putwchar(a);
 
-	//           101111   111111   111111
+	//00000000 00101111   111111   111111
 	//11110000 10101111 10111111 10111111
 	//	0xF0 	0xAF 	0xBF 		0xBF
 	a = 0xF0;
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = 0xAF;
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = 0xBF;// 0x0A
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = 0xBF;// 0x0A
-	write(1, &a, 1);
+	ft_putwchar(a);
 	a = '\n';// 0x0A
-	write(1, &a, 1);
+	ft_putwchar(a);
 	
 	//            10000   000000   000000
 	//11110000 10010000 10000000 10000000
 	//	0xF0 	0x90 	0x80 		0x80
 	unsigned char c;
     c = 0xF0;
-    write(1, &c, 1);
+	ft_putwchar(c);
     c = 0x90;
-    write(1, &c, 1);
+	ft_putwchar(c);
     c = 0x80;
-    write(1, &c, 1);
+	ft_putwchar(c);
     c = 0x80;
-    write(1, &c, 1);
+	ft_putwchar(c);
     c = '\n';// 0x0A
-    write(1, &c, 1);
+	ft_putwchar(c);
 	return (0);
 }
