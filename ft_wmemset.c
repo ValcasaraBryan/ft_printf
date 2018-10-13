@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_wset_plage.c                                    :+:      :+:    :+:   */
@@ -70,47 +70,36 @@ long 	ft_set_octet(int octet)
 	return (mask);
 }
 
-long	ft_set_unichar(long masque_byte, int nb_octet, int len, wchar_t c)
+long	ft_set_unichar(long masque_byte, int len, wchar_t c)
 {
-	int index_puissance;
-	long soustraction;
-	long mask;
-	long tmp;
-	int i;
+	long	soustraction;
+	int		i;
 
-	i = 0;
-	tmp = 1;
-	mask = 1;
-	printf("masque %ld\n", masque_byte);
-	printf("val = %d|%d\n", c, len);
-	while (i + 6 <= len)
+	while (len-- > 0)
 	{
-		printf("%d, %ld\n", c, mask);
-		index_puissance = 0;
-		while (index_puissance++ < 6)
+		i = 0;
+		soustraction = 1;
+		while (i++ < len - 1)
+			soustraction = soustraction * 2;
+		if (soustraction <= c)
 		{
-			if (mask == 63)
-				mask = mask << 2;
-			else if (mask <= 63)
-			{
-				tmp = tmp * 2;
-				mask += tmp;
-				i++;
-			}
-			if (mask > 251)
-			{
-				mask = mask << 6;
-				i += 6;
-			}
+			c -= soustraction;
+			if (len > 18 && len <= 21)
+				masque_byte += soustraction << 6;
+			else if (len > 12)
+				masque_byte += soustraction << 4;
+			else if (len > 6)
+				masque_byte += soustraction << 2;
+			else if (len <= 6)
+				masque_byte += soustraction;
 		}
-		tmp = c & mask;
-		c = c - tmp;
-		c = c << 2;
-		soustraction =  masque_byte + tmp;
 	}
-	printf("%ld\n", soustraction);
-	return (soustraction);
+	if (c == 1)
+		masque_byte++;
+	return (masque_byte);
 }
+
+//262143
 
 int main(void)
 {
@@ -118,14 +107,16 @@ int main(void)
 	int d;
 
 	d = L'α';
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
-	printf("unichar = %#lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
+	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
+	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
+	printf("----------------------------------------\n");
 	d = 0x2FFFF;
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
-	printf("unichar = %#lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
+	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
+	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
+	printf("----------------------------------------\n");
 	d = L'𐀀';
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
-	printf("unichar = %#lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wset_plage_byte(ft_wchar_len(d)), ft_wchar_len(d), d));
+	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
+	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
 
 	//      11 10110001
 	//11001110 10110001
