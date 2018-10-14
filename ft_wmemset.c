@@ -13,11 +13,12 @@
 #include <wchar.h>
 #include <locale.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-int		ft_wchar_len(wchar_t c)
+int					ft_wchar_len(wchar_t c)
 {
-	unsigned int quatre_bit;
-	int i;
+	unsigned int	quatre_bit;
+	int				i;
 
 	quatre_bit = 2147483648;
 	i = 32;
@@ -29,7 +30,7 @@ int		ft_wchar_len(wchar_t c)
 	return (i);
 }
 
-int		ft_wset_plage_byte(int len)
+int					ft_wset_plage_byte(int len)
 {
 	if (len < 8)
 		return (1);
@@ -43,17 +44,39 @@ int		ft_wset_plage_byte(int len)
 		return (-1);
 }
 
-int		ft_putwchar(wchar_t c)
+int					*ft_putval_tab(wchar_t c, int *octet)
 {
-	return (write(1, &c, 1));
+	int				*tab;
+	long			soustraction;
+	long			mask;
+	int				val_octet;
+	int				i;
+
+	if (!(tab = (int *)malloc(sizeof(int) * 4)))
+		return (0);
+	i = -1;
+	val_octet = *octet;
+	mask = 4278190080;
+	while (++i < 4 - *octet)
+		mask = mask >> 8;
+	i = -1;
+	while (val_octet > 0)
+	{
+		soustraction = c & mask;
+		c -= soustraction;
+		soustraction = soustraction >> (((val_octet-- - 1) * 8));
+		tab[++i] = (int)soustraction;
+		mask = mask >> 8;
+	}
+	return (tab);
 }
 
-long 	ft_set_octet(int octet)
+long				ft_set_octet(int octet)
 {
-	long multiple;
-	long multi_byte;
-	long mask;
-	int i;
+	long			multiple;
+	long			multi_byte;
+	long			mask;
+	int				i;
 	
 	i = 0;
 	multi_byte = 1;
@@ -70,10 +93,10 @@ long 	ft_set_octet(int octet)
 	return (mask);
 }
 
-long	ft_set_unichar(long masque_byte, int len, wchar_t c)
+long				ft_set_unichar(long masque_byte, int len, wchar_t c)
 {
-	long	soustraction;
-	int		i;
+	long			soustraction;
+	int				i;
 
 	while (len-- > 0)
 	{
@@ -99,62 +122,59 @@ long	ft_set_unichar(long masque_byte, int len, wchar_t c)
 	return (masque_byte);
 }
 
-//262143
+int					ft_putwchar(int *tab, int len)
+{
+	int				i;
+	int				ret;
+	char			c;
+
+	i = -1;
+	ret = 0;
+	while (++i < len)
+	{
+		c = tab[i];
+		if (write(1, &c, 1) == -1)
+			return (-1);
+		ret++;
+	}
+	return (ret);
+}
 
 int main(void)
 {
 	unsigned char a;
+	int octet;
+	int len;
 	int d;
+	long mask;
+	long valeur_total;
+	int *tab;
 
 	d = L'α';
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-	printf("----------------------------------------\n");
-	d = 0x2FFFF;
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-	printf("----------------------------------------\n");
-	d = L'𐀀';
-	printf("unichar = %ld\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-	printf("unichar = %lX\n", ft_set_unichar(ft_set_octet(ft_wset_plage_byte(ft_wchar_len(d))), ft_wchar_len(d) + 1, d));
-
-	//      11 10110001
-	//11001110 10110001
-	//	0xCE 	0xB1
-	a = 0xCE;
-	ft_putwchar(a);
-	a = 0xB1;
-	ft_putwchar(a);
-	a = '\n';// 0x0A
-	ft_putwchar(a);
-
-	//00000000 00101111   111111   111111
-	//11110000 10101111 10111111 10111111
-	//	0xF0 	0xAF 	0xBF 		0xBF
-	a = 0xF0;
-	ft_putwchar(a);
-	a = 0xAF;
-	ft_putwchar(a);
-	a = 0xBF;// 0x0A
-	ft_putwchar(a);
-	a = 0xBF;// 0x0A
-	ft_putwchar(a);
-	a = '\n';// 0x0A
-	ft_putwchar(a);
+	len = ft_wchar_len(d);
+	octet = ft_wset_plage_byte(len);
+	mask = ft_set_octet(octet);
+	valeur_total = ft_set_unichar(mask, len + 1, d);
+	tab = ft_putval_tab(valeur_total, &octet);
+	ft_putwchar(tab, 4);
+	ft_putchar(' ');
 	
-	//            10000   000000   000000
-	//11110000 10010000 10000000 10000000
-	//	0xF0 	0x90 	0x80 		0x80
-	unsigned char c;
-    c = 0xF0;
-	ft_putwchar(c);
-    c = 0x90;
-	ft_putwchar(c);
-    c = 0x80;
-	ft_putwchar(c);
-    c = 0x80;
-	ft_putwchar(c);
-    c = '\n';// 0x0A
-	ft_putwchar(c);
+	d = 0x2FFFF;
+	len = ft_wchar_len(d);
+	octet = ft_wset_plage_byte(len);
+	mask = ft_set_octet(octet);
+	valeur_total = ft_set_unichar(mask, len + 1, d);
+	tab = ft_putval_tab(valeur_total, &octet);
+	ft_putwchar(tab, 4);
+	ft_putchar(' ');
+	ft_putchar(' ');
+	d = L'𐀀';
+	len = ft_wchar_len(d);
+	octet = ft_wset_plage_byte(len);
+	mask = ft_set_octet(octet);
+	valeur_total = ft_set_unichar(mask, len + 1, d);
+	tab = ft_putval_tab(valeur_total, &octet);
+	ft_putwchar(tab, 4);
+	ft_putchar('\n');
 	return (0);
 }
