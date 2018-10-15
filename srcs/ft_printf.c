@@ -233,27 +233,11 @@ int		add_arg(t_string *list, va_list ap)
 	}
 	if (list->char_of_arg == 'c')
 		return (option_char(list, conv_c(ap)));
-	//if (list->char_of_arg == 'C')
-	//	return (option_char(list, conv_c(ap)));
+	if (list->char_of_arg == 'C')
+		return (conv_long_c(ap));
 	else if (ft_isprint(list->char_of_arg))
 		return (option_char(list, list->char_of_arg));
 	return (-1);
-}
-
-char	*end_of_format(t_string *list, const char *format, int i_of_format)
-{
-	char	*tmp;
-	int		len_format;
-	int		i;
-
-	len_format = ft_strlen(format);
-	if (i_of_format <= len_format)
-	{
-		i = ft_strlen(format + i_of_format);
-		ft_putstr_len((void *)format + i_of_format, i, 1);
-		list->len += i;
-	}
-	return (NULL);
 }
 
 int		parsing(const char *format, t_string *list, va_list ap, unsigned int nb_percent)
@@ -262,52 +246,55 @@ int		parsing(const char *format, t_string *list, va_list ap, unsigned int nb_per
 	int		len_arg;
 	char	*arg;
 	int		len_write;
+	int		i;
 
 	i_of_format = p_of_params((char *)format);
 	len_write = 0;
+	i = 0;
 	if (i_of_format > 0)
-		len_write = ft_putstr_len(format, i_of_format, list->fd);
+		len_write = ft_putstr_len(format, i_of_format, 1);
 	while (nb_percent--)
 	{
-		reset_tab_int(list, LENGHT_TAB);
+		reset_tab_int(list + i, LENGHT_TAB);
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
-		parsing_arg(arg, ap, len_arg, list);
+		parsing_arg(arg, ap, len_arg, list + i);
 		i_of_format += len_arg;
 		//print_tab(*list, LENGHT_TAB, arg);
-		if (!(add_arg(list, ap)))
+		if (!(add_arg(list + i, ap)))
 			return (-1);
-		len_write += ft_putstr_len(list->data, list->len, list->fd);
+		len_write += ft_putstr_len(list[i].data, list[i].len, 1);
 		if (nb_percent)
 		{
 			len_arg = p_of_params((char *)format + i_of_format);
-			len_write += ft_putstr_len(format + i_of_format, len_arg, list->fd);
+			len_write += ft_putstr_len(format + i_of_format, len_arg, 1);
 			i_of_format += len_arg;
 		}
+		i++;
 	}
 	if (format + i_of_format)
-		len_write += ft_putstr_len(format + i_of_format, ft_strlen(format + i_of_format), list->fd);
+		len_write += ft_putstr_len(format + i_of_format, ft_strlen(format + i_of_format), 1);
 	return (len_write);
 }
 
 int		ft_printf(const char *format, ...)
 {
 	va_list			ap;
-	t_string		list;
+	t_string		*list;
 	int				ret;
 	unsigned int	percent;
 
-	list.len = 0;
 	percent = nb_percent((char *)format);
 	if (percent)
 	{
 		va_start(ap, format);
-		list.fd = 1;
-		if (!(ret = parsing(format, &list, ap, percent)))
+		if (!(list = (t_string *)malloc(sizeof(t_string) * percent)))
+			return (-1);
+		if (!(ret = parsing(format, list, ap, percent)))
 			return (ret);
 	}
 	else
-		return (no_arguments(format, ap, list));
+		return (no_arguments(format, ap, *list));
 	va_end(ap);
 	return (ret);
 }

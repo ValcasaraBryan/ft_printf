@@ -28,6 +28,20 @@ char				conv_c(va_list ap)
 	return ((unsigned char)c);
 }
 
+int					conv_long_c(va_list ap)
+{
+	long		c;
+	int			len;
+	int			octet;
+	int			*tab;
+
+	c = va_arg(ap, long);
+	len = ft_wchar_len(c);
+	octet = ft_wset_plage_byte(len);
+	tab = ft_putval_tab(ft_set_unichar(ft_set_octet(octet), len + 1, c), octet);
+	return (ft_putwchar(tab, octet));
+}
+
 char				*conv_int(va_list ap)
 {
 	int				c;

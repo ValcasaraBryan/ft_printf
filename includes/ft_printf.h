@@ -48,9 +48,7 @@ typedef struct				s_string
 	char					*data;
 	int						len;
 	int						tab[LENGHT_TAB];
-	int						fd;
 	int						index;
-	struct s_string			*next;
 }							t_string;
 
 typedef struct				s_conver
@@ -97,6 +95,7 @@ void						priority_flag(t_string *list);
 char						*string_s(va_list ap);
 char						*conv_int(va_list ap);
 char						conv_c(va_list ap);
+int							conv_long_c(va_list ap);
 char						*conv_float(va_list ap, unsigned int precision);
 char						*conv_long(va_list ap);
 char						*conv_long_long(va_list ap);
