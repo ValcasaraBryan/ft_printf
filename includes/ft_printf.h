@@ -42,19 +42,15 @@
 # define OCTAL				"01234567"
 # define DECIMAL			"0123456789"
 
-typedef struct				s_fonc
-{
-	char					c;
-	char					*f;
-	int						len;
-}							t_tab;
-
 typedef struct				s_string
 {
-	char					*str;
+	char					char_of_arg;
+	char					*data;
 	int						len;
-	unsigned int			nb_percent;
 	int						tab[LENGHT_TAB];
+	int						fd;
+	int						index;
+	struct s_string			*next;
 }							t_string;
 
 typedef struct				s_conver
@@ -70,12 +66,12 @@ typedef struct				s_conver_base
 }							t_conv_base;
 
 int							ft_printf(const char *format, ...);
-int							parsing(const char *format, t_string *l, t_tab *list, va_list ap);
-t_tab						*parsing_arg(char *argument, va_list ap, int len, t_string *l);
+int							parsing(const char *format, t_string *list, va_list ap, unsigned int);
+void						parsing_arg(char *argument, va_list ap, int len, t_string *list);
 
 
-t_tab						*init_list(va_list ap, char c, t_string *l);
-t_tab						*list_add_conversion(char c, char *string);
+void						init_list(va_list ap, char c, t_string *list);
+void						list_add_conversion(char *string, t_string *list);
 
 
 int							p_of_params(char *format);
@@ -89,14 +85,14 @@ void						flag_optional(char *param, t_string *l);
 int							flag_optional_suit(char *param, t_string *l, int i);
 int							params(char comp, const char *list);
 
-int							change_string(t_string *l, t_tab *list);
-void						add_precision(t_string *l, t_tab *list);
-void						option(t_string *l, t_tab *list);
+int							change_string(t_string *list);
+void						add_precision(t_string *list);
+void						option(t_string *list);
 
-void						precision(t_string *l, t_tab *list);
-void						precision_string(t_string *l, t_tab *list);
+void						precision(t_string *list);
+void						precision_string(t_string *list);
 int							binary_flag(int *tab , int len);
-void						priority_flag(t_string *l, t_tab *list);
+void						priority_flag(t_string *list);
 
 char						*string_s(va_list ap);
 char						*conv_int(va_list ap);

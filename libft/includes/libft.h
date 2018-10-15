@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <wchar.h>
 
 /*
 **	Fonction Part1 & Part2
@@ -110,4 +111,13 @@ char				*ft_ulltoa_base(unsigned long long nb, const char *base);
 char				*ft_strjoin_free(char *s1, char *s2, int select_to_free);
 int					ft_putstr_len(const char *str, size_t len, int fd);
 void				*ft_memjoin(void *dst, size_t len_dst, void *src, size_t len_src);
+/*
+**
+*/
+int					ft_wchar_len(wchar_t c);
+int					ft_wset_plage_byte(int len);
+long				ft_set_octet(int octet);
+long				ft_set_unichar(long masque_byte, int len, wchar_t c);
+int					*ft_putval_tab(wchar_t c, int octet);
+int					ft_putwchar(int *tab, int len);
 #endif
