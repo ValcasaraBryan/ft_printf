@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 16:24:19 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/04/04 16:24:23 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/10/16 12:35:51 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/10/16 12:35:53 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-int		ft_putchar(char c)
+int		ft_putchar_len(char c, int len, int fd)
 {
-	return (write(1, &c, 1));
+	int i;
+	int ret;
+
+	i = -1;
+	while (++i < len)
+		if ((ret = write(fd, &c, 1)) == -1)
+			return (ret);
+	return (i);
 }

@@ -33,7 +33,7 @@ SRC = srcs/ft_atoi.c srcs/ft_bzero.c srcs/ft_isalnum.c srcs/ft_strnchr.c\
 	srcs/ft_lltoa.c srcs/ft_atoll.c srcs/ft_dotoa.c srcs/ft_ulltoa_base.c\
 	srcs/ft_atoull.c srcs/ft_lltoa_base.c srcs/ft_strjoin_free.c\
 	srcs/ft_ulltoa.c srcs/ft_putstr_len.c srcs/ft_memjoin.c srcs/ft_putwchar.c\
-	srcs/ft_wmemset.c
+	srcs/ft_wmemset.c srcs/ft_putchar_len.c
 
 OBJET = $(SRC:.c=.o)
 

@@ -41,6 +41,10 @@
 # define HEXA_MAJ			"0123456789ABCEDF"
 # define OCTAL				"01234567"
 # define DECIMAL			"0123456789"
+# define TAB				list->tab
+# define DATA				list->data
+# define LEN				list->len
+# define ARG				list->char_of_arg
 
 typedef struct				s_string
 {

@@ -54,19 +54,19 @@ void	add_caractere(t_string *list, unsigned char caractere, int len)
 		return ;
 	ft_memset(buf, caractere, len);
 	if (list->len > 0)
-		ft_strcat(list->data+ list->len, buf);
+		ft_strcat(DATA+ list->len, buf);
 	else
-		list->data = ft_strdup(buf);
+		DATA = ft_strdup(buf);
 	list->len += len;
 }
 
 int		change_string(t_string *list)
 {
-	if (binary_flag(list->tab, LENGHT_TAB + 1))
+	if (binary_flag(TAB, LENGHT_TAB + 1))
 	{
-		if (params(list->char_of_arg, "OoxXdiup"))
+		if (params(ARG, "OoxXdiup"))
 			precision(list);
-		else if (params(list->char_of_arg, "s"))
+		else if (params(ARG, "s"))
 			precision_string(list);
 		add_precision(list);
 		return (1);
@@ -148,7 +148,7 @@ void	unsigned_value(va_list ap, char c, t_string *list)
 		hexa = HEXA_MAJ;
 	else if (c == 'p')
 	{
-		list->tab[HASHTAG - 1] = HASHTAG;
+		TAB[HASHTAG - 1] = HASHTAG;
 		list_add_conversion(conv_void(ap, HEXA_MIN), list);
 		return ;
 	}
@@ -160,7 +160,7 @@ void	init_list(va_list ap, char c, t_string *list)
 	if (c == 'D' || c == 'O' || c == 'U')
 	{
 		c = c + 32;
-		list->tab[INT_LONG - 1] = INT_LONG;
+		TAB[INT_LONG - 1] = INT_LONG;
 	}
 	if (c == 's')
 		list_add_conversion(string_s(ap), list);
@@ -174,9 +174,9 @@ void	init_list(va_list ap, char c, t_string *list)
 		list_add_conversion("", list);
 	else if (c == 'f')
 	{
-		if (list->tab[POINT - 1] != POINT)
-			list->tab[POINT] = 6;
-		list_add_conversion(conv_float(ap, list->tab[POINT]), list);
+		if (TAB[POINT - 1] != POINT)
+			TAB[POINT] = 6;
+		list_add_conversion(conv_float(ap, TAB[POINT]), list);
 	}
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'p')
 		return (unsigned_value(ap, c, list));
@@ -189,32 +189,32 @@ void	parsing_arg(char *argument, va_list ap, int len, t_string *list)
 	if (len > 0)
 	{
 		flag_optional(argument, list);
-		list->char_of_arg = argument[len - 1];
+		ARG = argument[len - 1];
 	}
 	else
 	{
 		flag_optional(argument, list);
-		list->char_of_arg = argument[len];
+		ARG = argument[len];
 	}
-	init_list(ap, list->char_of_arg, list);
+	init_list(ap, ARG, list);
 }
 
 int		option_char(t_string *list, char c)
 {
-	if (list->tab[LEFT - 1] == LEFT)
+	if (TAB[LEFT - 1] == LEFT)
 	{
 		add_caractere(list, c, 1);
-		if (list->tab[LARGEUR] != -1 && list->tab[ZERO - 1] == ZERO)
-			add_caractere(list, '0', list->tab[LARGEUR] - 1);
-		else if (list->tab[LARGEUR] != -1 && list->tab[ZERO - 1] == -1)
-			add_caractere(list, ' ', list->tab[LARGEUR] - 1);
+		if (TAB[LARGEUR] != -1 && TAB[ZERO - 1] == ZERO)
+			add_caractere(list, '0', TAB[LARGEUR] - 1);
+		else if (TAB[LARGEUR] != -1 && TAB[ZERO - 1] == -1)
+			add_caractere(list, ' ', TAB[LARGEUR] - 1);
 	}
 	else
 	{
-		if (list->tab[LARGEUR] != -1 && list->tab[ZERO - 1] == ZERO)
-			add_caractere(list, '0', list->tab[LARGEUR] - 1);
-		else if (list->tab[LARGEUR] != -1 && list->tab[ZERO - 1] == -1)
-			add_caractere(list, ' ', list->tab[LARGEUR] - 1);
+		if (TAB[LARGEUR] != -1 && TAB[ZERO - 1] == ZERO)
+			add_caractere(list, '0', TAB[LARGEUR] - 1);
+		else if (TAB[LARGEUR] != -1 && TAB[ZERO - 1] == -1)
+			add_caractere(list, ' ', TAB[LARGEUR] - 1);
 		add_caractere(list, c, 1);
 	}
 	return (1);
@@ -222,21 +222,21 @@ int		option_char(t_string *list, char c)
 
 int		add_arg(t_string *list, va_list ap)
 {
-	if (params(list->char_of_arg, NO_C))
+	if (params(ARG, NO_C))
 	{
-		if (params(list->char_of_arg, ENT) == 0 || params(list->char_of_arg, "uoxX"))
+		if (params(ARG, ENT) == 0 || params(ARG, "uoxX"))
 		{
-			list->tab[BLANK - 1] = -1;
-			list->tab[SIGN - 1] = -1;
+			TAB[BLANK - 1] = -1;
+			TAB[SIGN - 1] = -1;
 		}
 		return (change_string(list));
 	}
-	if (list->char_of_arg == 'c')
+	if (ARG == 'c')
 		return (option_char(list, conv_c(ap)));
-	if (list->char_of_arg == 'C')
+	if (ARG == 'C')
 		return (conv_long_c(ap));
-	else if (ft_isprint(list->char_of_arg))
-		return (option_char(list, list->char_of_arg));
+	else if (ft_isprint(ARG))
+		return (option_char(list, ARG));
 	return (-1);
 }
 
@@ -334,46 +334,46 @@ void	list_add_conversion(char *string, t_string *list)
 {
 	if (string)
 	{
-		list->data = ft_strdup(string);
+		DATA = ft_strdup(string);
 		list->len = ft_strlen(string);
 	}
 	else
 	{
-		list->data = ft_strdup("(null)");
+		DATA = ft_strdup("(null)");
 		list->len = 6;		
 	}
 }
 
 void		largeur_of_camp(char *arg, t_string *list, int i)
 {
-	if (list->tab[LARGEUR] == -1)
+	if (TAB[LARGEUR] == -1)
 		if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
-			list->tab[LARGEUR] = ft_atoll(arg + i);
+			TAB[LARGEUR] = ft_atoll(arg + i);
 }
 
 int		flag_optional_suit(char *arg, t_string *list, int i)
 {
 	if (arg[i] == 'z')
-		list->tab[Z_FLAG - 1] = Z_FLAG;
-	if (arg[i] == 'l' && list->tab[INT_LONG - 1] == -1 && list->tab[INT_LONG_LONG - 1] == -1)
+		TAB[Z_FLAG - 1] = Z_FLAG;
+	if (arg[i] == 'l' && TAB[INT_LONG - 1] == -1 && TAB[INT_LONG_LONG - 1] == -1)
 	{
 	if (arg[i] == 'l' && arg[i + 1] == 'l')
 		{
-			list->tab[INT_LONG_LONG - 1] = INT_LONG_LONG;
+			TAB[INT_LONG_LONG - 1] = INT_LONG_LONG;
 			i++;
 		}
 		else
-			list->tab[INT_LONG - 1] = INT_LONG;
+			TAB[INT_LONG - 1] = INT_LONG;
 	}
-	if (arg[i] == 'h' && list->tab[INT_SHORT - 1] == -1 && list->tab[INT_SHORT_SHORT - 1] == -1)
+	if (arg[i] == 'h' && TAB[INT_SHORT - 1] == -1 && TAB[INT_SHORT_SHORT - 1] == -1)
 	{
 		if (arg[i] == 'h' && arg[i + 1] == 'h')
 		{
-			list->tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
+			TAB[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
 			i++;
 		}
 		else
-			list->tab[INT_SHORT - 1] = INT_SHORT;
+			TAB[INT_SHORT - 1] = INT_SHORT;
 	}
 	return (i);
 }
@@ -386,22 +386,22 @@ void		flag_optional(char *arg, t_string *list)
 	while (arg[++i])
 	{
 		if (arg[i] == '-')
-			list->tab[LEFT - 1] = LEFT;
+			TAB[LEFT - 1] = LEFT;
 		if (arg[i] == '0' && !((arg[i - 1] <= '9' && arg[i - 1] >= '0')) && !(arg[i - 1] == '.'))
-			list->tab[ZERO - 1] = ZERO;
+			TAB[ZERO - 1] = ZERO;
 		if (arg[i] == ' ')
-			list->tab[BLANK - 1] = BLANK;
+			TAB[BLANK - 1] = BLANK;
 		if (arg[i] == '+')
-			list->tab[SIGN - 1] = SIGN;
+			TAB[SIGN - 1] = SIGN;
 		if (arg[i] == '#')
-			list->tab[HASHTAG - 1] = HASHTAG;
+			TAB[HASHTAG - 1] = HASHTAG;
 		if (arg[i] == '.')
 		{
-			list->tab[POINT - 1] = POINT;
-			list->tab[POINT] = ft_atoll(arg + i + 1);
+			TAB[POINT - 1] = POINT;
+			TAB[POINT] = ft_atoll(arg + i + 1);
 		}
 		if (arg[i] == 'j')
-			list->tab[J_FLAG - 1] = J_FLAG;
+			TAB[J_FLAG - 1] = J_FLAG;
 		i = flag_optional_suit(arg, list, i);
 		largeur_of_camp(arg, list, i);
 	}
@@ -486,7 +486,7 @@ void		reset_tab_int(t_string *list, int len)
 
 	i = -1;
 	while (++i < len)
-		list->tab[i] = -1;
+		TAB[i] = -1;
 }
 
 int			params(char comp, const char *list)

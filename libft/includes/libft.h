@@ -24,7 +24,7 @@
 /*
 **	Fonction Part1 & Part2
 */
-void				ft_putchar(char c);
+int					ft_putchar(char c);
 void				ft_putstr(char const *str);
 size_t				ft_strlen(const char *str);
 int					ft_atoi(const char *str);
@@ -73,7 +73,7 @@ char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
-void				ft_putchar_fd(char c, int fd);
+int					ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
@@ -112,7 +112,7 @@ char				*ft_strjoin_free(char *s1, char *s2, int select_to_free);
 int					ft_putstr_len(const char *str, size_t len, int fd);
 void				*ft_memjoin(void *dst, size_t len_dst, void *src, size_t len_src);
 /*
-**
+** Unicode
 */
 int					ft_wchar_len(wchar_t c);
 int					ft_wset_plage_byte(int len);
@@ -120,4 +120,8 @@ long				ft_set_octet(int octet);
 long				ft_set_unichar(long masque_byte, int len, wchar_t c);
 int					*ft_putval_tab(wchar_t c, int octet);
 int					ft_putwchar(int *tab, int len);
+/*
+** Unicode
+*/
+int					ft_putchar_len(char c, int len, int fd);
 #endif
