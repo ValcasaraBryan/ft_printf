@@ -53,11 +53,11 @@ void	add_caractere(t_string *list, unsigned char caractere, int len)
 	if (!(buf = ft_memalloc(len + 1)))
 		return ;
 	ft_memset(buf, caractere, len);
-	if (list->len > 0)
-		ft_strcat(DATA+ list->len, buf);
+	if (LEN > 0)
+		ft_strcat(DATA+ LEN, buf);
 	else
 		DATA = ft_strdup(buf);
-	list->len += len;
+	LEN += len;
 }
 
 int		change_string(t_string *list)
@@ -335,12 +335,12 @@ void	list_add_conversion(char *string, t_string *list)
 	if (string)
 	{
 		DATA = ft_strdup(string);
-		list->len = ft_strlen(string);
+		LEN = ft_strlen(string);
 	}
 	else
 	{
 		DATA = ft_strdup("(null)");
-		list->len = 6;		
+		LEN = 6;		
 	}
 }
 
