@@ -224,7 +224,7 @@ void	parsing_arg(char *argument, va_list ap, int len, LIST)
 		ARG = argument[len];
 	}
 	init_list(ap, ARG, list);
-	if (LEFT_ || POINT_)
+	if (LEFT_ || (POINT_ && params(ARG, ENT)))
 		TAB[ZERO - 1] = 0;
 	if (*DATA == '-')
 		TAB[SIGN - 1] = SIGN;
