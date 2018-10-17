@@ -45,6 +45,27 @@
 # define DATA				list->data
 # define LEN				list->len
 # define ARG				list->char_of_arg
+# define LIST				t_string *list
+
+# define RIGHT_				(TAB[LEFT - 1] == 0)
+# define LEFT_				(TAB[LEFT - 1] == LEFT)
+# define ZERO_				(TAB[ZERO - 1] == ZERO)
+# define ZERO_NO			(TAB[ZERO - 1] == 0)
+# define SIGN_				(TAB[SIGN - 1] == SIGN)
+# define SIGN_NO			(TAB[SIGN - 1] == 0)
+# define BLANK_				(TAB[BLANK - 1] == BLANK)
+# define BLANK_NO			(TAB[BLANK - 1] == 0)
+# define HASHTAG_			(TAB[HASHTAG - 1] == HASHTAG)
+# define HASHTAG_NO			(TAB[HASHTAG - 1] == 0)
+# define POINT_				(TAB[POINT - 1] == POINT)
+# define POINT_NO			(TAB[POINT - 1] == 0)
+# define LARGEUR_NO			(TAB[LARGEUR] == 0)
+# define LARGEUR_			(TAB[LARGEUR] > 0)
+
+# define NO_SHORT			(TAB[INT_SHORT - 1] == 0)
+# define NO_SHORT_			(TAB[INT_SHORT_SHORT - 1] == 0)
+# define NO_LONG			(TAB[INT_LONG - 1] == 0)
+# define NO_LONG_			(TAB[INT_LONG_LONG - 1] == 0)
 
 typedef struct				s_string
 {
@@ -88,7 +109,7 @@ int							flag_optional_suit(char *param, t_string *l, int i);
 int							params(char comp, const char *list);
 
 int							change_string(t_string *list);
-void						add_precision(t_string *list);
+int							add_precision(t_string *list);
 void						option(t_string *list);
 
 void						precision(t_string *list);
