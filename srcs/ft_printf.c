@@ -223,9 +223,9 @@ void	parsing_arg(char *argument, va_list ap, int len, LIST)
 		flag_optional(argument, list);
 		ARG = argument[len];
 	}
+	init_list(ap, ARG, list);
 	if (LEFT_ || POINT_)
 		TAB[ZERO - 1] = 0;
-	init_list(ap, ARG, list);
 	if (*DATA == '-')
 		TAB[SIGN - 1] = SIGN;
 	if (SIGN_)
@@ -273,7 +273,7 @@ int		add_arg(LIST, va_list ap)
 		return (conv_long_c(ap));
 	else if (ft_isprint(ARG))
 		return (option_char(list, ARG));
-	return (-1);
+	return (0);
 }
 
 int		parsing(const char *format, LIST, va_list ap, unsigned int nb_percent)
@@ -387,7 +387,7 @@ int		largeur_of_camp(char *arg, LIST, int i)
 			i += ft_strlen(ft_lltoa(TAB[LARGEUR]));
 		}
 	if (POINT_NO)
-		if (arg[i] == '.' && arg[i + 1] >= '1' && arg[i + 1] <= '9')
+		if (arg[i] == '.')
 		{
 			TAB[POINT - 1] = POINT;
 			TAB[POINT] = ft_atoll(arg + i + 1);
