@@ -37,19 +37,22 @@ int		add_precision(LIST)
 
 	sign = (SIGN_ || BLANK_) ? 1 : 0;
 	len_write = 0;
-	
 	if (RIGHT_ && LARGEUR_ && ZERO_NO)
 		len_write += ft_putchar_len(' ', TAB[LARGEUR] - sign, 1);
 	if (SIGN_ || BLANK_)
 		len_write += ft_putchar(add_sign(list));
+	if (HASHTAG_ && params(ARG, "Oo"))
+		len_write += ft_putstr_len("0", 1, 1);
+	if (HASHTAG_ && params(ARG, "xp"))
+		len_write += ft_putstr_len("0x", 2, 1);
+	if (HASHTAG_ && params(ARG, "X"))
+		len_write += ft_putstr_len("0X", 2, 1);
 	if (RIGHT_ && LARGEUR_ && ZERO_)
 		len_write += ft_putchar_len('0', TAB[LARGEUR] - sign, 1);
-	if (POINT_ && params(ARG, "OoxXdiup"))
+	if (POINT_ && params(ARG, "oOxXdiup"))
 		len_write += ft_putchar_len('0', TAB[POINT], 1);
-	if (*DATA == '-')
-		len_write += ft_putstr_len(DATA + 1, LEN, 1);
-	else
-		len_write += ft_putstr_len(DATA, LEN, 1);
+	len_write = (*DATA == '-') ? len_write + ft_putstr_len(DATA + 1, LEN, 1) :
+		len_write + ft_putstr_len(DATA, LEN, 1);
 	if (LEFT_ && LARGEUR_)
 		len_write += ft_putchar_len(' ', TAB[LARGEUR] - sign, 1);
 	return (len_write);

@@ -22,7 +22,7 @@ int			binary_flag(int *tab , int len)
 	if (!tab)
 		return (0);
 	while (++i <= len)
-		if (tab[i] > 0 && tab[i] <= len)
+		if (tab[i] > 1 && tab[i] <= len)
 			++j;
 	return (j);
 }
@@ -66,12 +66,17 @@ void	priority_precision_largeur_sign_hashtag(LIST)
 		LEN--;
 	if (POINT_)
 	{
-		LEN = (params(ARG, "OoxXdiup") && *DATA == '0') ? 0 : LEN;
+		LEN = (params(ARG, "oOXxdiup") && *DATA == '0') ? 0 : LEN;
 		LEN = ((LEN > TAB[POINT]) && params(ARG, "s")) ? TAB[POINT] : LEN;
 		TAB[POINT] = ((LEN < TAB[POINT]) && params(ARG, "s")) ? LEN : TAB[POINT];
+		TAB[POINT] = ((LEN > TAB[POINT])) ? LEN : TAB[POINT];
 	}
 	if (HASHTAG_)
-		LEN = (params(ARG, "Oo") && *DATA == '0') ? 1 : LEN;
+	{
+		TAB[LARGEUR] = ((params(ARG, "oO") == 0) && LARGEUR_
+			&& (TAB[LARGEUR] + 2) > LEN) ? TAB[LARGEUR] - 2: TAB[LARGEUR];
+		TAB[LARGEUR] = (params(ARG, "oO")) ? TAB[LARGEUR] - 1 : TAB[LARGEUR];
+	}
 	if (LARGEUR_ && POINT_NO)
 		TAB[LARGEUR] = (TAB[LARGEUR] > LEN) ? TAB[LARGEUR] - LEN : 0;
 	else if (LARGEUR_ && POINT_)
@@ -91,7 +96,10 @@ int		change_string(LIST)
 		return (add_precision(list));
 	}
 	else
+	{
+		LEN = (params(ARG, "dip") && *DATA == '0') ? 0 : LEN;
 		return (ft_putstr_len(DATA, LEN, 1));
+	}
 }
 
 char	*flag_int_sign(t_string list, va_list ap)
@@ -215,7 +223,7 @@ void	parsing_arg(char *argument, va_list ap, int len, LIST)
 		flag_optional(argument, list);
 		ARG = argument[len];
 	}
-	if (LEFT_)
+	if (LEFT_ || POINT_)
 		TAB[ZERO - 1] = 0;
 	init_list(ap, ARG, list);
 	if (*DATA == '-')
@@ -392,7 +400,7 @@ int		flag_optional_suit(char *arg, LIST, int i)
 {
 	if (arg[i] == 'z')
 		TAB[Z_FLAG - 1] = Z_FLAG;
-	if (arg[i] == 'l' && NO_LONG == 0 && NO_LONG_)
+	if (arg[i] == 'l' && NO_LONG && NO_LONG_)
 	{
 	if (arg[i] == 'l' && arg[i + 1] == 'l')
 		{
