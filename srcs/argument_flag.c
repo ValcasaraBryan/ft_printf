@@ -44,7 +44,7 @@ void					priority_precision_largeur_sign_hashtag(t_string *list)
 	}
 	if (POINT_)
 	{
-		LEN = (params(ARG, "oOXxdiup") && *DATA == '0') ? 0 : LEN;
+		LEN = (params(ARG, "oOXxdiuUp") && *DATA == '0') ? 0 : LEN;
 		LEN = ((LEN > TAB[POINT]) && params(ARG, "s")) ? TAB[POINT] :
 			LEN;
 		TAB[POINT] = ((LEN < TAB[POINT]) && params(ARG, "s")) ? LEN :
@@ -88,7 +88,7 @@ int						add_precision(t_string *list)
 		len_write += ft_putstr_len("0X", 2, FD);
 	if (RIGHT_ && LARGEUR_ && ZERO_)
 		len_write += ft_putchar_len('0', TAB[LARGEUR] - sign, FD);
-	if (POINT_ && params(ARG, "oOxXdiup"))
+	if (POINT_ && params(ARG, "oOxXdiuUp"))
 		len_write += ft_putchar_len('0', TAB[POINT], FD);
 	len_write = (*DATA == '-') ? len_write + ft_putstr_len(DATA + 1, LEN, FD) :
 		len_write + ft_putstr_len(DATA, LEN, FD);
