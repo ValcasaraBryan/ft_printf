@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memjoin.c                                       :+:      :+:    :+:   */
+/*   ft_wchar_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/25 22:14:55 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/09/25 22:14:56 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/10/18 16:51:23 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/10/18 16:51:24 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void		*ft_memjoin(void *dst, size_t len_dst, void *src, size_t len_src)
+int					ft_wchar_len(wchar_t c)
 {
-	int		i;
-	int		j;
-	char	*dest;
-	char	*sour;
-	char	*str;
+	unsigned int	quatre_bit;
+	int				i;
 
-	i = 0;
-	j = 0;
-	dest = (char *)dst;
-	sour = (char *)src;
-	if (!len_src)
-		return (dst);
-	if (!(str = ft_memalloc(len_dst + len_src + 1)))
-		return (NULL);
-	while (j < len_src)
+	quatre_bit = 2147483648;
+	i = 32;
+	while (!(quatre_bit & c) && quatre_bit)
 	{
-		while (i < len_dst)
-		{
-			str[i] = dest[i];
-			i++;
-		}
-		str[i++] = sour[j++];
+		quatre_bit /= 2;
+		i--;
 	}
-	return (str);
+	return (i);
 }

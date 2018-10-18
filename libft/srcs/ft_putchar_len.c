@@ -12,10 +12,10 @@
 
 #include "../includes/libft.h"
 
-int		ft_putchar_len(char c, int len, int fd)
+int			ft_putchar_len(char c, int len, int fd)
 {
-	int i;
-	int ret;
+	int		i;
+	int		ret;
 
 	i = -1;
 	while (++i < len)

@@ -37,27 +37,3 @@ int			ft_buff_printf(int fd, int fd_sortie)
 		return (ft_putstr_len(str, ret, fd_sortie));
 	return (-3);
 }
-
-int			main(int ac, char **av)
-{
-	int		err;
-
-	err = 0;
-	if (ac == 3)
-	{
-		if ((err = ft_buff_printf(ft_atoi(av[1]), open(av[2],
-			O_CREAT, O_RDWR))) == -3)
-			ft_putstr_len("Error\n", 6, 2);
-		else if (err == -2)
-			ft_putstr_len("Error Reading\n", 14, 2);
-		else if (err == -1)
-			ft_putstr_len("Error Writing\n", 14, 2);
-	}
-	else
-	{
-		ft_putstr_len("Usage : exe_buff [fd_lecture]
-			[nom de fichier]\n", 47, 2);
-		return (-1);
-	}
-	return (err);
-}

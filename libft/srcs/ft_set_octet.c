@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memjoin.c                                       :+:      :+:    :+:   */
+/*   ft_set_octet.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/25 22:14:55 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/09/25 22:14:56 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/10/18 16:51:45 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/10/18 16:51:46 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void		*ft_memjoin(void *dst, size_t len_dst, void *src, size_t len_src)
+long				ft_set_octet(int octet)
 {
-	int		i;
-	int		j;
-	char	*dest;
-	char	*sour;
-	char	*str;
+	long			multiple;
+	long			multi_byte;
+	long			mask;
+	int				i;
 
 	i = 0;
-	j = 0;
-	dest = (char *)dst;
-	sour = (char *)src;
-	if (!len_src)
-		return (dst);
-	if (!(str = ft_memalloc(len_dst + len_src + 1)))
-		return (NULL);
-	while (j < len_src)
-	{
-		while (i < len_dst)
-		{
-			str[i] = dest[i];
-			i++;
-		}
-		str[i++] = sour[j++];
-	}
-	return (str);
+	multi_byte = 1;
+	multiple = 8 * octet - 1;
+	while (multiple > i++)
+		multi_byte *= 2;
+	mask = multi_byte;
+	i = 0;
+	while (i++ < octet - 1)
+		mask += multi_byte >> i;
+	i = 0;
+	while (i++ <= octet)
+		mask += multi_byte >> (8 * i);
+	return (mask);
 }
