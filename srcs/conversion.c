@@ -38,8 +38,13 @@ int					conv_long_c(va_list ap)
 	c = va_arg(ap, long);
 	len = ft_wchar_len(c);
 	octet = ft_wset_plage_byte(len);
-	tab = ft_putval_tab(ft_set_unichar(ft_set_octet(octet), len + 1, c), octet);
-	return (ft_putwchar(tab, octet));
+	if (octet > 1)
+	{
+		tab = ft_putval_tab(ft_set_unichar(ft_set_octet(octet), len + 1, c), octet);
+		return (ft_putwchar(tab, octet));
+	}
+	else
+		return (ft_putchar(c));
 }
 
 char				*conv_int(va_list ap)

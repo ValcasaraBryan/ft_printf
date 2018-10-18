@@ -99,8 +99,8 @@ void						list_add_conversion(char *string, t_string *list);
 
 int							p_of_params(char *format);
 int							parsing_params(char *arg);
-unsigned int				nb_percent(char *format);
-int							no_arguments(const char *format, va_list ap, t_string l);
+unsigned int				nb_percent(const char *format);
+int							no_arguments(const char *format);
 
 int							precision_params(char *param);
 void						reset_tab_int(t_string *l, int len);

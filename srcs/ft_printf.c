@@ -44,22 +44,6 @@ void	print_tab(t_string list, int len, char *arg)
 	printf("\n");
 }
 
-void	add_caractere(LIST, unsigned char caractere, int len)
-{
-	char *buf;
-
-	if (len <= 0)
-		len = 1;
-	if (!(buf = ft_memalloc(len + 1)))
-		return ;
-	ft_memset(buf, caractere, len);
-	if (LEN > 0)
-		ft_strcat(DATA+ LEN, buf);
-	else
-		DATA = ft_strdup(buf);
-	LEN += len;
-}
-
 void	priority_precision_largeur_sign_hashtag(LIST)
 {
 	if (SIGN_ && *DATA == '-')
@@ -196,12 +180,14 @@ void	init_list(va_list ap, char c, LIST)
 		list_add_conversion(string_s(ap), list);
 	else if (c == 'S')
 		list_add_conversion("", list);
-	else if (c == 'C')
-		list_add_conversion("", list);
 	else if (c == 'd' || c == 'i')
 		list_add_conversion(flag_int_sign(*list, ap), list);
-	else if (c == 'c')
+	else if (c == 'c' || c == 'C')
+	{
+		if (c == 'C')
+			TAB[INT_LONG - 1] = INT_LONG;
 		list_add_conversion("", list);
+	}
 	else if (c == 'f')
 	{
 		if (POINT_NO)
@@ -270,10 +256,10 @@ int		add_arg(LIST, va_list ap)
 		}
 		return (change_string(list));
 	}
+	if ((ARG == 'c' && TAB[INT_LONG - 1] == INT_LONG) || ARG == 'C')
+		return (conv_long_c(ap));
 	if (ARG == 'c')
 		return (option_char(list, conv_c(ap)));
-	if (ARG == 'C')
-		return (conv_long_c(ap));
 	else if (ft_isprint(ARG))
 		return (option_char(list, ARG));
 	return (0);
@@ -332,7 +318,7 @@ int		ft_printf(const char *format, ...)
 		va_end(ap);
 	}
 	else
-		return (no_arguments(format, ap, *list));
+		return (no_arguments(format));
 	return (ret);
 }
 
@@ -500,16 +486,15 @@ unsigned int	nb_percent(const char *format)
 	while (format[++i])
 		if (format[i] == '%')
 		{
-			if ((j = parsing_params(format + i)) && format[i + j] == '%')
+			if ((j = parsing_params((char *)format + i)) && format[i + j] == '%')
 				i += j;
 			++nb_percent;
 		}
 	return (nb_percent);
 }
 
-int		no_arguments(const char *format, va_list ap, t_string list)
+int		no_arguments(const char *format)
 {
-	va_end(ap);
 	return (ft_putstr_len(format, ft_strlen(format), 1));
 }
 
