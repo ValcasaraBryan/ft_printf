@@ -321,18 +321,18 @@ int		ft_printf(const char *format, ...)
 	int				ret;
 	unsigned int	percent;
 
-	percent = nb_percent((char *)format);
+	if ((percent = nb_percent((char *)format)) == -1)
+		return (-1);
 	if (percent)
 	{
 		va_start(ap, format);
 		if (!(list = (t_string *)malloc(sizeof(t_string) * percent)))
 			return (-1);
-		if (!(ret = parsing(format, list, ap, percent)))
-			return (ret);
+		ret = parsing(format, list, ap, percent);
+		va_end(ap);
 	}
 	else
 		return (no_arguments(format, ap, *list));
-	va_end(ap);
 	return (ret);
 }
 
@@ -487,7 +487,7 @@ int			parsing_params(char *arg)
 	return (0);
 }
 
-unsigned int	nb_percent(char *format)
+unsigned int	nb_percent(const char *format)
 {
 	int		i;
 	int		j;
