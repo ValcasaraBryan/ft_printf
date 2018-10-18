@@ -21,8 +21,8 @@ int			binary_flag(int *tab , int len)
 	j = 0;
 	if (!tab)
 		return (0);
-	while (++i <= len)
-		if (tab[i] > 1 && tab[i] <= len)
+	while (++i < len)
+		if (tab[i] > 0)
 			++j;
 	return (j);
 }
@@ -64,6 +64,13 @@ void	priority_precision_largeur_sign_hashtag(LIST)
 {
 	if (SIGN_ && *DATA == '-')
 		LEN--;
+	if (HASHTAG_)
+	{
+		TAB[POINT] = (params(ARG, "oO") && POINT_) ? TAB[POINT] - 1 : TAB[POINT];
+		TAB[LARGEUR] = (params(ARG, "oO") && LARGEUR_) ? TAB[LARGEUR] - 1 : TAB[LARGEUR];
+		TAB[HASHTAG - 1] = (params(ARG, "oO") && LARGEUR_NO && POINT_NO && *DATA == '0') ? 0 : TAB[HASHTAG - 1];
+		TAB[HASHTAG - 1] = (params(ARG, "Xx") && *DATA == '0') ? 0 : TAB[HASHTAG - 1];
+	}
 	if (POINT_)
 	{
 		LEN = (params(ARG, "oOXxdiup") && *DATA == '0') ? 0 : LEN;
@@ -72,11 +79,7 @@ void	priority_precision_largeur_sign_hashtag(LIST)
 		TAB[POINT] = ((LEN > TAB[POINT])) ? LEN : TAB[POINT];
 	}
 	if (HASHTAG_)
-	{
-		TAB[LARGEUR] = ((params(ARG, "oO") == 0) && LARGEUR_
-			&& (TAB[LARGEUR] + 2) > LEN) ? TAB[LARGEUR] - 2: TAB[LARGEUR];
-		TAB[LARGEUR] = (params(ARG, "oO")) ? TAB[LARGEUR] - 1 : TAB[LARGEUR];
-	}
+		TAB[LARGEUR] = ((params(ARG, "oO") == 0) && LARGEUR_ && (TAB[LARGEUR] + 2) > LEN) ? TAB[LARGEUR] - 2: TAB[LARGEUR];
 	if (LARGEUR_ && POINT_NO)
 		TAB[LARGEUR] = (TAB[LARGEUR] > LEN) ? TAB[LARGEUR] - LEN : 0;
 	else if (LARGEUR_ && POINT_)
@@ -90,7 +93,7 @@ void	priority_precision_largeur_sign_hashtag(LIST)
 
 int		change_string(LIST)
 {
-	if (binary_flag(TAB, LENGHT_TAB + 1))
+	if (binary_flag(TAB, LENGHT_TAB))
 	{
 		priority_precision_largeur_sign_hashtag(list);
 		return (add_precision(list));
@@ -125,7 +128,7 @@ char	*flag_int_sign(t_string list, va_list ap)
 	{
 		j = -1;
 		while (++j < LENGHT_TAB - 1)
-			if (flag[i].tab == list.tab[j] && list.tab[j] != 0)
+			if (flag[i].tab == list.tab[j] && list.tab[j] > 0)
 				return (flag[i].fonction(ap));
 	}
 	return (conv_int(ap));
@@ -154,7 +157,7 @@ char	*flag_int_unsigned(t_string list, va_list ap, char *hexa)
 	{
 		j = -1;
 		while (++j < LENGHT_TAB - 1)
-			if (flag[i].tab == list.tab[j] && list.tab[j] != 0)
+			if (flag[i].tab == list.tab[j] && list.tab[j] > 0)
 				return (flag[i].fonction(ap, hexa));
 	}
 	return (conv_uint(ap, hexa));

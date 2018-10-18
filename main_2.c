@@ -12,9 +12,11 @@
 
 #include "includes/ft_printf.h"
 #include <wchar.h>
+#include <locale.h>
 
 int		main(int argc, char **argv)
 {
+	setlocale(LC_ALL, "en_US.UTF-8");
 	int ret;
 	int ret_2;
 
@@ -30,6 +32,15 @@ int		main(int argc, char **argv)
 	const char format_6[50] = "%4.1s";
 	const char format_7[50] = "%5p";
 	const char format_8[50] = "%#.5x";
+	const char format_9[50] = "{%30d}";
+	const char format_10[50] = "{%-30d}";
+	const char format_11[50] = "%#o";
+	const char format_12[50] = "%#.3o";
+	const char format_13[50] = "%#.o";
+	const char format_14[50] = "%#.6o";
+	const char format_15[50] = "%#x";
+	const char format_16[50] = "%#.x, %#.0x";
+	const char format_17[50] = "%s";
 
 	printf("%s\n", format_4);
 	ret = ft_printf(format_4, "42");
@@ -116,31 +127,120 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
-
-
-
-
-
-
-
-	printf("%s\n", format);
-	ret = ft_printf(format, "salut", "salut", "salut");
+	printf("%s\n", format_9);
+	ret = ft_printf(format_9, 10000);
 	printf("| %d\n", ret);
-	ret_2 = printf(format, "salut", "salut", "salut");
-	printf("| %d\n\n", ret_2);
-	//if (ret == ret_2)
-	//{
-	//	printf("len -- OK --\n\n");
-	//}
-	//else
-	//	printf("len // NO // %d != %d\n\n", ret, ret_2);
-	
+	ret_2 = printf(format_9, 10000);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
-	
+	printf("%s\n", format_10);
+	ret = ft_printf(format_10, 10000);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_10, 10000);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_11);
+	ret = ft_printf(format_11, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_11, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_12);
+	ret = ft_printf(format_12, 1);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_12, 1);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_13);
+	ret = ft_printf(format_13, 42);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_13, 42);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_14);
+	ret = ft_printf(format_14, 42);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_14, 42);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_15);
+	ret = ft_printf(format_15, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_15, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_16);
+	ret = ft_printf(format_16, 0, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_16, 0, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_17);
+	ret = ft_printf(format_17, );
+	printf("| %d\n", ret);
+	ret_2 = printf(format_17, );
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
 	printf("%s\n", format_3);
-	ret = ft_printf(format_3, L"我");
+	ret = ft_printf(format_3, 945);
 	printf("| %d\n", ret);
-	ret_2 = printf(format_3, L"我");
+	ret_2 = printf(format_3, 945);
 	printf("| %d\n", ret_2);
 	//if (ret == ret_2)
 	//{

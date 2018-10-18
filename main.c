@@ -13,7 +13,6 @@
 
 #include "includes/ft_printf.h"
 
-
 int		main(int argc, char **argv)
 {
 	int ret;
@@ -21,7 +20,6 @@ int		main(int argc, char **argv)
 	long c_long = -9223372036854775808;
 
 	const char format[500] = "@moulitest: %d %4s";
-	
 	const char format_2[50] = "@moulitest: %+d %4s";
 	const char format_3[50] = "@moulitest: % d %4s";
 	const char format_4[50] = "@moulitest: %0d %4s";
@@ -127,7 +125,7 @@ int		main(int argc, char **argv)
 	const char format_76[50] = "%";
 	const char format_77[50] = "% Zoooo";
 	const char format_78[50] = "{%}";
-	const char format_79[50] = "%lld\n";
+	const char format_79[50] = "%lld";
 	const char format_80[50] = "{%-15Z}";
 	const char format_81[50] = "@moulitest: %c";
 	const char format_82[50] = "@moulitest: % s";
@@ -159,7 +157,7 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
-	
+
 	printf("%s\n", format_2);
 	ret = ft_printf(format_2, 5, "salut");
 	printf("| %d\n", ret);
