@@ -33,7 +33,7 @@
 # define LENGHT_TAB 		14
 
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
-# define NO_C				"sSpdDioOuUxXfFeEaAn"
+# define NO_C				"sSpdDioOuUxXfeEaAn"
 # define FLAG				"lhjz-+. #0123456789"
 # define ALL				"sSpdDioOuUxXcCfFeEaAn%lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
@@ -147,4 +147,5 @@ char						*conv_ulong_long(va_list ap, char *hexa);
 char						*conv_short(va_list ap);
 char						*conv_ushort(va_list ap, char *hexa);
 char						*conv_void(va_list ap, char *hexa);
+char						*string_unix(va_list ap);
 #endif

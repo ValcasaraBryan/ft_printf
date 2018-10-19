@@ -43,3 +43,11 @@ char					*conv_void(va_list ap, char *hexa)
 	c = va_arg(ap, void *);
 	return (ft_ulltoa_base((long long)c, hexa));
 }
+
+char					*string_unix(va_list ap)
+{
+	wchar_t				*str;
+
+	str = va_arg(ap, wchar_t *);
+	return (ft_unicode_to_str(str));
+}

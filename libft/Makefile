@@ -99,6 +99,7 @@ SRC =	srcs/ft_is/ft_isalnum.c\
 		\
 		srcs/ft_unicode/ft_putval_tab.c\
 		srcs/ft_unicode/ft_putwchar.c\
+		srcs/ft_unicode/ft_unicode_to_str.c\
 		srcs/ft_unicode/ft_set_octet.c\
 		srcs/ft_unicode/ft_set_unichar.c\
 		srcs/ft_unicode/ft_wchar_len.c\

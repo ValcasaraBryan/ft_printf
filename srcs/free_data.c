@@ -15,6 +15,6 @@
 void						free_data(t_string *list, unsigned int nb_percent)
 {
 	while (nb_percent--)
-		if (params(list[nb_percent].char_of_arg, "spdDioOuUxXfFeEaAn"))
+		if (params(list[nb_percent].char_of_arg, NO_C))
 			free(list[nb_percent].data);
 }

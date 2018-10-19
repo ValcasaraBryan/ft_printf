@@ -45,9 +45,9 @@ void					priority_precision_largeur_sign_hashtag(t_string *list)
 	if (POINT_)
 	{
 		LEN = (params(ARG, "oOXxdiuUp") && *DATA == '0') ? 0 : LEN;
-		LEN = ((LEN > TAB[POINT]) && params(ARG, "s")) ? TAB[POINT] :
+		LEN = ((LEN > TAB[POINT]) && params(ARG, "sS")) ? TAB[POINT] :
 			LEN;
-		TAB[POINT] = ((LEN < TAB[POINT]) && params(ARG, "s")) ? LEN :
+		TAB[POINT] = ((LEN < TAB[POINT]) && params(ARG, "sS")) ? LEN :
 			TAB[POINT];
 		TAB[POINT] = ((LEN > TAB[POINT])) ? LEN : TAB[POINT];
 	}
