@@ -54,9 +54,7 @@ void					init_list(va_list ap, char c, t_string *list)
 	if (c == 's')
 		list_add_conversion(string_s(ap), list);
 	else if (c == 'S')
-	{
 		list_add_conversion(string_unix(ap), list);
-	}
 	else if (c == 'd' || c == 'i')
 		list_add_conversion(flag_int_sign(*list, ap), list);
 	else if (c == 'c')
