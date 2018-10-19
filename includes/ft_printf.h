@@ -35,6 +35,7 @@
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
 # define NO_C				"sSpdDioOuUxXfFeEaAn"
 # define FLAG				"lhjz-+. #0123456789"
+# define ALL				"sSpdDioOuUxXcCfFeEaAn%lhjz-+. #0123456789"
 # define ENT				"dDioOuUxX"
 # define HEXA_MIN			"0123456789abcdef"
 # define HEXA_MAJ			"0123456789ABCEDF"
