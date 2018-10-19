@@ -34,6 +34,7 @@ char	*ft_unicode_to_str(wchar_t *str)
 				*(tmp + octet) = *(tab + octet);
 		else
 			*tmp = *tab;
+		free(tab);
 		data = (data) ? ft_strjoin_free(data, tmp, 3) : tmp;
 		str++;
 	}
