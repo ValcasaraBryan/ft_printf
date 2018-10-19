@@ -47,8 +47,7 @@ char					*conv_void(va_list ap, char *hexa)
 char					*string_unix(va_list ap)
 {
 	wchar_t				*str;
-	char				*data;
 
 	str = va_arg(ap, wchar_t *);
-	return (data = (str) ? ft_unicode_to_str(str) : NULL);
+	return (ft_unicode_to_str(str));
 }

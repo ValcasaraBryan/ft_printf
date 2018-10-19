@@ -47,6 +47,8 @@ int		main(int argc, char **argv)
 	const char format_21[50] = "%          ";
 	const char format_22[50] = "%lhh";
 	const char format_23[50] = "%S";
+	const char format_24[50] = "%S";
+	const char format_25[50] = "%.8S";
 
 
 	printf("%s\n", format_4);
@@ -321,6 +323,30 @@ int		main(int argc, char **argv)
 	ret = ft_printf(format_23, L"ݗݜशব");
 	printf("| %d\n", ret);
 	ret_2 = printf(format_23, L"ݗݜशব");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_24);
+	ret = ft_printf(format_24, NULL);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_24, NULL);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_25);
+	ret = ft_printf(format_25, L"ݗݜशব");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_25, L"ݗݜशব");
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
