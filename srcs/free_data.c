@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brvalcas <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/04 16:27:25 by brvalcas          #+#    #+#             */
-/*   Updated: 2018/04/04 16:27:26 by brvalcas         ###   ########.fr       */
+/*   Created: 2018/10/19 14:24:01 by brvalcas          #+#    #+#             */
+/*   Updated: 2018/10/19 14:24:06 by brvalcas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/ft_printf.h"
 
-size_t	ft_strlen(const char *str)
+void						free_data(t_string *list, unsigned int nb_percent)
 {
-	size_t i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	while (nb_percent--)
+		if (params(list[nb_percent].char_of_arg, "spdDioOuUxXfFeEaAn"))
+			free(list[nb_percent].data);
 }

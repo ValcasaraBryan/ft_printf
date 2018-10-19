@@ -49,7 +49,7 @@ void					parsing_arg(char *argument, va_list ap, int len, LIST)
 void					init_list(va_list ap, char c, t_string *list)
 {
 	TAB[INT_LONG - 1] = (c == 'D' || c == 'O' || c == 'U' ||
-		c == 'C' || c == 'S') ? INT_LONG : TAB[INT_LONG - 1];
+		c == 'C') ? INT_LONG : TAB[INT_LONG - 1];
 	c = (c == 'D' || c == 'O' || c == 'U') ? c + 32 : c;
 	if (c == 's')
 		list_add_conversion(string_s(ap), list);

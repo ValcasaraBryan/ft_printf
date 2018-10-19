@@ -31,7 +31,7 @@ int						ft_printf(const char *format, ...)
 		while (i < percent)
 			list[i++].fd = 1;
 		ret = parsing(format, list, ap, percent);
-	//	data_free(LIST);
+		free_data(list, percent);
 		free(list);
 		va_end(ap);
 	}
@@ -116,11 +116,11 @@ int						parsing(const char *format, LIST, va_list ap,
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
 		parsing_arg(arg, ap, len_arg, list + i);
+		free(arg);
 		i_of_format += len_arg;
 		len_write += add_arg(list + i++, ap);
 		i_of_format = (nb_percent) ? i_of_format + inter_flag(format +
 			i_of_format, &len_write, list, &len_arg) : i_of_format;
-		free(arg);
 	}
 	len_write = (format + i_of_format) ? len_write + ft_putstr_len(format +
 		i_of_format, ft_strlen(format + i_of_format), FD) : len_write;

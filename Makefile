@@ -15,7 +15,7 @@ NAME = libftprintf.a
 EXE = ft_printf
 
 SRC = srcs/ft_printf.c srcs/argument_flag.c srcs/init_list.c\
-		srcs/tab_option.c srcs/option_value.c\
+		srcs/tab_option.c srcs/option_value.c srcs/free_data.c\
 		srcs/conversion.c srcs/conversion_two.c \
 		srcs/conversion_three.c srcs/conversion_four.c
 

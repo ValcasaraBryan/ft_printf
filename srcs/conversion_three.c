@@ -31,11 +31,9 @@ char					*conv_ssize_t(va_list ap)
 char					*conv_float(va_list ap, unsigned int precision)
 {
 	double				c;
-	char				*str;
 
 	c = va_arg(ap, double);
-	str = ft_dotoa(c, precision);
-	return (str);
+	return (ft_dotoa(c, precision));
 }
 
 char					*conv_uint(va_list ap, char *hexa)

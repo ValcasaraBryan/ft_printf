@@ -126,6 +126,8 @@ void						unsigned_value(va_list ap, char c, t_string *list);
 int							option_char(t_string *list, char c);
 void						reset_tab_int(t_string *list, int len);
 
+void						free_data(t_string *list, unsigned int nb_percent);
+
 char						*string_s(va_list ap);
 char						conv_c(va_list ap);
 int							conv_long_c(va_list ap);

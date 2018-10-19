@@ -39,18 +39,27 @@ void					flag_optional(char *arg, t_string *list)
 
 int						largeur_of_camp(char *arg, t_string *list, int i)
 {
+	char *str;
+
 	if (LARGEUR_NO)
 		if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
 		{
 			TAB[LARGEUR] = ft_atoll(arg + i);
-			i += ft_strlen(ft_lltoa(TAB[LARGEUR]));
+			str = ft_lltoa(TAB[LARGEUR]);
+			i += ft_strlen(str);
+			free(str);
 		}
 	if (POINT_NO)
 		if (arg[i] == '.')
 		{
 			TAB[POINT - 1] = POINT;
-			TAB[POINT] = ft_atoll(arg + i + 1);
-			i += ft_strlen(ft_lltoa(TAB[POINT]));
+			if (arg + i + 1)
+			{
+				TAB[POINT] = ft_atoll(arg + i + 1);
+				str = ft_lltoa(TAB[LARGEUR]);
+				i += ft_strlen(str);
+				free(str);
+			}
 		}
 	return (i);
 }
@@ -86,7 +95,7 @@ void					list_add_conversion(char *string, t_string *list)
 {
 	if (string)
 	{
-		DATA = ft_strdup(string);
+		DATA = string;
 		LEN = ft_strlen(string);
 	}
 	else
