@@ -14,12 +14,19 @@
 
 int			ft_putchar_len(char c, int len, int fd)
 {
-	int		i;
 	int		ret;
+	char	*str;
 
-	i = -1;
-	while (++i < len)
-		if ((ret = write(fd, &c, 1)) == -1)
-			return (ret);
-	return (i);
+	str = NULL;
+	if (len == 1)
+		return (ft_putchar(c));
+	if (len == 0)
+		return (0);
+	if (len < 0)
+		return (-1);
+	str = ft_strnew(len);
+	str = ft_memset(str, c, len);
+	ret = write(fd, str, len);
+	free(str);
+	return (ret);
 }
