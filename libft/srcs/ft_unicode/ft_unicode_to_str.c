@@ -35,8 +35,7 @@ char		*ft_unicode_to_str(wchar_t *str)
 		{
 			len = ft_wchar_len(*str);
 			octet = ft_wset_plage_byte(len);
-			if (!(tmp = ft_memalloc(octet + 1)))
-				return (NULL);
+			tmp = ft_strnew(octet);
 			tab = tab_unix(octet, len, str);
 			if (octet > 1)
 				while (octet-- > 0)
