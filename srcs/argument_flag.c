@@ -29,8 +29,7 @@ int						change_string(t_string *list)
 
 void					priority_precision_largeur_sign_hashtag(t_string *list)
 {
-	if (SIGN_ && *DATA == '-')
-		LEN--;
+	LEN = (SIGN_ && *DATA == '-') ? LEN - 1 : LEN;
 	if (HASHTAG_)
 	{
 		TAB[POINT] = (params(ARG, "oO") && POINT_) ? TAB[POINT] - 1 :
@@ -81,7 +80,7 @@ int						add_precision(t_string *list)
 		len_write += ft_putchar_len(' ', TAB[LARGEUR] - sign, FD);
 	len_write += ft_putchar_len(add_sign(list), sign, FD);
 	if (HASHTAG_ && params(ARG, "oO"))
-		len_write += ft_putstr_len("0", 1, FD);
+		len_write += ft_putchar_fd('0', FD);
 	if (HASHTAG_ && params(ARG, "xp"))
 		len_write += ft_putstr_len("0x", 2, FD);
 	if (HASHTAG_ && params(ARG, "X"))
