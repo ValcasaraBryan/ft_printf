@@ -147,5 +147,5 @@ char						*conv_ulong_long(va_list ap, char *hexa);
 char						*conv_short(va_list ap);
 char						*conv_ushort(va_list ap, char *hexa);
 char						*conv_void(va_list ap, char *hexa);
-char						*string_unix(va_list ap);
+char						*string_unix(va_list ap, t_string *list);
 #endif

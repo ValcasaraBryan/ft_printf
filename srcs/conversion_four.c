@@ -44,10 +44,14 @@ char					*conv_void(va_list ap, char *hexa)
 	return (ft_ulltoa_base((long long)c, hexa));
 }
 
-char					*string_unix(va_list ap)
+char					*string_unix(va_list ap, t_string *list)
 {
 	wchar_t				*str;
+	char				*data;
 
 	str = va_arg(ap, wchar_t *);
-	return (ft_unicode_to_str(str));
+	data = ft_unicode_to_str(str);
+	if (POINT_)
+		return (data);
+	return (data);
 }
