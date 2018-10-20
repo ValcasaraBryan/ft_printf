@@ -75,9 +75,8 @@ int						add_precision(t_string *list)
 	int					sign;
 
 	sign = (SIGN_ || BLANK_) ? 1 : 0;
-	len_write = 0;
-	if (RIGHT_ && LARGEUR_ && ZERO_NO)
-		len_write += ft_putchar_len(' ', TAB[LARGEUR] - sign, FD);
+	len_write = (RIGHT_ && LARGEUR_ && ZERO_NO) ? ft_putchar_len(' ',
+		TAB[LARGEUR] - sign, FD) : 0;
 	len_write += ft_putchar_len(add_sign(list), sign, FD);
 	if (HASHTAG_ && params(ARG, "oO"))
 		len_write += ft_putchar_fd('0', FD);
