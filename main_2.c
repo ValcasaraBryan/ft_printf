@@ -350,18 +350,6 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
-	printf("%s\n", format_25);
-	ret = ft_printf(format_25, L"ݗݜशব");
-	printf("| %d\n", ret);
-	ret_2 = printf(format_25, L"ݗݜशব");
-	printf("| %d\n", ret_2);
-	if (ret == ret_2)
-	{
-		printf("len -- OK --\n\n");
-	}
-	else
-		printf("len // NO // %d != %d\n\n", ret, ret_2);
-
 	printf("%s\n", format_26);
 	ret = ft_printf(format_26, 0);
 	printf("| %d\n", ret);
@@ -448,6 +436,17 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
+	printf("%s\n", format_25);
+	ret = ft_printf(format_25, L"ݗݜशব");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_25, L"ݗݜशব");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
 
 
