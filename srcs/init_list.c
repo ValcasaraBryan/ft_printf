@@ -58,7 +58,7 @@ void					init_list(va_list ap, char c, t_string *list)
 	else if (c == 'd' || c == 'i')
 		list_add_conversion(flag_int_sign(*list, ap), list);
 	else if (c == 'c')
-		list_add_conversion("", list);
+		list_add_conversion(ft_strdup(""), list);
 	else if (c == 'f')
 	{
 		TAB[POINT] = (POINT_NO) ? 6 : TAB[POINT];
@@ -67,7 +67,7 @@ void					init_list(va_list ap, char c, t_string *list)
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'p')
 		return (unsigned_value(ap, c, list));
 	else
-		list_add_conversion("", list);
+		list_add_conversion(ft_strdup(""), list);
 }
 
 int						add_arg(LIST, va_list ap)
