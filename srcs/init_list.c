@@ -57,8 +57,6 @@ void					init_list(va_list ap, char c, t_string *list)
 		list_add_conversion(string_unix(ap, list), list);
 	else if (c == 'd' || c == 'i')
 		list_add_conversion(flag_int_sign(*list, ap), list);
-	else if (c == 'c')
-		list_add_conversion("", list);
 	else if (c == 'f')
 	{
 		TAB[POINT] = (POINT_NO) ? 6 : TAB[POINT];
