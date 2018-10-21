@@ -56,6 +56,9 @@ int		main(int argc, char **argv)
 	const char format_30[50] = "{%03c}";
 	const char format_31[50] = "%.4S";
 	const char format_32[50] = "%15.4S";
+	const char format_33[50] = "{%f}{%F}";
+	const char format_34[50] = "{%f}{%F}";
+	const char format_35[50] = "@main_ftprintf: %####0000 33..1..#00d";
 
 
 	printf("%s\n", format_4);
@@ -448,7 +451,41 @@ int		main(int argc, char **argv)
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
+	printf("%s\n", format_33);
+	ret = ft_printf(format_33,  1444565444646.6465424242242, 1444565444646.6465424242242);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_33,  1444565444646.6465424242242, 1444565444646.6465424242242);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
+	printf("%s\n", format_34);
+	ret = ft_printf(format_34,  1444565444646.6465424242242, 1444565444646.646542424224242);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_34,  1444565444646.6465424242242, 1444565444646.646542424224242);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_35);
+	ret = ft_printf(format_35, 256);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_35, 256);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
 
 
 

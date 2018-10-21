@@ -12,9 +12,9 @@
 
 #include "../../includes/libft.h"
 
-static int			ft_recursive_power(int nb, int power)
+static long			ft_recursive_power(int nb, int power)
 {
-	int				nb_init;
+	long			nb_init;
 
 	nb_init = nb;
 	if (power < 0)
@@ -28,7 +28,7 @@ static int			ft_recursive_power(int nb, int power)
 	return (0);
 }
 
-static int			ft_unite(unsigned int nb)
+static long			ft_unite(unsigned long nb)
 {
 	while (nb > 9)
 		nb = nb / 10;
@@ -82,7 +82,7 @@ char				*ft_dotoa(double nb, unsigned int precision)
 		nb = nb * -1;
 		neg = 1;
 	}
-	if (nb > 1)
+	if (nb >= 1)
 	{
 		str = ft_lltoa(nb);
 		i = (int)ft_strlen(str) - 1;

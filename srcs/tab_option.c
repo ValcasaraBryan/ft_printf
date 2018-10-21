@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void					flag_optional(char *arg, t_string *list)
+void					flag_optional(char *arg, int len, t_string *list)
 {
 	int				i;
 
@@ -27,7 +27,7 @@ void					flag_optional(char *arg, t_string *list)
 			TAB[BLANK - 1] = BLANK;
 		if (arg[i] == '+')
 			TAB[SIGN - 1] = SIGN;
-		if (arg[i] == '#')
+		if (arg[i] == '#' && params(arg[len], UNSIGNED_))
 			TAB[HASHTAG - 1] = HASHTAG;
 		if (arg[i] == 'j')
 			TAB[J_FLAG - 1] = J_FLAG;
@@ -45,20 +45,17 @@ int						largeur_of_camp(char *arg, t_string *list, int i)
 		{
 			TAB[LARGEUR] = ft_atoll(arg + i);
 			str = ft_lltoa(TAB[LARGEUR]);
-			i += ft_strlen(str);
+			i += ft_strlen(str) - 1;
 			free(str);
 		}
 	if (POINT_NO)
 		if (arg[i] == '.')
 		{
 			TAB[POINT - 1] = POINT;
-			if (arg + i + 1)
-			{
-				TAB[POINT] = ft_atoll(arg + i + 1);
-				str = ft_lltoa(TAB[LARGEUR]);
-				i += ft_strlen(str);
-				free(str);
-			}
+			TAB[POINT] = ft_atoll(arg + i + 1);
+			str = ft_lltoa(TAB[LARGEUR]);
+			i += ft_strlen(str) - 1;
+			free(str);
 		}
 	return (i);
 }

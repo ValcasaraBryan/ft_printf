@@ -33,10 +33,11 @@
 # define LENGHT_TAB 		14
 
 # define CONV				"sSpdDioOuUxXcCfFeEaAn%"
-# define NO_C				"sSpdDioOuUxXfeEaAn"
+# define NO_C				"sSpdDioOuUxXfFeEaAn"
 # define FLAG				"lhjz-+. #0123456789"
 # define ALL				"sSpdDioOuUxXcCfFeEaAn%lhjz-+. #0123456789"
-# define ENT				"dDioOuUxX"
+# define ENT				"dDFfioOuUxXp"
+# define UNSIGNED_			"oOXxuUp"
 # define HEXA_MIN			"0123456789abcdef"
 # define HEXA_MAJ			"0123456789ABCEDF"
 # define OCTAL				"01234567"
@@ -112,7 +113,7 @@ void						priority_precision_largeur(t_string *list);
 int							add_precision(t_string *list);
 char						add_sign(t_string *list);
 
-void						flag_optional(char *arg, t_string *list);
+void						flag_optional(char *arg, int len, t_string *list);
 int							largeur_of_camp(char *arg, t_string *list, int i);
 int							flag_optional_suit(char *arg, t_string *list,
 							int i);

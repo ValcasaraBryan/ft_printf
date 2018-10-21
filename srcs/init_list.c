@@ -29,12 +29,12 @@ void					parsing_arg(char *argument, va_list ap, int len, LIST)
 {
 	if (len > 0)
 	{
-		flag_optional(argument, list);
+		flag_optional(argument, len - 1, list);
 		ARG = argument[len - 1];
 	}
 	else
 	{
-		flag_optional(argument, list);
+		flag_optional(argument, len, list);
 		ARG = argument[len];
 	}
 	init_list(ap, ARG, list);
@@ -49,8 +49,8 @@ void					parsing_arg(char *argument, va_list ap, int len, LIST)
 void					init_list(va_list ap, char c, t_string *list)
 {
 	TAB[INT_LONG - 1] = (c == 'D' || c == 'O' || c == 'U' ||
-		c == 'C') ? INT_LONG : TAB[INT_LONG - 1];
-	c = (c == 'D' || c == 'O' || c == 'U') ? c + 32 : c;
+		c == 'C' || c == 'F') ? INT_LONG : TAB[INT_LONG - 1];
+	c = (c == 'D' || c == 'O' || c == 'U' || c == 'F') ? c + 32 : c;
 	if (c == 's' && NO_LONG)
 		list_add_conversion(string_s(ap), list);
 	else if (c == 'S' || (c == 's' && TAB[INT_LONG - 1] == INT_LONG))
@@ -74,7 +74,7 @@ int						add_arg(LIST, va_list ap)
 {
 	if (params(ARG, NO_C))
 	{
-		if (params(ARG, ENT) == 0 || params(ARG, "uUoOxX"))
+		if (params(ARG, ENT) == 0 || params(ARG, UNSIGNED_))
 		{
 			TAB[BLANK - 1] = 0;
 			TAB[SIGN - 1] = 0;
