@@ -51,9 +51,9 @@ void					init_list(va_list ap, char c, t_string *list)
 	TAB[INT_LONG - 1] = (c == 'D' || c == 'O' || c == 'U' ||
 		c == 'C') ? INT_LONG : TAB[INT_LONG - 1];
 	c = (c == 'D' || c == 'O' || c == 'U') ? c + 32 : c;
-	if (c == 's')
+	if (c == 's' && NO_LONG)
 		list_add_conversion(string_s(ap), list);
-	else if (c == 'S')
+	else if (c == 'S' || (c == 's' && TAB[INT_LONG - 1] == INT_LONG))
 		list_add_conversion(string_unix(ap, list), list);
 	else if (c == 'd' || c == 'i')
 		list_add_conversion(flag_int_sign(*list, ap), list);
@@ -61,8 +61,7 @@ void					init_list(va_list ap, char c, t_string *list)
 		list_add_conversion("", list);
 	else if (c == 'f')
 	{
-		if (POINT_NO)
-			TAB[POINT] = 6;
+		TAB[POINT] = (POINT_NO) ? 6 : TAB[POINT];
 		list_add_conversion(conv_float(ap, TAB[POINT]), list);
 	}
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'p')

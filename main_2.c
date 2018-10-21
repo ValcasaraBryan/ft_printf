@@ -49,6 +49,13 @@ int		main(int argc, char **argv)
 	const char format_23[50] = "%S";
 	const char format_24[50] = "%S";
 	const char format_25[50] = "%.8S";
+	const char format_26[50] = "{%03c}";
+	const char format_27[50] = "%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S%S";
+	const char format_28[50] = "%ls, %ls";
+	const char format_29[50] = "{%030X}";
+	const char format_30[50] = "{%03c}";
+	const char format_31[50] = "%.4S";
+	const char format_32[50] = "%15.4S";
 
 
 	printf("%s\n", format_4);
@@ -354,6 +361,96 @@ int		main(int argc, char **argv)
 	}
 	else
 		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_26);
+	ret = ft_printf(format_26, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_26, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_27);
+	ret = ft_printf(format_27, L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ", L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_27, L"Α α", L"Β β", L"Γ γ", L"Δ δ", L"Ε ε", L"Ζ ζ", L"Η η", L"Θ θ", L"Ι ι", L"Κ κ", L"Λ λ", L"Μ μ", L"Ν ν", L"Ξ ξ", L"Ο ο", L"Π π", L"Ρ ρ", L"Σ σ", L"Τ τ", L"Υ υ", L"Φ φ", L"Χ χ", L"Ψ ψ", L"Ω ω", L"");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_28);
+	ret = ft_printf(format_28, L"ÊM-^ZM-^VÁM-^BM-^I", L"ŸM-^Dÿ≠ŸM-^E ÿÆŸM-^Fÿ≤ŸM-ÿ±");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_28, L"ÊM-^ZM-^VÁM-^BM-^I", L"ŸM-^Dÿ≠ŸM-^E ÿÆŸM-^Fÿ≤ŸM-ÿ±");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+	printf("%s\n", format_29);
+	ret = ft_printf(format_29, 0xFFFF);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_29, 0xFFFF);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_30);
+	ret = ft_printf(format_30, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_30, 0);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_31);
+	ret = ft_printf(format_31, L"我是一只猫。");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_31, L"我是一只猫。");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_32);
+	ret = ft_printf(format_32, L"我是一只猫。");
+	printf("| %d\n", ret);
+	ret_2 = printf(format_32, L"我是一只猫。");
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+
+
+
 
 
 	return (0);

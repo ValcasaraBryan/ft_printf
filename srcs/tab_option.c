@@ -21,8 +21,7 @@ void					flag_optional(char *arg, t_string *list)
 	{
 		if (arg[i] == '-')
 			TAB[LEFT - 1] = LEFT;
-		if (arg[i] == '0' && !((arg[i - 1] <= '9' && arg[i - 1] >= '0'))
-				&& !(arg[i - 1] == '.'))
+		if (arg[i] == '0' && arg[i - 1] != '.')
 			TAB[ZERO - 1] = ZERO;
 		if (arg[i] == ' ')
 			TAB[BLANK - 1] = BLANK;
@@ -42,7 +41,7 @@ int						largeur_of_camp(char *arg, t_string *list, int i)
 	char *str;
 
 	if (LARGEUR_NO)
-		if (arg[i] >= '1' && arg[i] <= '9' && !(arg[i - 1] == '.'))
+		if (arg[i] >= '1' && arg[i] <= '9' && arg[i - 1] != '.')
 		{
 			TAB[LARGEUR] = ft_atoll(arg + i);
 			str = ft_lltoa(TAB[LARGEUR]);

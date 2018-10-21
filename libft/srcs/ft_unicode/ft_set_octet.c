@@ -20,6 +20,8 @@ long				ft_set_octet(int octet)
 	int				i;
 
 	i = 0;
+	if (octet <= 0)
+		return (-1);
 	multi_byte = 1;
 	multiple = 8 * octet - 1;
 	while (multiple > i++)
