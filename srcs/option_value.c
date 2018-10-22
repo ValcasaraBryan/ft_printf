@@ -86,7 +86,7 @@ void					unsigned_value(va_list ap, char c, t_string *list)
 		hexa = HEXA_MAJ;
 	else if (c == 'p')
 	{
-		TAB[HASHTAG - 1] = HASHTAG;
+		list->tab[HASHTAG - 1] = HASHTAG;
 		list_add_conversion(conv_void(ap, HEXA_MIN), list);
 		return ;
 	}
@@ -98,20 +98,20 @@ int						option_char(t_string *list, char c)
 	int					i;
 
 	i = 0;
-	if (LEFT_)
+	if (list->tab[LEFT - 1] == LEFT)
 	{
 		i += ft_putchar(c);
-		if (LARGEUR_ && ZERO_)
-			i += ft_putchar_len('0', TAB[LARGEUR] - 1, FD);
-		else if (LARGEUR_ && ZERO_NO)
-			i += ft_putchar_len(' ', TAB[LARGEUR] - 1, FD);
+		if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
+			i += ft_putchar_len('0', list->tab[LARGEUR] - 1, list->fd);
+		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
+			i += ft_putchar_len(' ', list->tab[LARGEUR] - 1, list->fd);
 	}
-	else if (RIGHT_)
+	else if (list->tab[LEFT - 1] == 0)
 	{
-		if (LARGEUR_ && ZERO_)
-			i += ft_putchar_len('0', TAB[LARGEUR] - 1, FD);
-		else if (LARGEUR_ && ZERO_NO)
-			i += ft_putchar_len(' ', TAB[LARGEUR] - 1, FD);
+		if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
+			i += ft_putchar_len('0', list->tab[LARGEUR] - 1, list->fd);
+		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
+			i += ft_putchar_len(' ', list->tab[LARGEUR] - 1, list->fd);
 		i += ft_putchar(c);
 	}
 	return (i);
@@ -123,5 +123,5 @@ void					reset_tab_int(t_string *list, int len)
 
 	i = -1;
 	while (++i < len)
-		TAB[i] = 0;
+		list->tab[i] = 0;
 }

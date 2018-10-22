@@ -14,59 +14,75 @@
 
 int						change_string(t_string *list)
 {
-	if (binary_flag(TAB, LENGHT_TAB))
+	if (binary_flag(list->tab, LENGHT_TAB))
 	{
 		priority_precision_largeur_sign_hashtag(list);
+		priority_precision_largeur_sign_hashtag_(list);
 		priority_precision_largeur(list);
 		return (add_precision(list));
 	}
 	else
 	{
-		LEN = (params(ARG, "dip") && *DATA == '0') ? 0 : LEN;
-		return (ft_putstr_len(DATA, LEN, FD));
+		list->len = params(list->char_of_arg, "dip") && *list->data == '0' ? 0
+			: list->len;
+		return (ft_putstr_len(list->data, list->len, list->fd));
 	}
 }
 
 void					priority_precision_largeur_sign_hashtag(t_string *list)
 {
-	LEN = (SIGN_ && *DATA == '-') ? LEN - 1 : LEN;
-	if (HASHTAG_)
+	list->len = (list->tab[SIGN - 1] == SIGN && *list->data == '-')
+		? list->len - 1 : list->len;
+	if (list->tab[HASHTAG - 1] == HASHTAG)
 	{
-		TAB[POINT] = (params(ARG, "oO") && POINT_) ? TAB[POINT] - 1 :
-			TAB[POINT];
-		TAB[LARGEUR] = (params(ARG, "oO") && LARGEUR_) ? TAB[LARGEUR] - 1 :
-			TAB[LARGEUR];
-		TAB[HASHTAG - 1] = (params(ARG, "oO") && LARGEUR_NO && POINT_NO
-			&& *DATA == '0') ? 0 : TAB[HASHTAG - 1];
-		TAB[HASHTAG - 1] = (params(ARG, "Xx") && *DATA == '0') ? 0 :
-			TAB[HASHTAG - 1];
+		list->tab[POINT] = params(list->char_of_arg, "oO")
+			&& list->tab[POINT - 1] == POINT ? list->tab[POINT] - 1
+				: list->tab[POINT];
+		list->tab[LARGEUR] = params(list->char_of_arg, "oO")
+			&& list->tab[LARGEUR] > 0 ? list->tab[LARGEUR] - 1
+				: list->tab[LARGEUR];
+		list->tab[HASHTAG - 1] = params(list->char_of_arg, "oO")
+			&& list->tab[LARGEUR] == 0 && list->tab[POINT - 1] == 0
+				&& *list->data == '0' ? 0 : list->tab[HASHTAG - 1];
+		list->tab[HASHTAG - 1] = params(list->char_of_arg, "Xx")
+			&& *list->data == '0' ? 0 : list->tab[HASHTAG - 1];
 	}
-	if (POINT_)
+}
+
+void					priority_precision_largeur_sign_hashtag_(t_string *list)
+{
+	if (list->tab[POINT - 1] == POINT)
 	{
-		LEN = (params(ARG, ENT) && *DATA == '0') ? 0 : LEN;
-		LEN = ((LEN > TAB[POINT]) && params(ARG, "sS")) ? TAB[POINT] :
-			LEN;
-		TAB[POINT] = ((LEN < TAB[POINT]) && params(ARG, "sS")) ? LEN :
-			TAB[POINT];
-		TAB[POINT] = ((LEN > TAB[POINT])) ? LEN : TAB[POINT];
+		list->len = params(list->char_of_arg, ENT) && *list->data == '0'
+			? 0 : list->len;
+		list->len = params(list->char_of_arg, "sS") && list->len
+			> list->tab[POINT] ? list->tab[POINT] : list->len;
+		list->tab[POINT] = params(list->char_of_arg, "sS") && list->len
+			< list->tab[POINT] ? list->len : list->tab[POINT];
+		list->tab[POINT] = list->len > list->tab[POINT] ? list->len
+			: list->tab[POINT];
 	}
-	if (HASHTAG_)
-		TAB[LARGEUR] = ((params(ARG, "oO") == 0) && LARGEUR_ &&
-			(TAB[LARGEUR] + 2) > LEN) ? TAB[LARGEUR] - 2 : TAB[LARGEUR];
+	list->tab[LARGEUR] = params(list->char_of_arg, "oO") == 0
+		&& list->tab[HASHTAG - 1] == HASHTAG && list->tab[LARGEUR] > 0
+			&& list->tab[LARGEUR] + 2 > list->len ? list->tab[LARGEUR] - 2
+				: list->tab[LARGEUR];
 }
 
 void					priority_precision_largeur(t_string *list)
 {
-	if (LARGEUR_ && POINT_NO)
-		TAB[LARGEUR] = (TAB[LARGEUR] > LEN) ? TAB[LARGEUR] - LEN : 0;
-	else if (LARGEUR_ && POINT_)
+	if (list->tab[LARGEUR] > 0 && list->tab[POINT - 1] == 0)
+		list->tab[LARGEUR] = list->tab[LARGEUR] > list->len
+			? list->tab[LARGEUR] - list->len : 0;
+	else if (list->tab[LARGEUR] > 0 && list->tab[POINT - 1] == POINT)
 	{
-		TAB[LARGEUR] = (TAB[LARGEUR] > TAB[POINT]) ? TAB[LARGEUR]
-			- TAB[POINT] : 0;
-		TAB[POINT] = (LEN < TAB[POINT]) ? TAB[POINT] - LEN : 0;
+		list->tab[LARGEUR] = list->tab[LARGEUR] > list->tab[POINT]
+			? list->tab[LARGEUR] - list->tab[POINT] : 0;
+		list->tab[POINT] = list->len < list->tab[POINT]
+			? list->tab[POINT] - list->len : 0;
 	}
-	else if (LARGEUR_NO && POINT_)
-		TAB[POINT] = (LEN < TAB[POINT]) ? TAB[POINT] - LEN : 0;
+	else if (list->tab[LARGEUR] == 0 && list->tab[POINT - 1] == POINT)
+		list->tab[POINT] = list->len < list->tab[POINT]
+			? list->tab[POINT] - list->len : 0;
 }
 
 int						add_precision(t_string *list)
@@ -74,39 +90,26 @@ int						add_precision(t_string *list)
 	int					len_write;
 	int					sign;
 
-	sign = (SIGN_ || BLANK_) ? 1 : 0;
-	len_write = (RIGHT_ && LARGEUR_ && ZERO_NO) ? ft_putchar_len(' ',
-		TAB[LARGEUR] - sign, FD) : 0;
-	len_write += ft_putchar_len(add_sign(list), sign, FD);
-	if (HASHTAG_ && params(ARG, "oO"))
-		len_write += ft_putchar_fd('0', FD);
-	if (HASHTAG_ && params(ARG, "xp"))
-		len_write += ft_putstr_len("0x", 2, FD);
-	if (HASHTAG_ && params(ARG, "X"))
-		len_write += ft_putstr_len("0X", 2, FD);
-	if (RIGHT_ && LARGEUR_ && ZERO_)
-		len_write += ft_putchar_len('0', TAB[LARGEUR] - sign, FD);
-	if (POINT_ && params(ARG, ENT))
-		len_write += ft_putchar_len('0', TAB[POINT], FD);
-	len_write = (*DATA == '-') ? len_write + ft_putstr_len(DATA + 1, LEN, FD) :
-		len_write + ft_putstr_len(DATA, LEN, FD);
-	if (LEFT_ && LARGEUR_)
-		len_write += ft_putchar_len(' ', TAB[LARGEUR] - sign, FD);
+	sign = list->tab[SIGN - 1] == SIGN || list->tab[BLANK - 1] == BLANK ? 1 : 0;
+	len_write = list->tab[LEFT - 1] == 0 && list->tab[LARGEUR] > 0
+		&& list->tab[ZERO - 1] == 0 ? ft_putchar_len(' ', list->tab[LARGEUR]
+			- sign, list->fd) : 0;
+	len_write += ft_putchar_len(add_sign(list), sign, list->fd);
+	if (list->tab[HASHTAG - 1] == HASHTAG && params(list->char_of_arg, "oO"))
+		len_write += ft_putchar_fd('0', list->fd);
+	if (list->tab[HASHTAG - 1] == HASHTAG && params(list->char_of_arg, "xp"))
+		len_write += ft_putstr_len("0x", 2, list->fd);
+	if (list->tab[HASHTAG - 1] == HASHTAG && params(list->char_of_arg, "X"))
+		len_write += ft_putstr_len("0X", 2, list->fd);
+	if (list->tab[LEFT - 1] == 0 && list->tab[LARGEUR] > 0
+		&& list->tab[ZERO - 1] == ZERO)
+		len_write += ft_putchar_len('0', list->tab[LARGEUR] - sign, list->fd);
+	if (list->tab[POINT - 1] == POINT && params(list->char_of_arg, ENT))
+		len_write += ft_putchar_len('0', list->tab[POINT], list->fd);
+	len_write = *list->data == '-' ? len_write + ft_putstr_len(list->data + 1,
+		list->len, list->fd) : len_write + ft_putstr_len(list->data,
+			list->len, list->fd);
+	if (list->tab[LEFT - 1] == LEFT && list->tab[LARGEUR] > 0)
+		len_write += ft_putchar_len(' ', list->tab[LARGEUR] - sign, list->fd);
 	return (len_write);
-}
-
-char					add_sign(t_string *list)
-{
-	char				c;
-
-	if (SIGN_)
-	{
-		if (*DATA == '-')
-			c = '-';
-		else
-			c = '+';
-	}
-	else if (BLANK_)
-		c = ' ';
-	return (c);
 }

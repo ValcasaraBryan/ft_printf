@@ -42,32 +42,6 @@
 # define HEXA_MAJ			"0123456789ABCEDF"
 # define OCTAL				"01234567"
 # define DECIMAL			"0123456789"
-# define TAB				list->tab
-# define DATA				list->data
-# define LEN				list->len
-# define ARG				list->char_of_arg
-# define LIST				t_string *list
-# define FD					list->fd
-
-# define RIGHT_				(TAB[LEFT - 1] == 0)
-# define LEFT_				(TAB[LEFT - 1] == LEFT)
-# define ZERO_				(TAB[ZERO - 1] == ZERO)
-# define ZERO_NO			(TAB[ZERO - 1] == 0)
-# define SIGN_				(TAB[SIGN - 1] == SIGN)
-# define SIGN_NO			(TAB[SIGN - 1] == 0)
-# define BLANK_				(TAB[BLANK - 1] == BLANK)
-# define BLANK_NO			(TAB[BLANK - 1] == 0)
-# define HASHTAG_			(TAB[HASHTAG - 1] == HASHTAG)
-# define HASHTAG_NO			(TAB[HASHTAG - 1] == 0)
-# define POINT_				(TAB[POINT - 1] == POINT)
-# define POINT_NO			(TAB[POINT - 1] == 0)
-# define LARGEUR_NO			(TAB[LARGEUR] == 0)
-# define LARGEUR_			(TAB[LARGEUR] > 0)
-
-# define NO_SHORT			(TAB[INT_SHORT - 1] == 0)
-# define NO_SHORT_			(TAB[INT_SHORT_SHORT - 1] == 0)
-# define NO_LONG			(TAB[INT_LONG - 1] == 0)
-# define NO_LONG_			(TAB[INT_LONG_LONG - 1] == 0)
 
 typedef struct				s_string
 {
@@ -109,9 +83,10 @@ int							inter_flag(const char *format, int *len_write,
 int							change_string(t_string *list);
 void						priority_precision_largeur_sign_hashtag(t_string
 							*list);
+void						priority_precision_largeur_sign_hashtag_(t_string
+							*list);
 void						priority_precision_largeur(t_string *list);
 int							add_precision(t_string *list);
-char						add_sign(t_string *list);
 
 void						flag_optional(char *arg, int len, t_string *list);
 int							largeur_of_camp(char *arg, t_string *list, int i);
@@ -128,6 +103,7 @@ int							option_char(t_string *list, char c);
 void						reset_tab_int(t_string *list, int len);
 
 void						free_data(t_string *list, unsigned int nb_percent);
+char						add_sign(t_string *list);
 int							ft_fprintf(const char *format, int fd, ...);
 
 char						*string_s(va_list ap);

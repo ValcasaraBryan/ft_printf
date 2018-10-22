@@ -38,7 +38,7 @@ SRC =	srcs/ft_is/ft_isalnum.c\
 		srcs/ft_mem/ft_memmove.c\
 		srcs/ft_mem/ft_memset.c\
 		\
-		srcs/ft_print/ft_print_lst.c\
+		srcs/ft_print/ft_buff_printf.c\
 		srcs/ft_print/ft_print_words_tables.c\
 		\
 		srcs/ft_put/ft_putchar.c\

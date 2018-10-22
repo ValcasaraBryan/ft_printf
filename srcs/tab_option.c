@@ -20,17 +20,17 @@ void					flag_optional(char *arg, int len, t_string *list)
 	while (arg[++i])
 	{
 		if (arg[i] == '-')
-			TAB[LEFT - 1] = LEFT;
+			list->tab[LEFT - 1] = LEFT;
 		if (arg[i] == '0' && arg[i - 1] != '.')
-			TAB[ZERO - 1] = ZERO;
+			list->tab[ZERO - 1] = ZERO;
 		if (arg[i] == ' ')
-			TAB[BLANK - 1] = BLANK;
+			list->tab[BLANK - 1] = BLANK;
 		if (arg[i] == '+')
-			TAB[SIGN - 1] = SIGN;
+			list->tab[SIGN - 1] = SIGN;
 		if (arg[i] == '#' && params(arg[len], UNSIGNED_))
-			TAB[HASHTAG - 1] = HASHTAG;
+			list->tab[HASHTAG - 1] = HASHTAG;
 		if (arg[i] == 'j')
-			TAB[J_FLAG - 1] = J_FLAG;
+			list->tab[J_FLAG - 1] = J_FLAG;
 		i = largeur_of_camp(arg, list, i);
 		i = flag_optional_suit(arg, list, i);
 	}
@@ -40,20 +40,20 @@ int						largeur_of_camp(char *arg, t_string *list, int i)
 {
 	char *str;
 
-	if (LARGEUR_NO)
+	if (list->tab[LARGEUR] == 0)
 		if (arg[i] >= '1' && arg[i] <= '9' && arg[i - 1] != '.')
 		{
-			TAB[LARGEUR] = ft_atoll(arg + i);
-			str = ft_lltoa(TAB[LARGEUR]);
+			list->tab[LARGEUR] = ft_atoll(arg + i);
+			str = ft_lltoa(list->tab[LARGEUR]);
 			i += ft_strlen(str) - 1;
 			free(str);
 		}
-	if (POINT_NO)
+	if (list->tab[POINT - 1] == 0)
 		if (arg[i] == '.')
 		{
-			TAB[POINT - 1] = POINT;
-			TAB[POINT] = ft_atoll(arg + i + 1);
-			str = ft_lltoa(TAB[LARGEUR]);
+			list->tab[POINT - 1] = POINT;
+			list->tab[POINT] = ft_atoll(arg + i + 1);
+			str = ft_lltoa(list->tab[LARGEUR]);
 			i += ft_strlen(str) - 1;
 			free(str);
 		}
@@ -63,26 +63,28 @@ int						largeur_of_camp(char *arg, t_string *list, int i)
 int						flag_optional_suit(char *arg, t_string *list, int i)
 {
 	if (arg[i] == 'z')
-		TAB[Z_FLAG - 1] = Z_FLAG;
-	if (arg[i] == 'l' && NO_LONG && NO_LONG_)
+		list->tab[Z_FLAG - 1] = Z_FLAG;
+	if (arg[i] == 'l' && list->tab[INT_LONG - 1] == 0
+		&& list->tab[INT_LONG_LONG - 1] == 0)
 	{
 		if (arg[i] == 'l' && arg[i + 1] == 'l')
 		{
-			TAB[INT_LONG_LONG - 1] = INT_LONG_LONG;
+			list->tab[INT_LONG_LONG - 1] = INT_LONG_LONG;
 			i++;
 		}
 		else
-			TAB[INT_LONG - 1] = INT_LONG;
+			list->tab[INT_LONG - 1] = INT_LONG;
 	}
-	if (arg[i] == 'h' && NO_SHORT && NO_SHORT_)
+	if (arg[i] == 'h' && list->tab[INT_SHORT - 1] == 0
+		&& list->tab[INT_SHORT_SHORT - 1] == 0)
 	{
 		if (arg[i] == 'h' && arg[i + 1] == 'h')
 		{
-			TAB[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
+			list->tab[INT_SHORT_SHORT - 1] = INT_SHORT_SHORT;
 			i++;
 		}
 		else
-			TAB[INT_SHORT - 1] = INT_SHORT;
+			list->tab[INT_SHORT - 1] = INT_SHORT;
 	}
 	return (i);
 }
@@ -91,13 +93,13 @@ void					list_add_conversion(char *string, t_string *list)
 {
 	if (string)
 	{
-		DATA = string;
-		LEN = ft_strlen(string);
+		list->data = string;
+		list->len = ft_strlen(string);
 	}
 	else
 	{
-		DATA = ft_strdup("(null)");
-		LEN = 6;
+		list->data = ft_strdup("(null)");
+		list->len = 6;
 	}
 }
 

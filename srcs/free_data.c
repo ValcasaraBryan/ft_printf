@@ -19,6 +19,22 @@ void					free_data(t_string *list, unsigned int nb_percent)
 			free(list[nb_percent].data);
 }
 
+char					add_sign(t_string *list)
+{
+	char				c;
+
+	if (list->tab[SIGN - 1] == SIGN)
+	{
+		if (*list->data == '-')
+			c = '-';
+		else
+			c = '+';
+	}
+	else if (list->tab[BLANK - 1] == BLANK)
+		c = ' ';
+	return (c);
+}
+
 int						ft_fprintf(const char *format, int fd, ...)
 {
 	va_list				ap;
@@ -32,7 +48,7 @@ int						ft_fprintf(const char *format, int fd, ...)
 		return (-1);
 	if (percent)
 	{
-		va_start(ap, format);
+		va_start(ap, fd);
 		if (!(list = (t_string *)malloc(sizeof(t_string) * percent)))
 			return (-1);
 		while (i < percent)

@@ -74,17 +74,16 @@ int						parsing_params(char *arg)
 	if (!arg)
 		return (-1);
 	i = p_of_params(arg);
-	if (arg[i] == '%')
-		while (arg[i + (++j)])
-		{
-			if (params(arg[i + j], CONV) > 0)
-				return (j);
-			if (params(arg[i + j], ALL) == 0)
-				return (x + 1);
-			err = (params(arg[i + j], FLAG) > 0) ? err + 1 : err;
-			x++;
-		}
-	return (err = (err > 0) ? err + 1 : 0);
+	while (arg[i + (++j)])
+	{
+		if (params(arg[i + j], CONV) > 0)
+			return (j);
+		if (params(arg[i + j], ALL) == 0)
+			return (x + 1);
+		err = (params(arg[i + j], FLAG) > 0) ? err + 1 : err;
+		x++;
+	}
+	return (err = (err > 0) ? err : 0);
 }
 
 int						params(char comp, const char *list)
@@ -98,7 +97,7 @@ int						params(char comp, const char *list)
 	return (0);
 }
 
-int						parsing(const char *format, LIST, va_list ap,
+int						parsing(const char *format, t_string *list, va_list ap,
 						unsigned int nb_percent)
 {
 	int				i_of_format;
@@ -109,7 +108,8 @@ int						parsing(const char *format, LIST, va_list ap,
 
 	i = 0;
 	i_of_format = p_of_params((char *)format);
-	len_write = (i_of_format > 0) ? ft_putstr_len(format, i_of_format, FD) : 0;
+	len_write = (i_of_format > 0) ? ft_putstr_len(format, i_of_format,
+		list->fd) : 0;
 	while (nb_percent--)
 	{
 		reset_tab_int(list + i, LENGHT_TAB);
@@ -123,6 +123,6 @@ int						parsing(const char *format, LIST, va_list ap,
 			i_of_format, &len_write, list, &len_arg) : i_of_format;
 	}
 	len_write = (format + i_of_format) ? len_write + ft_putstr_len(format +
-		i_of_format, ft_strlen(format + i_of_format), FD) : len_write;
+		i_of_format, ft_strlen(format + i_of_format), list->fd) : len_write;
 	return (len_write);
 }
