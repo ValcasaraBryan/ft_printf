@@ -38,7 +38,7 @@ void					flag_optional(char *arg, int len, t_string *list)
 
 int						largeur_of_camp(char *arg, t_string *list, int i)
 {
-	char *str;
+	char	*str;
 
 	if (list->tab[LARGEUR] == 0)
 		if (arg[i] >= '1' && arg[i] <= '9' && arg[i - 1] != '.')
@@ -53,8 +53,8 @@ int						largeur_of_camp(char *arg, t_string *list, int i)
 		{
 			list->tab[POINT - 1] = POINT;
 			list->tab[POINT] = ft_atoll(arg + i + 1);
-			str = ft_lltoa(list->tab[LARGEUR]);
-			i += ft_strlen(str) - 1;
+			str = ft_lltoa(list->tab[POINT]);
+			i += ft_strlen(str);
 			free(str);
 		}
 	return (i);

@@ -27,30 +27,45 @@ static int	*tab_unix(int octet, int len, wchar_t *str)
 	return (tab);
 }
 
-char		*ft_unicode_to_str(wchar_t *str)
+static char	*tampon(int octet, int *tab, wchar_t *str)
+{
+	char	*tmp;
+
+	tmp = ft_strnew(octet);
+	if (octet > 1)
+	{
+		while (octet-- > 0)
+			*(tmp + octet) = *(tab + octet);
+		free(tab);
+		return (tmp);
+	}
+	else
+	{
+		*tmp = *str;
+		free(tab);
+		return (tmp);
+	}
+}
+
+char		*ft_unicode_to_str(wchar_t *str, unsigned int precision)
 {
 	char	*data;
-	char	*tmp;
+	int		total;
 	int		len;
 	int		octet;
-	int		*tab;
 
 	if (!str)
 		return (NULL);
+	total = 0;
 	data = ft_strdup("");
 	while (*str)
-	{
+	{	
 		len = ft_wchar_len(*str);
-		octet = ft_wset_plage_byte(len);
-		tmp = ft_strnew(octet);
-		tab = tab_unix(octet, len, str);
-		if (octet > 1)
-			while (octet-- > 0)
-				*(tmp + octet) = *(tab + octet);
-		else
-			*tmp = *str;
-		free(tab);
-		data = (data) ? ft_strjoin_free(data, tmp, 3) : tmp;
+		total += (octet = ft_wset_plage_byte(len));
+		if (total > precision && precision > 0)
+			return (data);
+		data = ft_strjoin_free(data, tampon(octet,
+			tab_unix(octet, len, str), str), 3);
 		str++;
 	}
 	return (data);

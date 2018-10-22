@@ -48,10 +48,13 @@ char					*string_unix(va_list ap, t_string *list)
 {
 	wchar_t				*str;
 	char				*data;
+	int					len;
+	int					octet;
+	int					i;
 
+	i = -1;
+	octet = 0;
 	str = va_arg(ap, wchar_t *);
-	data = ft_unicode_to_str(str);
-	if (list->tab[POINT - 1] == POINT)
-		return (data);
+	data = ft_unicode_to_str(str, (unsigned int)list->tab[POINT]);
 	return (data);
 }

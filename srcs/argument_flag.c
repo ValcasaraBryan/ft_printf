@@ -23,7 +23,7 @@ int						change_string(t_string *list)
 	}
 	else
 	{
-		list->len = params(list->char_of_arg, "dip") && *list->data == '0' ? 0
+		list->len = list->char_of_arg == 'p' && *list->data == '0' ? 0
 			: list->len;
 		return (ft_putstr_len(list->data, list->len, list->fd));
 	}
@@ -33,17 +33,16 @@ void					priority_precision_largeur_sign_hashtag(t_string *list)
 {
 	list->len = (list->tab[SIGN - 1] == SIGN && *list->data == '-')
 		? list->len - 1 : list->len;
+	list->tab[HASHTAG - 1] = list->tab[HASHTAG - 1] == HASHTAG
+	&& params(list->char_of_arg, "oO") && list->tab[POINT - 1] == 0
+	&& *list->data == '0' ? 0 : list->tab[HASHTAG - 1];
 	if (list->tab[HASHTAG - 1] == HASHTAG)
 	{
 		list->tab[POINT] = params(list->char_of_arg, "oO")
-			&& list->tab[POINT - 1] == POINT ? list->tab[POINT] - 1
-				: list->tab[POINT];
+		&& list->tab[POINT - 1] == POINT ? list->tab[POINT] - 1
+			: list->tab[POINT];
 		list->tab[LARGEUR] = params(list->char_of_arg, "oO")
-			&& list->tab[LARGEUR] > 0 ? list->tab[LARGEUR] - 1
-				: list->tab[LARGEUR];
-		list->tab[HASHTAG - 1] = params(list->char_of_arg, "oO")
-			&& list->tab[LARGEUR] == 0 && list->tab[POINT - 1] == 0
-				&& *list->data == '0' ? 0 : list->tab[HASHTAG - 1];
+		&& list->tab[LARGEUR] > 0 ? list->tab[LARGEUR] - 1 : list->tab[LARGEUR];
 		list->tab[HASHTAG - 1] = params(list->char_of_arg, "Xx")
 			&& *list->data == '0' ? 0 : list->tab[HASHTAG - 1];
 	}
