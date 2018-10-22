@@ -68,7 +68,7 @@ debug : main.c
 	cpp main.c
 
 norm :
-	#------- only [*.c] and [*.h] -------#
+	#------- only [all.c] and [all.h] -------#
 	@norminette $(SRC) ft_printf.h > $(NORM)
 
 norm_line: norm
