@@ -1,0 +1,1 @@
+make && gcc main_3.c libftprintf.a && ./a.out && rm libftprintf.a
