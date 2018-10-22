@@ -92,7 +92,3 @@ fclean : clean
 	@make fclean -C libft
 
 re : fclean all
-
-re_exe :
-	make -C libft
-	make exe
