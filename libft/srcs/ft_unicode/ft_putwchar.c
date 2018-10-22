@@ -12,20 +12,22 @@
 
 #include "../../includes/libft.h"
 
-int					ft_putwchar(int *tab, int len)
+int					ft_putwchar(int *tab, unsigned int octet)
 {
 	int				i;
 	int				ret;
-	char			c;
 
 	i = -1;
 	ret = 0;
-	while (++i < len)
+	while (++i < octet)
 	{
-		c = tab[i];
-		if (write(1, &c, 1) == -1)
+		if (write(1, &tab[i], 1) == -1)
+		{
+			free(tab);
 			return (-1);
+		}
 		ret++;
 	}
+	free(tab);
 	return (ret);
 }

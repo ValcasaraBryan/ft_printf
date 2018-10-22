@@ -84,9 +84,9 @@ int						add_arg(t_string *list, va_list ap)
 	}
 	if ((list->char_of_arg == 'c' && list->tab[INT_LONG - 1] == INT_LONG)
 		|| list->char_of_arg == 'C')
-		return (conv_long_c(ap));
+		return (option_char(list, conv_long_c(ap)));
 	else if (list->char_of_arg == 'c')
-		return (option_char(list, conv_c(ap)));
+		return (option_char(list, (unsigned char)conv_c(ap)));
 	else if (ft_isprint(list->char_of_arg))
 		return (option_char(list, list->char_of_arg));
 	return (0);

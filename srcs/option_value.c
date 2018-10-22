@@ -93,26 +93,31 @@ void					unsigned_value(va_list ap, char c, t_string *list)
 	list_add_conversion(flag_int_unsigned(*list, ap, hexa), list);
 }
 
-int						option_char(t_string *list, char c)
+int						option_char(t_string *list, wchar_t c)
 {
 	int					i;
+	int					len;
+	int					octet;
 
 	i = 0;
+	len = ft_wchar_len(c);
+	octet = list->char_of_arg == 'C' || (list->char_of_arg == 'c'
+		&& list->tab[INT_LONG - 1] == INT_LONG) ? ft_wset_plage_byte(len) : 1;
 	if (list->tab[LEFT - 1] == LEFT)
 	{
-		i += ft_putchar(c);
+		i += ft_putwchar(tab_unix(octet, len, c), octet);
 		if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
-			i += ft_putchar_len('0', list->tab[LARGEUR] - 1, list->fd);
+			i += ft_putchar_len('0', list->tab[LARGEUR] - octet, list->fd);
 		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
-			i += ft_putchar_len(' ', list->tab[LARGEUR] - 1, list->fd);
+			i += ft_putchar_len(' ', list->tab[LARGEUR] - octet, list->fd);
 	}
 	else if (list->tab[LEFT - 1] == 0)
 	{
 		if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
-			i += ft_putchar_len('0', list->tab[LARGEUR] - 1, list->fd);
+			i += ft_putchar_len('0', list->tab[LARGEUR] - octet, list->fd);
 		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
-			i += ft_putchar_len(' ', list->tab[LARGEUR] - 1, list->fd);
-		i += ft_putchar(c);
+			i += ft_putchar_len(' ', list->tab[LARGEUR] - octet, list->fd);
+		i += ft_putwchar(tab_unix(octet, len, c), octet);
 	}
 	return (i);
 }

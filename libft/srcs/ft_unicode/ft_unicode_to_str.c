@@ -12,15 +12,17 @@
 
 #include "../../includes/libft.h"
 
-static int	*tab_unix(int octet, int len, wchar_t *str)
+int			*tab_unix(int octet, int len, wchar_t str)
 {
 	int		*tab;
 	long	mask;
 	long	mask_byte;
 
+	if (octet == 1)
+		return (tab = ft_putval_tab(str, octet));
 	if (!(mask = ft_set_octet(octet)))
 		return (0);
-	if (!(mask_byte = ft_set_unichar(mask, len + 1, *str)))
+	if (!(mask_byte = ft_set_unichar(mask, len + 1, str)))
 		return (0);
 	if (!(tab = ft_putval_tab(mask_byte, octet)))
 		return (0);
@@ -42,7 +44,6 @@ static char	*tampon(int octet, int *tab, wchar_t *str)
 	else
 	{
 		*tmp = *str;
-		free(tab);
 		return (tmp);
 	}
 }
@@ -59,13 +60,15 @@ char		*ft_unicode_to_str(wchar_t *str, unsigned int precision)
 	total = 0;
 	data = ft_strdup("");
 	while (*str)
-	{	
+	{
 		len = ft_wchar_len(*str);
 		total += (octet = ft_wset_plage_byte(len));
+		if (octet == -1)
+			return (data);
 		if (total > precision && precision > 0)
 			return (data);
 		data = ft_strjoin_free(data, tampon(octet,
-			tab_unix(octet, len, str), str), 3);
+				tab_unix(octet, len, *str), str), 3);
 		str++;
 	}
 	return (data);

@@ -99,7 +99,7 @@ char						*flag_int_sign(t_string list, va_list ap);
 char						*flag_int_unsigned(t_string list, va_list ap,
 							char *hexa);
 void						unsigned_value(va_list ap, char c, t_string *list);
-int							option_char(t_string *list, char c);
+int							option_char(t_string *list, wchar_t c);
 void						reset_tab_int(t_string *list, int len);
 
 void						free_data(t_string *list, unsigned int nb_percent);
@@ -108,7 +108,7 @@ int							ft_fprintf(const char *format, int fd, ...);
 
 char						*string_s(va_list ap);
 char						conv_c(va_list ap);
-int							conv_long_c(va_list ap);
+wchar_t						conv_long_c(va_list ap);
 char						*conv_int(va_list ap);
 char						*conv_long(va_list ap);
 char						*conv_long_long(va_list ap);

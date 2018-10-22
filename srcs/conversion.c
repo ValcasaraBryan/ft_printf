@@ -32,27 +32,12 @@ char					conv_c(va_list ap)
 	return ((unsigned char)c);
 }
 
-int						conv_long_c(va_list ap)
+wchar_t					conv_long_c(va_list ap)
 {
-	long				c;
-	int					len;
-	int					octet;
-	int					*tab;
-	int					ret;
+	wchar_t				c;
 
-	c = va_arg(ap, long);
-	len = ft_wchar_len(c);
-	octet = ft_wset_plage_byte(len);
-	if (octet > 1)
-	{
-		tab = ft_putval_tab(ft_set_unichar(ft_set_octet(octet), len + 1, c),
-			octet);
-		ret = ft_putwchar(tab, octet);
-		free(tab);
-		return (ret);
-	}
-	else
-		return (ft_putchar(c));
+	c = va_arg(ap, wchar_t);
+	return (c);
 }
 
 char					*conv_int(va_list ap)
