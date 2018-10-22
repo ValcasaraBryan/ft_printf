@@ -4,10 +4,14 @@
 
 int main(void)
 {
-  setlocale(LC_ALL, "en_US.UTF-8");
-  
+	setlocale(LC_ALL, "en_US.UTF-8");
 
-  printf("%d\n", ft_printf("|%S|", L"ݗݜशব"));
-  printf("%d\n", printf("|%S|", L"ݗݜशব"));
-  return (0);
+	//printf(" - %d\n", ft_printf("%C", 0x11ffff));
+	//printf(" - %d\n", printf("%C", 0x11ffff));
+	printf(" - %d\n", ft_printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"😄 😄", L'😄'));
+	printf(" - %d\n", printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"😄 😄", L'😄'));
+	//printf(" - %d\n", ft_printf("%C", 0x11ffff));
+  	//printf(" - %d\n", printf("%C", 0x11ffff));
+  
+	return (0);
 }

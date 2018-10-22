@@ -60,6 +60,7 @@ int		main(int argc, char **argv)
 	const char format_34[50] = "{%f}{%F}";
 	const char format_35[50] = "@main_ftprintf: %####0000 33..1..#00d";
 	const char format_36[50] = "% h";
+	const char format_37[50] = "%d";
 
 
 	printf("%s\n", format_4);
@@ -492,6 +493,18 @@ int		main(int argc, char **argv)
 	ret = ft_printf(format_36, 25);
 	printf("| %d\n", ret);
 	ret_2 = printf(format_36, 25);
+	printf("| %d\n", ret_2);
+	if (ret == ret_2)
+	{
+		printf("len -- OK --\n\n");
+	}
+	else
+		printf("len // NO // %d != %d\n\n", ret, ret_2);
+
+	printf("%s\n", format_37);
+	ret = ft_printf(format_37, 0);
+	printf("| %d\n", ret);
+	ret_2 = printf(format_37, 0);
 	printf("| %d\n", ret_2);
 	if (ret == ret_2)
 	{
