@@ -8,8 +8,8 @@ int main(void)
 
 	//printf(" - %d\n", ft_printf("%C", 0x11ffff));
 	//printf(" - %d\n", printf("%C", 0x11ffff));
-	printf(" - %d\n", ft_printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"😄 😄", L'😄'));
-	printf(" - %d\n", printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"😄 😄", L'😄'));
+	printf(" - %d\n", ft_printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"👉 👅", (wint_t)-2));
+	printf(" - %d\n", printf("%d, %#x, %S , %010C", 0xdb02, 0xdb02, L"👉 👅", (wint_t)-2));
 	//printf(" - %d\n", ft_printf("%C", 0x11ffff));
   	//printf(" - %d\n", printf("%C", 0x11ffff));
   
