@@ -12,9 +12,37 @@
 
 #include "../includes/ft_printf.h"
 
-void						free_data(t_string *list, unsigned int nb_percent)
+void					free_data(t_string *list, unsigned int nb_percent)
 {
 	while (nb_percent--)
 		if (params(list[nb_percent].char_of_arg, NO_C))
 			free(list[nb_percent].data);
+}
+
+int						ft_fprintf(const char *format, int fd, ...)
+{
+	va_list				ap;
+	t_string			*list;
+	int					ret;
+	int					i;
+	unsigned int		percent;
+
+	i = 0;
+	if ((percent = nb_percent((char *)format)) == -1)
+		return (-1);
+	if (percent)
+	{
+		va_start(ap, format);
+		if (!(list = (t_string *)malloc(sizeof(t_string) * percent)))
+			return (-1);
+		while (i < percent)
+			list[i++].fd = fd;
+		ret = parsing(format, list, ap, percent);
+		free_data(list, percent);
+		free(list);
+		va_end(ap);
+	}
+	else
+		return (ft_putstr_len(format, ft_strlen(format), fd));
+	return (ret);
 }

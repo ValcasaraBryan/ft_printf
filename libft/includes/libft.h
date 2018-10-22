@@ -61,7 +61,7 @@ void				*ft_memset(void *b, int c, size_t len);
 /*
 **	ft_print
 */
-int					ft_print_lst(t_list *list);
+int					ft_buff_printf(int fd, int fd_sortie);
 void				ft_print_words_tables(char **tab);
 /*
 **	ft_put

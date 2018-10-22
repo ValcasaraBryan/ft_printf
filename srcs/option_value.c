@@ -19,18 +19,18 @@ char					*flag_int_sign(t_string list, va_list ap)
 	int					j;
 
 	i = -1;
-	flag[0].tab = list.tab[INT_LONG - 1];
-	flag[0].fonction = &conv_long;
-	flag[1].tab = list.tab[INT_LONG_LONG - 1];
-	flag[1].fonction = &conv_long_long;
-	flag[2].tab = list.tab[INT_SHORT - 1];
-	flag[2].fonction = &conv_short;
-	flag[3].tab = list.tab[INT_SHORT_SHORT - 1];
-	flag[3].fonction = &conv_char;
-	flag[4].tab = list.tab[J_FLAG - 1];
-	flag[4].fonction = &conv_intmax;
-	flag[5].tab = list.tab[Z_FLAG - 1];
-	flag[5].fonction = &conv_ssize_t;
+	flag[0].tab = list.tab[INT_LONG_LONG - 1];
+	flag[0].fonction = &conv_long_long;
+	flag[1].tab = list.tab[INT_LONG - 1];
+	flag[1].fonction = &conv_long;
+	flag[2].tab = list.tab[Z_FLAG - 1];
+	flag[2].fonction = &conv_ssize_t;
+	flag[3].tab = list.tab[J_FLAG - 1];
+	flag[3].fonction = &conv_intmax;
+	flag[4].tab = list.tab[INT_SHORT_SHORT - 1];
+	flag[4].fonction = &conv_char;
+	flag[5].tab = list.tab[INT_SHORT - 1];
+	flag[5].fonction = &conv_short;
 	while (++i < 6)
 	{
 		j = -1;
@@ -49,18 +49,18 @@ char					*flag_int_unsigned(t_string list, va_list ap,
 	int					j;
 
 	i = -1;
-	flag[0].tab = list.tab[INT_LONG - 1];
-	flag[0].fonction = &conv_ulong;
-	flag[1].tab = list.tab[INT_LONG_LONG - 1];
-	flag[1].fonction = &conv_ulong_long;
-	flag[2].tab = list.tab[INT_SHORT - 1];
-	flag[2].fonction = &conv_ushort;
-	flag[3].tab = list.tab[INT_SHORT_SHORT - 1];
-	flag[3].fonction = &conv_uchar;
-	flag[4].tab = list.tab[J_FLAG - 1];
-	flag[4].fonction = &conv_uintmax;
-	flag[5].tab = list.tab[Z_FLAG - 1];
-	flag[5].fonction = &conv_size_t;
+	flag[0].tab = list.tab[INT_LONG_LONG - 1];
+	flag[0].fonction = &conv_ulong_long;
+	flag[1].tab = list.tab[INT_LONG - 1];
+	flag[1].fonction = &conv_ulong;
+	flag[2].tab = list.tab[Z_FLAG - 1];
+	flag[2].fonction = &conv_size_t;
+	flag[3].tab = list.tab[J_FLAG - 1];
+	flag[3].fonction = &conv_uintmax;
+	flag[4].tab = list.tab[INT_SHORT_SHORT - 1];
+	flag[4].fonction = &conv_uchar;
+	flag[5].tab = list.tab[INT_SHORT - 1];
+	flag[5].fonction = &conv_ushort;
 	while (++i < 6)
 	{
 		j = -1;
