@@ -141,4 +141,14 @@ long				ft_set_unichar(long masque_byte, int len, wchar_t c);
 int					*tab_unix(int octet, int len, wchar_t str);
 int					ft_wchar_len(wchar_t c);
 int					ft_wset_plage_byte(int len);
+/*
+**	maths
+*/
+int					pgcd(int x, int y);
+int					ft_sqrt(int nb);
+int					ft_recursive_factorial(int nb);
+int					ft_recursive_power(int nb, int power);
+int					ft_fibonacci(int index);
+int					ft_is_prime(int nb);
+int					ft_find_next_prime(int nb);
 #endif

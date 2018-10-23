@@ -105,8 +105,16 @@ SRC =	srcs/ft_is/ft_isalnum.c\
 		srcs/ft_unicode/ft_wchar_len.c\
 		srcs/ft_unicode/ft_wset_plage_byte.c\
 		\
-		srcs/GNL/get_next_line.c
-	
+		srcs/GNL/get_next_line.c\
+		\
+		srcs/maths/pgcd.c\
+		srcs/maths/ft_sqrt.c\
+		srcs/maths/ft_recursive_factorial.c\
+		srcs/maths/ft_recursive_power.c\
+		srcs/maths/ft_fibonacci.c\
+		srcs/maths/ft_is_prime.c\
+		srcs/maths/ft_find_next_prime.c
+
 OBJET = $(SRC:.c=.o)
 
 HEAD = -I includes/libft.h

@@ -12,22 +12,6 @@
 
 #include "../../includes/libft.h"
 
-static long			ft_recursive_power(int nb, int power)
-{
-	long			nb_init;
-
-	nb_init = nb;
-	if (power < 0)
-		return (0);
-	if (power == 0)
-		return (1);
-	if (power == 1)
-		return (nb);
-	if (power > 0)
-		return (nb_init * ft_recursive_power(nb, (power - 1)));
-	return (0);
-}
-
 static long			ft_unite(unsigned long nb)
 {
 	while (nb > 9)
