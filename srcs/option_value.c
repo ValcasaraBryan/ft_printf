@@ -103,9 +103,11 @@ int						option_char(t_string *list, wchar_t c)
 	len = ft_wchar_len(c);
 	octet = list->char_of_arg == 'C' || (list->char_of_arg == 'c'
 		&& list->tab[INT_LONG - 1] == INT_LONG) ? ft_wset_plage_byte(len) : 1;
+	list->tab[LARGEUR] = (octet > list->tab[LARGEUR]) ? octet : list->tab[LARGEUR];
 	if (list->tab[LEFT - 1] == LEFT)
 	{
-		i += ft_putwchar(tab_unix(octet, len, c), octet);
+		if ((retour_err(&i, ft_putwchar(tab_unix(octet, len, c), octet))) == -1)
+			return(-1);
 		if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
 			i += ft_putchar_len('0', list->tab[LARGEUR] - octet, list->fd);
 		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
@@ -117,7 +119,8 @@ int						option_char(t_string *list, wchar_t c)
 			i += ft_putchar_len('0', list->tab[LARGEUR] - octet, list->fd);
 		else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
 			i += ft_putchar_len(' ', list->tab[LARGEUR] - octet, list->fd);
-		i += ft_putwchar(tab_unix(octet, len, c), octet);
+		if ((retour_err(&i, ft_putwchar(tab_unix(octet, len, c), octet))) == -1)
+			return(-1);
 	}
 	return (i);
 }

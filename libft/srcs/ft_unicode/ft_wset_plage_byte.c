@@ -14,7 +14,7 @@
 
 int					ft_wset_plage_byte(int len)
 {
-	if (len < 8)
+	if (len >= 0 && len < 8)
 		return (1);
 	else if (len >= 8 && len <= 11)
 		return (2);

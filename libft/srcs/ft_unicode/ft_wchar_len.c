@@ -19,6 +19,14 @@ int					ft_wchar_len(wchar_t c)
 
 	quatre_bit = 2147483648;
 	i = 32;
+	if (c >= 0x11FFFF)
+		return (-1);
+	if (c < 0x40501 && c > 0x1FFFF)
+		return (-1);
+	if (c == 0xF8FF)
+		return (-1);
+	if (c <= 0xDFFF && c >= 0xBFFE)
+		return (-1);
 	while (!(quatre_bit & c) && quatre_bit)
 	{
 		quatre_bit /= 2;

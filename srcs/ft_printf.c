@@ -118,7 +118,9 @@ int						parsing(const char *format, t_string *list, va_list ap,
 		parsing_arg(arg, ap, len_arg, list + i);
 		free(arg);
 		i_of_format += len_arg;
-		len_write += add_arg(list + i++, ap);
+		if ((retour_err(&len_write, add_arg(list + i, ap))) == -1)
+			return (-1);
+		i++;
 		i_of_format = (nb_percent) ? i_of_format + inter_flag(format +
 			i_of_format, &len_write, list, &len_arg) : i_of_format;
 	}

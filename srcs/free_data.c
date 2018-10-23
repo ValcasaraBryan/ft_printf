@@ -19,6 +19,18 @@ void					free_data(t_string *list, unsigned int nb_percent)
 			free(list[nb_percent].data);
 }
 
+int						retour_err(int *len_write, int f)
+{
+	int					read;
+
+	read = *len_write;
+	if (f == -1)
+		return (-1);
+	read += f;
+	*len_write = read;
+	return (f);
+}
+
 char					add_sign(t_string *list)
 {
 	char				c;
