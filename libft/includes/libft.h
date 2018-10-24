@@ -144,6 +144,7 @@ int					ft_wset_plage_byte(int len);
 /*
 **	maths
 */
+long long			ft_absolue(long nb);
 int					pgcd(int x, int y);
 int					ft_sqrt(int nb);
 int					ft_recursive_factorial(int nb);

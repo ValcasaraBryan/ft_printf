@@ -107,6 +107,7 @@ SRC =	srcs/ft_is/ft_isalnum.c\
 		\
 		srcs/GNL/get_next_line.c\
 		\
+		srcs/maths/ft_absolue.c\
 		srcs/maths/pgcd.c\
 		srcs/maths/ft_sqrt.c\
 		srcs/maths/ft_recursive_factorial.c\
