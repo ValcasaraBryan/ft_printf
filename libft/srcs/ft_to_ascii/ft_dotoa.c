@@ -60,12 +60,8 @@ char				*ft_dotoa(double nb, unsigned int precision)
 	int				neg;
 
 	str = NULL;
-	neg = 0;
-	if (nb < 0)
-	{
-		nb = nb * -1;
-		neg = 1;
-	}
+	neg = (nb < 0) ? 1 : 0;
+	nb = (nb < 0) ? (nb * (-1)) : nb;
 	if (nb >= 1)
 	{
 		str = ft_lltoa(nb);

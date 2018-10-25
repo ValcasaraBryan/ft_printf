@@ -12,7 +12,7 @@
 
 #include "../../includes/libft.h"
 
-long long	ft_absolue(long nb)
+long long	ft_absolue(long long nb)
 {
 	return (nb < 0 ? (long long)-nb : (long long)nb);
 }

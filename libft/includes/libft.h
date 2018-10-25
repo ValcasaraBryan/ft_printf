@@ -144,11 +144,11 @@ int					ft_wset_plage_byte(int len);
 /*
 **	maths
 */
-long long			ft_absolue(long nb);
+long long			ft_absolue(long long nb);
 int					pgcd(int x, int y);
 int					ft_sqrt(int nb);
 int					ft_recursive_factorial(int nb);
-int					ft_recursive_power(int nb, int power);
+long				ft_recursive_power(long nb, int power);
 int					ft_fibonacci(int index);
 int					ft_is_prime(int nb);
 int					ft_find_next_prime(int nb);
