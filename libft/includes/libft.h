@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <wchar.h>
+# include <stdio.h>
 
 typedef struct		s_list
 {
