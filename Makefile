@@ -92,3 +92,9 @@ fclean : clean
 	@make fclean -C libft
 
 re : fclean all
+
+re_printf :
+	@rm -f $(OBJET)
+	@rm -f $(NAME)
+	@rm -f $(EXE)
+	make

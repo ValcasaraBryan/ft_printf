@@ -55,7 +55,14 @@ char					*string_unix(va_list ap, t_string *list)
 	i = -1;
 	octet = 0;
 	str = va_arg(ap, wchar_t *);
-	//printf("%lld\n", *str);
-	data = ft_unicode_to_str(str, (unsigned int)list->tab[POINT]);
+	if (!str)
+		return(ft_strdup("(null)"));
+	data = ft_strdup("");
+	if (ft_unicode_to_str(&data, str, (unsigned int)list->tab[POINT]) == -1)
+	{
+		list->len = -1;
+		free(data);
+		return (0);
+	}
 	return (data);
 }

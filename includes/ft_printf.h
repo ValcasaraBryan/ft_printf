@@ -16,6 +16,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 # include "../libft/includes/libft.h"
 # define LEFT				1
 # define ZERO				2
@@ -73,9 +74,9 @@ int							parsing(const char *format, t_string *list,
 							va_list ap, unsigned int nb_percent);
 
 int							p_of_params(char *format);
-void						parsing_arg(char *argument, va_list ap, int len,
+int							parsing_arg(char *argument, va_list ap, int len,
 							t_string *list);
-void						init_list(va_list ap, char c, t_string *list);
+int							init_list(va_list ap, char c, t_string *list);
 int							add_arg(t_string *list, va_list ap);
 int							inter_flag(const char *format, int *len_write,
 							t_string *list, int *len_arg);
@@ -92,17 +93,18 @@ void						flag_optional(char *arg, int len, t_string *list);
 int							largeur_of_camp(char *arg, t_string *list, int i);
 int							flag_optional_suit(char *arg, t_string *list,
 							int i);
-void						list_add_conversion(char *string, t_string *list);
+int							list_add_conversion(char *string, t_string *list);
 int							binary_flag(int *tab, int len);
 
 char						*flag_int_sign(t_string list, va_list ap);
 char						*flag_int_unsigned(t_string list, va_list ap,
 							char *hexa);
-void						unsigned_value(va_list ap, char c, t_string *list);
+int							unsigned_value(va_list ap, char c, t_string *list);
 int							option_char(t_string *list, wchar_t c);
 void						reset_tab_int(t_string *list, int len);
 
-void						free_data(t_string *list, unsigned int nb_percent);
+void						free_data(t_string *list, unsigned int nb_percent,
+							const char *str);
 int							retour_err(int *len_write, int f);
 char						add_sign(t_string *list);
 int							ft_fprintf(const char *format, int fd, ...);

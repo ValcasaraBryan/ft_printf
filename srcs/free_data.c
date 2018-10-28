@@ -12,11 +12,14 @@
 
 #include "../includes/ft_printf.h"
 
-void					free_data(t_string *list, unsigned int nb_percent)
+void					free_data(t_string *list, unsigned int nb_percent,
+						const char *str)
 {
 	while (nb_percent--)
-		if (params(list[nb_percent].char_of_arg, NO_C))
+		if (params(list[nb_percent].char_of_arg, str))
 			free(list[nb_percent].data);
+	if (list)
+		free(list);
 }
 
 int						retour_err(int *len_write, int f)
@@ -65,8 +68,9 @@ int						ft_fprintf(const char *format, int fd, ...)
 			return (-1);
 		while (i < percent)
 			list[i++].fd = fd;
-		ret = parsing(format, list, ap, percent);
-		free_data(list, percent);
+		if ((ret = parsing(format, list, ap, percent)) == -1)
+			return (-1);
+		free_data(list, percent, FLAG);
 		free(list);
 		va_end(ap);
 	}

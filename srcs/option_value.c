@@ -71,7 +71,7 @@ char					*flag_int_unsigned(t_string list, va_list ap,
 	return (conv_uint(ap, hexa));
 }
 
-void					unsigned_value(va_list ap, char c, t_string *list)
+int						unsigned_value(va_list ap, char c, t_string *list)
 {
 	char				*hexa;
 
@@ -87,10 +87,9 @@ void					unsigned_value(va_list ap, char c, t_string *list)
 	else if (c == 'p')
 	{
 		list->tab[HASHTAG - 1] = HASHTAG;
-		list_add_conversion(conv_void(ap, HEXA_MIN), list);
-		return ;
+		return (list_add_conversion(conv_void(ap, HEXA_MIN), list));
 	}
-	list_add_conversion(flag_int_unsigned(*list, ap, hexa), list);
+	return (list_add_conversion(flag_int_unsigned(*list, ap, hexa), list));
 }
 
 int						option_char(t_string *list, wchar_t c)

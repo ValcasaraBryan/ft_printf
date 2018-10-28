@@ -25,7 +25,7 @@ int						p_of_params(char *format)
 	return (-1);
 }
 
-void					parsing_arg(char *argument, va_list ap, int len,
+int					parsing_arg(char *argument, va_list ap, int len,
 						t_string *list)
 {
 	if (len > 0)
@@ -38,7 +38,8 @@ void					parsing_arg(char *argument, va_list ap, int len,
 		flag_optional(argument, len, list);
 		list->char_of_arg = argument[len];
 	}
-	init_list(ap, list->char_of_arg, list);
+	if (init_list(ap, list->char_of_arg, list) == -1)
+		return (-1);
 	if (list->tab[LEFT - 1] == LEFT || (list->tab[POINT - 1] == POINT
 		&& params(list->char_of_arg, ENT)))
 		list->tab[ZERO - 1] = 0;
@@ -46,28 +47,29 @@ void					parsing_arg(char *argument, va_list ap, int len,
 		list->tab[SIGN - 1] = SIGN;
 	if (list->tab[SIGN - 1] == SIGN)
 		list->tab[BLANK - 1] = 0;
+	return (list->len);
 }
 
-void					init_list(va_list ap, char c, t_string *list)
+int						init_list(va_list ap, char c, t_string *list)
 {
 	list->tab[INT_LONG - 1] = (c == 'D' || c == 'O' || c == 'U' ||
 		c == 'C' || c == 'F') ? INT_LONG : list->tab[INT_LONG - 1];
 	c = (c == 'D' || c == 'O' || c == 'U' || c == 'F') ? c + 32 : c;
 	if (c == 's' && list->tab[INT_LONG - 1] == 0)
-		list_add_conversion(string_s(ap), list);
+		return (list_add_conversion(string_s(ap), list));
 	else if (c == 'S' || (c == 's' && list->tab[INT_LONG - 1] == INT_LONG))
-		list_add_conversion(string_unix(ap, list), list);
+		return (list_add_conversion(string_unix(ap, list), list));
 	else if (c == 'd' || c == 'i')
-		list_add_conversion(flag_int_sign(*list, ap), list);
+		return (list_add_conversion(flag_int_sign(*list, ap), list));
 	else if (c == 'f')
 	{
 		list->tab[POINT] = (list->tab[POINT - 1] == 0) ? 6 : list->tab[POINT];
-		list_add_conversion(conv_float(ap, list->tab[POINT]), list);
+		return (list_add_conversion(conv_float(ap, list->tab[POINT]), list));
 	}
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'p')
 		return (unsigned_value(ap, c, list));
 	else
-		list_add_conversion("", list);
+		return (list_add_conversion("", list));
 }
 
 int						add_arg(t_string *list, va_list ap)

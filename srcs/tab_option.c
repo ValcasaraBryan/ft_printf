@@ -89,8 +89,10 @@ int						flag_optional_suit(char *arg, t_string *list, int i)
 	return (i);
 }
 
-void					list_add_conversion(char *string, t_string *list)
+int						list_add_conversion(char *string, t_string *list)
 {
+	if (list->len == -1)
+		return (-1);
 	if (string)
 	{
 		list->data = string;
@@ -101,6 +103,7 @@ void					list_add_conversion(char *string, t_string *list)
 		list->data = ft_strdup("(null)");
 		list->len = 6;
 	}
+	return (list->len);
 }
 
 int						binary_flag(int *tab, int len)

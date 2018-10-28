@@ -14,6 +14,10 @@
 
 int					ft_wset_plage_byte(int len)
 {
+	if ((ft_strcmp("C", setlocale(LC_CTYPE, NULL))) == 0 && len > 8)
+		return (-1);
+	else if ((ft_strcmp("C", setlocale(LC_CTYPE, NULL))) == 0 && len <= 8)
+		return (1);
 	if (len >= 0 && len < 8)
 		return (1);
 	else if (len >= 8 && len <= 11)
