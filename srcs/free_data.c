@@ -22,6 +22,15 @@ void					free_data(t_string *list, unsigned int nb_percent,
 		free(list);
 }
 
+
+int						print_zero_space_char(t_string *list, int octet)
+{
+	if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == ZERO)
+		return (ft_putchar_len('0', list->tab[LARGEUR] - octet, list->fd));
+	else if (list->tab[LARGEUR] > 0 && list->tab[ZERO - 1] == 0)
+		return (ft_putchar_len(' ', list->tab[LARGEUR] - octet, list->fd));
+}
+
 int						retour_err(int *len_write, int f)
 {
 	int					read;

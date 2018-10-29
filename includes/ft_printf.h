@@ -96,6 +96,7 @@ int							flag_optional_suit(char *arg, t_string *list,
 int							list_add_conversion(char *string, t_string *list);
 int							binary_flag(int *tab, int len);
 
+int							print_zero_space_char(t_string *list, int octet);
 char						*flag_int_sign(t_string list, va_list ap);
 char						*flag_int_unsigned(t_string list, va_list ap,
 							char *hexa);
