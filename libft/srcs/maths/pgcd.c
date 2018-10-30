@@ -14,29 +14,28 @@
 
 int			pgcd(int x, int y)
 {
-	int 	res_petit;
-	int 	res_grand;
-	int 	petit;
-	int 	grand;
-	int 	i;
+	int		res_petit;
+	int		res_grand;
+	int		petit;
+	int		grand;
+	int		i;
 
-	if ((x || y) <= 0)
-		return (0);
 	petit = (x > y) ? y : x;
 	grand = (x > y) ? x : y;
-	res_petit =	petit;
-	res_grand =	grand;
+	res_petit = petit;
+	res_grand = grand;
 	i = petit + 1;
 	while (i-- > 1)
 	{
 		if ((res_petit * i) == petit && (res_grand * i) == grand)
 		{
-			printf("%d\n", i);
+			ft_putnbr(i);
+			ft_putchar('\n');
 			return (i);
 		}
 		res_petit = petit / i;
 		res_grand = grand / i;
 	}
-	printf("%d\n", 1);
+	ft_putstr_len("1\n", 2, 1);
 	return (1);
 }

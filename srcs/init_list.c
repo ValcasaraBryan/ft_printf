@@ -25,7 +25,7 @@ int						p_of_params(char *format)
 	return (-1);
 }
 
-int					parsing_arg(char *argument, va_list ap, int len,
+int						parsing_arg(char *argument, va_list ap, int len,
 						t_string *list)
 {
 	if (len > 0)

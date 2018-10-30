@@ -17,7 +17,7 @@ int			*tab_unix(int octet, int len, wchar_t str)
 	int		*tab;
 	long	mask;
 	long	mask_byte;
-	
+
 	if (octet == 1)
 		return (tab = ft_putval_tab(str, octet));
 	if (!(mask = ft_set_octet(octet)))
@@ -49,7 +49,7 @@ static char	*tampon(int octet, int *tab, wchar_t *str)
 	}
 }
 
-int		ft_unicode_to_str(char **data, wchar_t *str, unsigned int precision)
+int			ft_unicode_to_str(char **data, wchar_t *str, unsigned int precision)
 {
 	int		total;
 	int		len;

@@ -56,7 +56,7 @@ char					*string_unix(va_list ap, t_string *list)
 	octet = 0;
 	str = va_arg(ap, wchar_t *);
 	if (!str)
-		return(ft_strdup("(null)"));
+		return (ft_strdup("(null)"));
 	data = ft_strdup("");
 	if (ft_unicode_to_str(&data, str, (unsigned int)list->tab[POINT]) == -1)
 	{

@@ -96,14 +96,14 @@ int						params(char comp, const char *list)
 	return (0);
 }
 
-int						parsing(const char *format, t_string *list, va_list ap,
-						unsigned int nb_percent)
+int						parsing(const char *format, t_string *list,
+						va_list ap, unsigned int nb_percent)
 {
-	int				i_of_format;
-	int				len_arg;
-	char			*arg;
-	int				len_write;
-	int				i;
+	int					i_of_format;
+	int					len_arg;
+	char				*arg;
+	int					len_write;
+	int					i;
 
 	i = 0;
 	i_of_format = p_of_params((char *)format);
@@ -117,13 +117,11 @@ int						parsing(const char *format, t_string *list, va_list ap,
 		if ((parsing_arg(arg, ap, len_arg, list + i)) == -1)
 			return (free_data(list, i, -1, ap));
 		i_of_format += len_arg;
-		if ((retour_err(&len_write, add_arg(list + i, ap))) == -1)
-			return (free_data(list, i, -1, ap));
-		i++;
+		if ((retour_err(&len_write, add_arg(list + i++, ap))) == -1)
+			return (free_data(list, i - 1, -1, ap));
 		i_of_format = (nb_percent) ? i_of_format + inter_flag(format +
 			i_of_format, &len_write, list, &len_arg) : i_of_format;
 	}
-	len_write = (format + i_of_format) ? len_write + ft_putstr_len(format +
-		i_of_format, ft_strlen(format + i_of_format), list->fd) : len_write;
-	return (len_write);
+	return ((format + i_of_format) ? len_write + ft_putstr_len(format +
+		i_of_format, ft_strlen(format + i_of_format), list->fd) : len_write);
 }

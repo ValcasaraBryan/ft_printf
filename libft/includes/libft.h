@@ -138,7 +138,8 @@ unsigned long long	ft_atoull(const char *str);
 */
 int					*ft_putval_tab(wchar_t c, int octet);
 int					ft_putwchar(int *tab, unsigned int octet);
-int					ft_unicode_to_str(char **data, wchar_t *str, unsigned int precision);
+int					ft_unicode_to_str(char **data, wchar_t *str,
+					unsigned int precision);
 long				ft_set_octet(int octet);
 long				ft_set_unichar(long masque_byte, int len, wchar_t c);
 int					*tab_unix(int octet, int len, wchar_t str);
