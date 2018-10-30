@@ -105,7 +105,7 @@ int							option_char(t_string *list, wchar_t c);
 void						reset_tab_int(t_string *list, int len);
 
 int							free_data(t_string *list, unsigned int nb_percent,
-							const char *str, int ret);
+							int ret, va_list ap);
 int							retour_err(int *len_write, int f);
 char						add_sign(t_string *list);
 int							ft_fprintf(const char *format, int fd, ...);
