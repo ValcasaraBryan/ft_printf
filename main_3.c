@@ -6,15 +6,15 @@ int main(void)
 	//printf("%s\n", currentName);
 //	char c;
 	wchar_t	s[4];
-	s[0] = 'S';
-	s[1] = 256;
-	s[2] = 'u';
-	s[3] = '\0';
-	setlocale(LC_CTYPE, "");
+        s[2] = 0x81000;
+        s[3] = '\0';
+	setlocale(LC_CTYPE, "fr_FR.UTF-8");
+	printf(" |1 :%d\n", ft_printf("b'%0s\\n'", "4401681944"));
+	printf(" |1 :%d\n", printf("b'%0s\\n'", "4401681944"));
 //	printf(" |1 :%d\n", ft_printf("%C", 0x53));
 //	printf(" |1 :%d\n", printf("%C", 0x53));
-	printf(" |1 :%d\n", ft_printf("%hhS, %hhS", 0, L"米米"));
-	printf(" |1 :%d\n", printf("%hhS, %hhS", 0, L"米米"));
+//	printf(" |1 :%d = -1\n", ft_printf("%hhS, %hhS", 0, L"米米"));
+//	printf(" |1 :%d = -1\n", printf("%hhS, %hhS", 0, L"米米"));
 //	printf(" |2 :%d\n", ft_printf("%C", 0xd800));
 //	printf(" |2 :%d\n", printf("%C", 0xd800));
 
@@ -60,8 +60,26 @@ int main(void)
 //	printf(" |15:%d\n", ft_printf("%C", L'ÏM-^ZM-^T'));
 //	printf(" |16:%d\n", ft_printf("%s%d%p%%%S%D%i%o%O%u%U%x%X%c%C","bonjour", 42, &c, L"暖炉", LONG_MAX, 42, 42, 42, 100000, ULONG_MAX, 42, 42, 'c', L'플'));
 //	printf(" |16:%d\n", printf("%s%d%p%%%S%D%i%o%O%u%U%x%X%c%C","bonjour", 42, &c, L"暖炉", LONG_MAX, 42, 42, 42, 100000, ULONG_MAX, 42, 42, 'c', L'플'));
-//	printf(" |14:%d\n", ft_printf("%C", 256));
-//	printf(" |14:%d\n", printf("%C", 256));
+//	printf(" |13:%d = 1\n", ft_printf("%C", 65));
+//	printf(" |13:%d = 1\n", printf("%C", 65));
+//	printf(" |14:%d = -1\n", ft_printf("%C", 256));
+//	printf(" |14:%d = -1\n", printf("%C", 256));
+//	printf(" |15:%d = 1\n", ft_printf("%C", 255));
+//	printf(" |15:%d = 1\n", printf("%C", 255));
+//	printf(" |16:%d = 1\n", ft_printf("%C", 254));
+//	printf(" |16:%d = 1\n", printf("%C", 254));
+//	printf(" |17:%d = -1\n", ft_printf("%C", 257));
+//	printf(" |17:%d = -1\n", printf("%C", 257));
+
+//	printf(" |18:%d = -1\n", ft_printf("%C", 258));
+//	printf(" |18:%d = -1\n", printf("%C", 258));
+
+//	printf(" |19:%d = -1\n", ft_printf("%C", 259));
+//	printf(" |19:%d = -1\n", printf("%C", 259));
+
+//	printf(" |20:%d = -1\n", ft_printf("%C", 260));
+//	printf(" |20:%d = -1\n", printf("%C", 260));
+
 //	printf(" |15:%d\n", ft_printf("%C", 0xe000));
 //	printf(" |15:%d\n", printf("%C", 0xe000));
 //	printf(" |16:%d\n", ft_printf("%5lc", 350));

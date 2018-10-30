@@ -44,16 +44,18 @@ $(NAME) : $(OBJET)
 comp : $(NAME) main.c
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) $(MAIN) -o $(EXE)
 	@gcc $(SRC) $(HEAD) $(OBJET_LIB) main_2.c -o ft_printf_2
+	@gcc $(SRC) $(HEAD) $(OBJET_LIB) main_3.c -o ft_printf_3
 
 exe : $(NAME) comp
 	#------------ execution  ------------#
 	@./$(EXE)
 	@./ft_printf_2
+	@./ft_printf_3
 	#------------ execution  ------------#
 
 exe_more : comp
 	#------------ execution  ------------#
-	@./$(EXE) | more
+	@./ft_printf_3 | more
 	#------------ execution  ------------#
 exe_grep : comp
 	#------------ execution  ------------#

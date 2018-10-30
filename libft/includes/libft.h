@@ -22,6 +22,7 @@
 # include <wchar.h>
 # include <stdio.h>
 # include <locale.h>
+# include <limits.h>
 
 typedef struct		s_list
 {
