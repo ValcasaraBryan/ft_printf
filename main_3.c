@@ -6,11 +6,11 @@ int main(void)
 	//printf("%s\n", currentName);
 //	char c;
 	wchar_t	s[4];
-        s[2] = 0x81000;
-        s[3] = '\0';
+		s[2] = 0x81000;
+        s[1] = '\0';
 	setlocale(LC_CTYPE, "fr_FR.UTF-8");
-	printf(" |1 :%d\n", ft_printf("b'%0s\\n'", "4401681944"));
-	printf(" |1 :%d\n", printf("b'%0s\\n'", "4401681944"));
+	printf(" |1 :%d\n", ft_printf("b'&\x00\n'"));
+	printf(" |1 :%d\n", printf("b'&\x00\n'"));
 //	printf(" |1 :%d\n", ft_printf("%C", 0x53));
 //	printf(" |1 :%d\n", printf("%C", 0x53));
 //	printf(" |1 :%d = -1\n", ft_printf("%hhS, %hhS", 0, L"米米"));

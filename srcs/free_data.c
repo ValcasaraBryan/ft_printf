@@ -12,14 +12,15 @@
 
 #include "../includes/ft_printf.h"
 
-void					free_data(t_string *list, unsigned int nb_percent,
-						const char *str)
+int						free_data(t_string *list, unsigned int nb_percent,
+						const char *str, int ret)
 {
 	while (nb_percent--)
 		if (params(list[nb_percent].char_of_arg, str))
 			free(list[nb_percent].data);
 	if (list)
 		free(list);
+	return (ret);
 }
 
 int						print_zero_space_char(t_string *list, int octet)
@@ -80,7 +81,7 @@ int						ft_fprintf(const char *format, int fd, ...)
 			list[i++].fd = fd;
 		if ((ret = parsing(format, list, ap, percent)) == -1)
 			return (-1);
-		free_data(list, percent, FLAG);
+		free_data(list, percent, FLAG, 0);
 		free(list);
 		va_end(ap);
 	}

@@ -30,10 +30,9 @@ int						ft_printf(const char *format, ...)
 			return (-1);
 		while (i < percent)
 			list[i++].fd = 1;
-		ret = parsing(format, list, ap, percent);
-		if (ret == -1)
+		if ((ret = parsing(format, list, ap, percent)) == -1)
 			return (ret);
-		free_data(list, percent, NO_C);
+		free_data(list, percent, NO_C, 0);
 		va_end(ap);
 	}
 	else
@@ -116,16 +115,11 @@ int						parsing(const char *format, t_string *list, va_list ap,
 		reset_tab_int(list + i, LENGHT_TAB);
 		len_arg = parsing_params((char *)format + i_of_format++);
 		arg = ft_strndup(format + i_of_format, len_arg);
-		if ((parsing_arg(arg, ap, len_arg, list + i)) == - 1)
-		{
-			free_data(list, i, NO_C);
-			free(arg);
-			return (-1);
-		}
-		free(arg);
+		if ((parsing_arg(arg, ap, len_arg, list + i)) == -1)
+			return (free_data(list, i, NO_C, -1));
 		i_of_format += len_arg;
 		if ((retour_err(&len_write, add_arg(list + i, ap))) == -1)
-			return (-1);
+			return (free_data(list, i, NO_C, -1));
 		i++;
 		i_of_format = (nb_percent) ? i_of_format + inter_flag(format +
 			i_of_format, &len_write, list, &len_arg) : i_of_format;

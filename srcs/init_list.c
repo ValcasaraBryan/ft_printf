@@ -38,6 +38,8 @@ int					parsing_arg(char *argument, va_list ap, int len,
 		flag_optional(argument, len, list);
 		list->char_of_arg = argument[len];
 	}
+	if (argument)
+		free(argument);
 	if (init_list(ap, list->char_of_arg, list) == -1)
 		return (-1);
 	if (list->tab[LEFT - 1] == LEFT || (list->tab[POINT - 1] == POINT
