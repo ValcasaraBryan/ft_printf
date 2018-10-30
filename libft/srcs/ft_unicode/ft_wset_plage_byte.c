@@ -20,7 +20,7 @@ int					ft_wset_plage_byte(int len)
 		return (1);
 	else if (len >= 8 && len <= 11 && MB_CUR_MAX != 1)
 		return (2);
-	else if (len == 9 && MB_CUR_MAX == 1)
+	else if (len > 8 && MB_CUR_MAX == 1)
 		return (-1);
 	else if (MB_CUR_MAX == 1)
 		return (1);
